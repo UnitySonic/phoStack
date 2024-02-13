@@ -1,0 +1,4226 @@
+{
+  "href": "https://api.ebay.com/buy/browse/v1/item_summary/search?q=toys&limit=50&offset=0",
+  "total": 17820128,
+  "next": "https://api.ebay.com/buy/browse/v1/item_summary/search?q=toys&limit=50&offset=50",
+  "limit": 50,
+  "offset": 0,
+  "itemSummaries": [
+      {
+          "itemId": "v1|204602960357|0",
+          "title": "Cat Interactive Toys Funny Feather Kitten Teaser Indoor Play Automatic Toy Gift",
+          "leafCategoryIds": [
+              "20741"
+          ],
+          "categories": [
+              {
+                  "categoryId": "20741",
+                  "categoryName": "Toys"
+              },
+              {
+                  "categoryId": "1281",
+                  "categoryName": "Pet Supplies"
+              },
+              {
+                  "categoryId": "20737",
+                  "categoryName": "Cat Supplies"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/BIEAAOSw~9tlZtG6/s-l225.jpg"
+          },
+          "price": {
+              "value": "19.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C204602960357%7C0",
+          "seller": {
+              "username": "hengsuusa",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 6
+          },
+          "marketingPrice": {
+              "originalPrice": {
+                  "value": "22.99",
+                  "currency": "USD"
+              },
+              "discountPercentage": "13",
+              "discountAmount": {
+                  "value": "3.00",
+                  "currency": "USD"
+              },
+              "priceTreatment": "MARKDOWN"
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/BIEAAOSw~9tlZtG6/s-l1200.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/204602960357?hash=item2fa34969e5:g:BIEAAOSw~9tlZtG6&amdata=enc%3AAQAIAAAAsO7kho7PaPd7p5pOUbDNgvePBiZ9QZKSVpbWrEVVFKQtASoXbEmAvbKMtuNGkGn7dcLHI7LHGs3to2WioRdGAi%2FLwcIulq7h0v4JVf5H60Dgi7ONGQtpAA6x09F6goWBX%2FRx7y%2FH7MxeGlAZa0RuoapckmVoOf3SxUAK7Rf0lxNO4NGzJH%2FbMerW3vpUOVfgURDnRycoP2N4E06sWa6YVF7o2rXXLF80VN3JaAl3lwhi",
+          "itemLocation": {
+              "postalCode": "770**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Q9gAAOSwN8plZtG5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/cvgAAOSwK4NlZtG6/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/DysAAOSwAGRlZtG7/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/DH4AAOSw1pxlZtG~/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/uUMAAOSw9Z1lZtG5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/yJUAAOSwAMtlZtG4/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/-9sAAOSw4JRlZtG4/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/oOUAAOSw3h5lZtG5/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "204602960357",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-01-04T02:11:28.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|335009582650|0",
+          "title": "Handmade felt toys set from Central Asia 8pc",
+          "leafCategoryIds": [
+              "179013"
+          ],
+          "categories": [
+              {
+                  "categoryId": "179013",
+                  "categoryName": "Other Toys for Baby"
+              },
+              {
+                  "categoryId": "2984",
+                  "categoryName": "Baby"
+              },
+              {
+                  "categoryId": "19068",
+                  "categoryName": "Toys for Baby"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/kKwAAOSwCN1ks5Qa/s-l225.jpg"
+          },
+          "price": {
+              "value": "39.00",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C335009582650%7C0",
+          "seller": {
+              "username": "wool.carpetskg",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 4
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/kKwAAOSwCN1ks5Qa/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/335009582650?hash=item4e00208e3a:g:kKwAAOSwCN1ks5Qa&amdata=enc%3AAQAIAAAAsPD6erAud%2B8RixtBD75iSMeuotzSkVPr7xW4aPG62%2BAIIpIiCR0MqvqQIbqCIyWFAg7xngE6eNUHFOOdPplA1sXu0budCAkYozmx4Kq7mVIqI6Rwt4%2BwQoQeOfiJ7cO4b7Tx1dw%2BSa9eMcaRVdrpMXbn7rtyTpH2Voka9sLSjunLXXXxrK428lySdjnMPOp5%2BvL782AsaPqA6s2eyCmjMVWttplGnVfQjqInNJMnOqjl",
+          "itemLocation": {
+              "country": "KG"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/nKMAAOSwjoBks5Qa/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/jbIAAOSwpHVks5Qe/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/TZMAAOSwjcxks5Qg/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/iB8AAOSwFmNks5Qb/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/pRAAAOSwlFtks5Qb/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "335009582650",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-08-30T13:16:57.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|355416140167|624588180330",
+          "title": "USA Smiling Critters Figure Plush Doll CatNap Hoppy Hopscotch Monster Doll Toys",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=355416140167",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/-XEAAOSwC-5ltMU7/s-l225.jpg"
+          },
+          "price": {
+              "value": "13.92",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C355416140167%7C624588180330",
+          "seller": {
+              "username": "mi*over93",
+              "feedbackPercentage": "96.3",
+              "feedbackScore": 1841
+          },
+          "marketingPrice": {
+              "originalPrice": {
+                  "value": "14.81",
+                  "currency": "USD"
+              },
+              "discountPercentage": "6",
+              "discountAmount": {
+                  "value": "0.89",
+                  "currency": "USD"
+              },
+              "priceTreatment": "MARKDOWN"
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/-XEAAOSwC-5ltMU7/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/355416140167?hash=item52c073e987:g:-XEAAOSwC-5ltMU7",
+          "itemLocation": {
+              "postalCode": "331**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/sqUAAOSwksdltMU4/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ac4AAOSwEg1ltMU5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/IPsAAOSwR3tltMU5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/BHIAAOSw0~hltMU5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/HIgAAOSwLwNltMU5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/VTUAAOSwbMtltMU5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/r94AAOSwW49ltMU5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/8sMAAOSw-PtltMU5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/91oAAOSwBB1ltMU5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/NSkAAOSwpjFltMU5/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/vpQAAOSwm45ltMU5/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "355416140167",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-01-27T08:52:16.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|404638674285|0",
+          "title": "144 pcs Pokemon Mini PVC Action Figures pikachu Toys For Kids Christmas Gift",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/tdsAAOSw7cljoZk5/s-l225.jpg"
+          },
+          "price": {
+              "value": "20.79",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C404638674285%7C0",
+          "seller": {
+              "username": "flygoodly",
+              "feedbackPercentage": "99.3",
+              "feedbackScore": 113156
+          },
+          "marketingPrice": {
+              "originalPrice": {
+                  "value": "21.88",
+                  "currency": "USD"
+              },
+              "discountPercentage": "5",
+              "discountAmount": {
+                  "value": "1.09",
+                  "currency": "USD"
+              },
+              "priceTreatment": "MARKDOWN"
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/tdsAAOSw7cljoZk5/s-l1200.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "epid": "4064403436",
+          "itemWebUrl": "https://www.ebay.com/itm/404638674285?hash=item5e36582d6d:g:tdsAAOSw7cljoZk5",
+          "itemLocation": {
+              "postalCode": "773**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/3WAAAOSwn-tjoZk4/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/pmkAAOSwqQhjoZk3/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "404638674285",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-11-23T02:17:18.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|155286593359|455484280694",
+          "title": "YOU PICK! Disney Doorables Lot Series 4/5/Exclusives! FLAT SHIPPING!",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=155286593359",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/sUkAAOSwoZpltcau/s-l225.jpg"
+          },
+          "price": {
+              "value": "6.50",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C155286593359%7C455484280694",
+          "seller": {
+              "username": "ellie260200",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 3283
+          },
+          "condition": "Used",
+          "conditionId": "3000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/sUkAAOSwoZpltcau/s-l1200.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "4.50",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/155286593359?hash=item2427cd5f4f:g:sUkAAOSwoZpltcau",
+          "itemLocation": {
+              "postalCode": "600**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/LV4AAOSwCONltcav/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/LSIAAOSwr4Vltcaw/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "155286593359",
+          "availableCoupons": false,
+          "itemCreationDate": "2022-12-02T03:53:00.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|175709062760|0",
+          "title": "Disney Raya and the Last Dragon Land of Kumandra Set Mini Figures dolls puppets",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/C6EAAOSwWo1kT51r/s-l225.jpg"
+          },
+          "price": {
+              "value": "5.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C175709062760%7C0",
+          "seller": {
+              "username": "bullseye_deals",
+              "feedbackPercentage": "97.4",
+              "feedbackScore": 264368
+          },
+          "marketingPrice": {
+              "originalPrice": {
+                  "value": "37.99",
+                  "currency": "USD"
+              },
+              "discountPercentage": "84",
+              "discountAmount": {
+                  "value": "32.00",
+                  "currency": "USD"
+              },
+              "priceTreatment": "LIST_PRICE"
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/C6EAAOSwWo1kT51r/s-l400.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "epid": "19045101645",
+          "itemWebUrl": "https://www.ebay.com/itm/175709062760?hash=item28e9138668:g:C6EAAOSwWo1kT51r",
+          "itemLocation": {
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/facAAOSwECJkT51r/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Xz8AAOSwye1kT51r/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "175709062760",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-05-01T11:07:21.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|404267915282|674165762388",
+          "title": "Roblox Toy Codes YOU PICK Celebrity Series Customize Your Avatar Sent By Message",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=404267915282",
+          "leafCategoryIds": [
+              "38583",
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "38583",
+                  "categoryName": "Video Game Merchandise"
+              },
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "1249",
+                  "categoryName": "Video Games & Consoles"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/XBEAAOSwp6NkThK1/s-l225.jpg"
+          },
+          "price": {
+              "value": "1.49",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C404267915282%7C674165762388",
+          "seller": {
+              "username": "shopnav",
+              "feedbackPercentage": "99.2",
+              "feedbackScore": 4329
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/XBEAAOSwp6NkThK1/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/404267915282?hash=item5e203ed812:g:XBEAAOSwp6NkThK1",
+          "itemLocation": {
+              "postalCode": "189**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "404267915282",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-04-30T07:02:03.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|115292323883|415360379827",
+          "title": "DISNEY DOORABLES Series 1, 2, 4, 5, 6, 7, EXCLUSIVE Mini Figures Toys ~ LIST 1/3",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=115292323883",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/UO0AAOSwzbhiLYP9/s-l225.jpg"
+          },
+          "price": {
+              "value": "1.49",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C115292323883%7C415360379827",
+          "seller": {
+              "username": "sack.of.wonders",
+              "feedbackPercentage": "99.8",
+              "feedbackScore": 39823
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/UO0AAOSwzbhiLYP9/s-l640.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "4.94",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/115292323883?hash=item1ad7f5402b:g:UO0AAOSwzbhiLYP9",
+          "itemLocation": {
+              "postalCode": "917**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/qXMAAOSwxFxiQoYR/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/CgAAAOSwqg1iLbEd/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/L~QAAOSwtKxiLbEM/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/pFUAAOSwduBiS-Vc/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/REUAAOSwXhFiS-Vj/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/eG4AAOSwK1ZiS-Vr/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/jI4AAOSwAjtiS-Vx/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "115292323883",
+          "availableCoupons": false,
+          "itemCreationDate": "2022-03-13T06:28:34.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|126270538242|427299535037",
+          "title": "Disney Doorables~Pick Your Lot!~Limited Edition LE Bonus UR HTF~Combined Ship",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=126270538242",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/jWIAAOSwb2tllzUt/s-l225.jpg"
+          },
+          "price": {
+              "value": "3.45",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C126270538242%7C427299535037",
+          "seller": {
+              "username": "jenlenkersdorfe-0",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 2347
+          },
+          "condition": "Used",
+          "conditionId": "3000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/jWIAAOSwb2tllzUt/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "4.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/126270538242?hash=item1d664f8202:g:jWIAAOSwb2tllzUt",
+          "itemLocation": {
+              "postalCode": "843**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "126270538242",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-01-07T04:55:35.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|225492854385|524622114841",
+          "title": "Disney Doorables (Series 4,5,6,7,8) You Pick! (FLAT SHIPPING)",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=225492854385",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/jr8AAOSwLjxkHmZb/s-l225.jpg"
+          },
+          "price": {
+              "value": "1.50",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C225492854385%7C524622114841",
+          "seller": {
+              "username": "ashcar-95",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 281
+          },
+          "condition": "Used",
+          "conditionId": "3000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/jr8AAOSwLjxkHmZb/s-l640.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "5.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/225492854385?hash=item34806be671:g:jr8AAOSwLjxkHmZb",
+          "itemLocation": {
+              "postalCode": "606**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "225492854385",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-03-23T23:30:51.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|233710921240|533403462775",
+          "title": "Disney Pixar Cars Lot Lightning McQueen 1:55 Diecast Metal  Car Toy Gift for Boy",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=233710921240",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/jr8AAOSwOG5kDzzz/s-l225.jpg"
+          },
+          "price": {
+              "value": "5.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C233710921240%7C533403462775",
+          "seller": {
+              "username": "shueiii",
+              "feedbackPercentage": "94.4",
+              "feedbackScore": 1599
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/jr8AAOSwOG5kDzzz/s-l500.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/233710921240?hash=item366a41a618:g:jr8AAOSwOG5kDzzz",
+          "itemLocation": {
+              "country": "CN"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/wj0AAOSwY8BgDmkX/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "233710921240",
+          "availableCoupons": false,
+          "itemCreationDate": "2020-09-12T01:57:19.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|204226602965|504801427307",
+          "title": "World's Smallest Toys.  Open  Box You Pick ,",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=204226602965",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/t8MAAOSwsj1jxl7k/s-l225.jpg"
+          },
+          "price": {
+              "value": "2.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C204226602965%7C504801427307",
+          "seller": {
+              "username": "mommovsix",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 3385
+          },
+          "condition": "Used",
+          "conditionId": "3000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/t8MAAOSwsj1jxl7k/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "5.25",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/204226602965?hash=item2f8cdaa7d5:g:t8MAAOSwsj1jxl7k",
+          "itemLocation": {
+              "postalCode": "121**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "204226602965",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-01-28T03:27:27.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|126174278915|427181736281",
+          "title": "Disney Pixar Cars Diecast McQueen 1:55 Movie Toy Metal Model Kids Gift New 2024",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=126174278915",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/6igAAOSwwZ1lSgMD/s-l225.jpg"
+          },
+          "price": {
+              "value": "9.11",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C126174278915%7C427181736281",
+          "seller": {
+              "username": "brant-2324",
+              "feedbackPercentage": "97.4",
+              "feedbackScore": 5797
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/6igAAOSwwZ1lSgMD/s-l500.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/126174278915?hash=item1d6092b503:g:6igAAOSwwZ1lSgMD",
+          "itemLocation": {
+              "postalCode": "088**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/JN8AAOSwp29lSgO2/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/93IAAOSw1f5lSgVO/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/5UIAAOSwO4ZlSgWS/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/7KcAAOSwJAtlSgWq/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/CGoAAOSwl1VlSgW1/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/fwcAAOSwKhllSgW2/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/00MAAOSwRAtlSgW3/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/~DkAAOSwz2plSgW4/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "126174278915",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-11-07T09:39:13.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|355244938095|0",
+          "title": "5pcs kawaii mini space astronaut toy car cute kids toys 5",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/f3AAAOSwiFxlZ~zp/s-l225.jpg"
+          },
+          "price": {
+              "value": "13.55",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C355244938095%7C0",
+          "seller": {
+              "username": "fhkl57",
+              "feedbackPercentage": "97.5",
+              "feedbackScore": 190
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/f3AAAOSwiFxlZ~zp/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/355244938095?hash=item52b63f936f:g:f3AAAOSwiFxlZ~zp&amdata=enc%3AAQAIAAAAsI8K%2FV79j7%2FUPSWPRUJMkyeB9gE%2BL7NUAyO%2BUsnGZ7lEllokArKG5cTN0p8nSgHSLJ%2FpO0ehLr5GBR2QnwbtH1WiX8Hs0r4dleHOui9Re%2F%2B%2BwiHOZ8l6dQoCGwnbItHwu4wUBnNNgUyYHBpN99xIrMqlzco8Dske7B6YU1KkcbS7TFbIu8OoaND7W%2BZSx0WiQXQ%2BzwntnUF7aBv9227haHNkCy3J4VzeQDJicIjVxHYE",
+          "itemLocation": {
+              "postalCode": "******",
+              "country": "CN"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/uZcAAOSwQjhlZ~zn/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/9gYAAOSwe-BlZ~zl/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/cv8AAOSwU55lZ~zq/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/xBAAAOSwSxVlZ~zt/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ADEAAOSwHDtlZ~zv/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "355244938095",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-12-01T15:27:53.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|155544862774|0",
+          "title": "JitteryGit Dinosaur Racing Track Slot Car Learning Toys Gifts For Boys Kids",
+          "leafCategoryIds": [
+              "776",
+              "177918"
+          ],
+          "categories": [
+              {
+                  "categoryId": "776",
+                  "categoryName": "Other Slot Cars"
+              },
+              {
+                  "categoryId": "177918",
+                  "categoryName": "Play Sets"
+              },
+              {
+                  "categoryId": "2616",
+                  "categoryName": "Slot Cars"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "222",
+                  "categoryName": "Diecast & Toy Vehicles"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/gwcAAOSwTuhldhB8/s-l225.jpg"
+          },
+          "price": {
+              "value": "35.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C155544862774%7C0",
+          "seller": {
+              "username": "jittery-git",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 286
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/gwcAAOSwTuhldhB8/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "epid": "19057710842",
+          "itemWebUrl": "https://www.ebay.com/itm/155544862774?hash=item2437324036:g:gwcAAOSwTuhldhB8&amdata=enc%3AAQAIAAAAsObSELRe2U%2Bb3ekKoX4A%2BjqRd9%2F5yxXut0Uo6SDWWYgC1fQ2547MB8zYoFQbaq1qxLkOaI%2BX915pMzCX7EcPFEgAA6ttYHeH5m6DaU10bfzT%2FfsDFZWSTBntD8gRY57Yc2x4b7LZ%2BWXf40cERlZwmS4tEcj0t%2Fmr8mlG2kRpP25fSBQMItVeXTEgLyUqLrUwFMrT7A1sTii3%2BoN1%2FKsU2IyXixKGO%2BkxYodl5zPdSYd9",
+          "itemLocation": {
+              "postalCode": "333**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/O5oAAOSwiX9ldhPb/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/II8AAOSwnGJldhPc/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/qFIAAOSwkI5ldhPb/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/JZcAAOSwVqlldhPb/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/wvEAAOSw6rFldhPb/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Zz4AAOSwVeNldhPb/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "155544862774",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-05-08T19:54:19.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|404783413641|0",
+          "title": "Homily Stuffed Elephant Plush Animal Toy 24 INCH (High Quality) Valentine wrap ",
+          "leafCategoryIds": [
+              "230"
+          ],
+          "categories": [
+              {
+                  "categoryId": "230",
+                  "categoryName": "Other Stuffed Animals"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "436",
+                  "categoryName": "Stuffed Animals"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/i7oAAOSwIbllwZBu/s-l225.jpg"
+          },
+          "price": {
+              "value": "59.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C404783413641%7C0",
+          "seller": {
+              "username": "gaqt74",
+              "feedbackPercentage": "0.0",
+              "feedbackScore": 2
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/i7oAAOSwIbllwZBu/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/404783413641?hash=item5e3ef8b989:g:i7oAAOSwIbllwZBu&amdata=enc%3AAQAIAAAAsFb7wr5Al6gFz6OxjojOunssLO%2Ffd3F2EwrVG3Zb6WZwOGm9XtPZIDOeG3lWAWLbqUl4fMHOZVxtZTTPryZczDv31BApN1kI10MjNUkrKenCqvGmbb5sKEpWn%2FLkolOr3C947C0r0sSt3gjSwOgFi218yqS2DxpSiV8SO%2BgQAuFn4k8YIFM8cOm2qx2PeU6qP1p3aQdhoyVocis0%2F5fU%2BjBY%2FUWlBjy6aYfhvY7Zleww",
+          "itemLocation": {
+              "postalCode": "232**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/-nYAAOSwFyRlwZBu/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/878AAOSw2N1lwZDD/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/44AAAOSwbhRlwZBu/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/pVMAAOSwNXtlwZBu/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/KKUAAOSwXqxlwZBu/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "404783413641",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-02-06T01:55:59.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|185340339157|693122926404",
+          "title": "Disney Pixar Cars Lot Lightning McQueen 1:55 Diecast Model Car Toys Boy Loose",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=185340339157",
+          "leafCategoryIds": [
+              "180506",
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "180506",
+                  "categoryName": "Contemporary Manufacture"
+              },
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "180273",
+                  "categoryName": "Cars, Trucks & Vans"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              },
+              {
+                  "categoryId": "222",
+                  "categoryName": "Diecast & Toy Vehicles"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/GDoAAOSwahdiMH~g/s-l225.jpg"
+          },
+          "price": {
+              "value": "7.89",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C185340339157%7C693122926404",
+          "seller": {
+              "username": "forexhk",
+              "feedbackPercentage": "97.6",
+              "feedbackScore": 3306
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/GDoAAOSwahdiMH~g/s-l500.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/185340339157?hash=item2b272523d5:g:GDoAAOSwahdiMH~g",
+          "itemLocation": {
+              "postalCode": "088**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/~nQAAOSwHjRiMIAP/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/P6IAAOSwbhJiMICg/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ITcAAOSwJI9iMIC3/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/x1cAAOSwlulioWkT/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/abcAAOSwoL5iMIDH/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/iiAAAOSwKVxiMIDQ/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Z0MAAOSw3bRiMIDS/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/PXIAAOSwByZiMIDV/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/NpQAAOSwciZiMIDX/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/8OkAAOSwIDNiMIDZ/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/A~YAAOSwwbhiMIDb/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "185340339157",
+          "availableCoupons": false,
+          "itemCreationDate": "2022-03-15T12:04:49.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|266551902600|566321601851",
+          "title": "Disney Doorables (Series 4,5,6,7,8,9) You Pick!",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=266551902600",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/cgIAAOSwP8RlwZgz/s-l225.jpg"
+          },
+          "price": {
+              "value": "3.00",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C266551902600%7C566321601851",
+          "seller": {
+              "username": "fizfa",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 262
+          },
+          "condition": "Used",
+          "conditionId": "3000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/cgIAAOSwP8RlwZgz/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "5.15",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/266551902600?hash=item3e0fbb4188:g:cgIAAOSwP8RlwZgz",
+          "itemLocation": {
+              "postalCode": "210**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "266551902600",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-12-06T04:27:57.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|115950683805|416084452284",
+          "title": "7\" NECA Ninja Turtles 1990 Movie TMNT Teenage Movable Toys Mutant Action Figure",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=115950683805",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/2pAAAOSwo9JlNdd1/s-l225.jpg"
+          },
+          "price": {
+              "value": "102.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C115950683805%7C416084452284",
+          "seller": {
+              "username": "wwang1122",
+              "feedbackPercentage": "96.3",
+              "feedbackScore": 1932
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/2pAAAOSwo9JlNdd1/s-l640.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/115950683805?hash=item1aff33069d:g:2pAAAOSwo9JlNdd1",
+          "itemLocation": {
+              "postalCode": "941**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "115950683805",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-10-23T02:21:02.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|404552083645|674546074132",
+          "title": "Disney Pixar Cars Diecast Lightning McQueen 1:55 Diecast Model Car Toys Boy Gift",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=404552083645",
+          "leafCategoryIds": [
+              "261068",
+              "180506"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "180506",
+                  "categoryName": "Contemporary Manufacture"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "180273",
+                  "categoryName": "Cars, Trucks & Vans"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              },
+              {
+                  "categoryId": "222",
+                  "categoryName": "Diecast & Toy Vehicles"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/laIAAOSwI-RlLO3D/s-l225.jpg"
+          },
+          "price": {
+              "value": "8.18",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C404552083645%7C674546074132",
+          "seller": {
+              "username": "kylinexte-40",
+              "feedbackPercentage": "95.2",
+              "feedbackScore": 571
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/laIAAOSwI-RlLO3D/s-l500.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/404552083645?hash=item5e312ee8bd:g:laIAAOSwI-RlLO3D",
+          "itemLocation": {
+              "postalCode": "088**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/9KIAAOSwYbRlLO5w/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/4FUAAOSwOXxlLO6O/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/gSYAAOSwi8FlLO6k/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/xQ8AAOSwa6dlLO60/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/pZ4AAOSwSGxlLO67/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/JWQAAOSw7B9lLO7F/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ndUAAOSww1xlLO7G/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/3rcAAOSwe4JlLO7I/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/qFsAAOSw32hlLO7J/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/q5sAAOSww4VlLO7K/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/SD0AAOSwQRhlLO7M/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "404552083645",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-10-16T08:05:40.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|175910449525|0",
+          "title": "1pcs Cute Astronaut Doll Tumble Toy（Random Color）HOT",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/NfUAAOSw4S5kqsyv/s-l225.jpg"
+          },
+          "price": {
+              "value": "0.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C175910449525%7C0",
+          "seller": {
+              "username": "miaoxingren",
+              "feedbackPercentage": "98.2",
+              "feedbackScore": 3910
+          },
+          "marketingPrice": {
+              "originalPrice": {
+                  "value": "1.04",
+                  "currency": "USD"
+              },
+              "discountPercentage": "5",
+              "discountAmount": {
+                  "value": "0.05",
+                  "currency": "USD"
+              },
+              "priceTreatment": "MARKDOWN"
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/NfUAAOSw4S5kqsyv/s-l1200.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/175910449525?hash=item28f5147175:g:NfUAAOSw4S5kqsyv",
+          "itemLocation": {
+              "postalCode": "******",
+              "country": "CN"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Pu8AAOSw5Utkqsy-/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/wzoAAOSwwXdkqszM/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/~9AAAOSwVptkqszk/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/UnAAAOSwcspkqs0H/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/-30AAOSwwXdkqs0m/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/UrMAAOSwcspkqs0t/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/rAgAAOSwpPtkqs0x/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/xqcAAOSwh-Jkqs01/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/HEMAAOSwC5Zkqs1N/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/rTgAAOSwtgdkqs1R/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ztUAAOSwaQhkqs1U/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/lAIAAOSwCkBkqs1Y/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/f3IAAOSw1rVkqs1d/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/cNYAAOSwddRkqs2e/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/bO0AAOSwZRBkqs2j/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/wo0AAOSwIghkqs2z/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/wfwAAOSwelNkqs3G/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/QtUAAOSw4sBkqs3e/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/YWYAAOSwHdVkqs3y/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "175910449525",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-09-20T07:24:19.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|155746538637|456123124933",
+          "title": "YOU PICK! Disney Doorables Series 10/Academy/Lets Go 2/EXCLUSIVES -FLAT SHIPPING",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=155746538637",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/28QAAOSwkKplnX2S/s-l225.jpg"
+          },
+          "price": {
+              "value": "1.95",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C155746538637%7C456123124933",
+          "seller": {
+              "username": "ellie260200",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 3283
+          },
+          "condition": "Used",
+          "conditionId": "3000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/28QAAOSwkKplnX2S/s-l1200.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "4.50",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/155746538637?hash=item244337948d:g:28QAAOSwkKplnX2S",
+          "itemLocation": {
+              "postalCode": "600**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "155746538637",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-08-31T02:06:13.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|225944580721|525036941853",
+          "title": "Smiling Critters Plush Cartoon Stuffed Soft Animals Doll Toy Kids Gift New",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=225944580721",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/vf8AAOSwELtllm6A/s-l225.jpg"
+          },
+          "price": {
+              "value": "6.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C225944580721%7C525036941853",
+          "seller": {
+              "username": "petert-0",
+              "feedbackPercentage": "96.9",
+              "feedbackScore": 2348
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/vf8AAOSwELtllm6A/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/225944580721?hash=item349b58b271:g:vf8AAOSwELtllm6A",
+          "itemLocation": {
+              "postalCode": "900**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/1KcAAOSwXFJllm6B/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/yCoAAOSwUzhllm6D/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/E2oAAOSwq9Rllm6G/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "225944580721",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-01-04T16:41:12.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|404770304317|674785773519",
+          "title": "T13 Action Figure, Titan 13 Action Figure, Robot Action Figure,3D Printed Action",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=404770304317",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/YAIAAOSwHRtluKqm/s-l225.jpg"
+          },
+          "price": {
+              "value": "9.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C404770304317%7C674785773519",
+          "seller": {
+              "username": "huangyi",
+              "feedbackPercentage": "92.4",
+              "feedbackScore": 1253
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/YAIAAOSwHRtluKqm/s-l1200.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/404770304317?hash=item5e3e30b13d:g:YAIAAOSwHRtluKqm",
+          "itemLocation": {
+              "country": "CN"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/WqUAAOSw5T1luKqn/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/vSQAAOSw3nxluKqo/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/xC0AAOSwiBlluKqq/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/vvYAAOSw-MJluKqr/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/iMgAAOSwb55luKqt/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/k6sAAOSwOJ1luKqv/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/pmgAAOSwAk9luKqw/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/9-oAAOSwLAVluKqx/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ZT0AAOSwbSxluKq0/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "404770304317",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-01-30T07:52:38.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|126157068695|427159909550",
+          "title": "Disney Pixar Cars 3 Diecast McQueen Doc Hudson 1:55 Metal Model Cars Boy Gifts",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=126157068695",
+          "leafCategoryIds": [
+              "261068",
+              "180506"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "180506",
+                  "categoryName": "Contemporary Manufacture"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "180273",
+                  "categoryName": "Cars, Trucks & Vans"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              },
+              {
+                  "categoryId": "222",
+                  "categoryName": "Diecast & Toy Vehicles"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/p-sAAOSwRlllO4ZX/s-l225.jpg"
+          },
+          "price": {
+              "value": "6.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C126157068695%7C427159909550",
+          "seller": {
+              "username": "brant-2324",
+              "feedbackPercentage": "97.4",
+              "feedbackScore": 5797
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/p-sAAOSwRlllO4ZX/s-l1200.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/126157068695?hash=item1d5f8c1997:g:p-sAAOSwRlllO4ZX",
+          "itemLocation": {
+              "postalCode": "088**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/OuAAAOSwjSVlO4b1/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/XCYAAOSwuUVlO4da/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/LegAAOSwKqRlO4df/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/O-oAAOSwjSVlO4dp/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/MmYAAOSwyRllO4dr/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/fjkAAOSwunJlO4ds/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/WhcAAOSw-vplO4dt/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/DdUAAOSwVUhlO4du/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/U0MAAOSwrVhlO4dv/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/0mYAAOSwxeNlO4dw/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "126157068695",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-10-27T09:48:40.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|115435044447|415473165927",
+          "title": "*SERIES 4*   5 Surprise Mini Brands You PICK*",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=115435044447",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/GhUAAOSwna9iujyU/s-l225.jpg"
+          },
+          "price": {
+              "value": "1.00",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C115435044447%7C415473165927",
+          "seller": {
+              "username": "bigwormps",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 2111
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/GhUAAOSwna9iujyU/s-l640.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "5.50",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/115435044447?hash=item1ae076fe5f:g:GhUAAOSwna9iujyU",
+          "itemLocation": {
+              "postalCode": "488**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "115435044447",
+          "availableCoupons": false,
+          "itemCreationDate": "2022-06-21T00:18:19.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|176185276267|0",
+          "title": "PAW Patrol: The Movie Liberty Feature Vehicle",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/9QMAAOSwwM1lpoze/s-l225.jpg"
+          },
+          "price": {
+              "value": "17.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C176185276267%7C0",
+          "seller": {
+              "username": "bullseye_deals",
+              "feedbackPercentage": "97.4",
+              "feedbackScore": 264368
+          },
+          "marketingPrice": {
+              "originalPrice": {
+                  "value": "35.49",
+                  "currency": "USD"
+              },
+              "discountPercentage": "49",
+              "discountAmount": {
+                  "value": "17.50",
+                  "currency": "USD"
+              },
+              "priceTreatment": "LIST_PRICE"
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/9QMAAOSwwM1lpoze/s-l400.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "epid": "27048478368",
+          "itemWebUrl": "https://www.ebay.com/itm/176185276267?hash=item290575f76b:g:9QMAAOSwwM1lpoze",
+          "itemLocation": {
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/xToAAOSwCLhlpoze/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Zc4AAOSwjL9lpoze/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/pegAAOSwVDdlpoze/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/fGcAAOSwREdlpoze/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/4WoAAOSwNvhlpoze/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "176185276267",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-01-16T14:02:10.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|274569953797|574788512224",
+          "title": "Plants vs Zombies toys plush dolls PvZ plants **choose your character **",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=274569953797",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/4usAAOSwzEdilXSF/s-l225.jpg"
+          },
+          "price": {
+              "value": "9.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C274569953797%7C574788512224",
+          "seller": {
+              "username": "crazybeauty14",
+              "feedbackPercentage": "98.4",
+              "feedbackScore": 805
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/4usAAOSwzEdilXSF/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/274569953797?hash=item3feda50205:g:4usAAOSwzEdilXSF",
+          "itemLocation": {
+              "postalCode": "907**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "274569953797",
+          "availableCoupons": false,
+          "itemCreationDate": "2020-11-10T22:41:47.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|155963351250|0",
+          "title": "Construction Toy Track For Kids Playset Gift - Excavator Truck Crane Vehicles",
+          "leafCategoryIds": [
+              "180506",
+              "2500"
+          ],
+          "categories": [
+              {
+                  "categoryId": "180506",
+                  "categoryName": "Contemporary Manufacture"
+              },
+              {
+                  "categoryId": "2500",
+                  "categoryName": "Track"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "180273",
+                  "categoryName": "Cars, Trucks & Vans"
+              },
+              {
+                  "categoryId": "180278",
+                  "categoryName": "Accessories, Parts & Display"
+              },
+              {
+                  "categoryId": "222",
+                  "categoryName": "Diecast & Toy Vehicles"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/cFcAAOSweq5lhItO/s-l225.jpg"
+          },
+          "price": {
+              "value": "39.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C155963351250%7C0",
+          "seller": {
+              "username": "jittery-git",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 286
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/cFcAAOSweq5lhItO/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "epid": "22062473934",
+          "itemWebUrl": "https://www.ebay.com/itm/155963351250?hash=item245023e0d2:g:cFcAAOSweq5lhItO&amdata=enc%3AAQAIAAAAsJNPwRVL9X2pOw4%2Bi%2FmfEfZU5qUMwRk2yfMdkATqC%2FT1lxzeDzpSYRDW0h15w5m4kS5zfTf7z41Y3JFVpTm9Zsj8SQ37NNcLcn9lW1jNu3yIYKnQO0DBUJ3%2FkqUjipaDIcb6%2FrhiCg0X%2BgWXR0eUnSRSZlDx5SO4R1DE53LadO%2FpFmA3qLuSoc08ufIMT5aat%2Fw0SYeROkaoALkS%2BvR54pYDc3Q3ATGu%2FWospoAwlqr8",
+          "itemLocation": {
+              "postalCode": "333**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/2ToAAOSwsoNlhIuA/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/I9AAAOSwN1xlhItO/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/vpQAAOSw77NlhItP/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/AoMAAOSwB4hlhItO/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/iL0AAOSw3p9lhItN/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/~IMAAOSwzTNlhItN/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/HXUAAOSwpWllhItN/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "155963351250",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-12-21T19:39:54.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|314707272611|0",
+          "title": "4 pcs of Rainbow Slug & Bubble Pop Toy - Fun Kids Fidget Toys Age 1 2 3 Unisex",
+          "leafCategoryIds": [
+              "100227"
+          ],
+          "categories": [
+              {
+                  "categoryId": "100227",
+                  "categoryName": "Developmental Baby Toys"
+              },
+              {
+                  "categoryId": "2984",
+                  "categoryName": "Baby"
+              },
+              {
+                  "categoryId": "19068",
+                  "categoryName": "Toys for Baby"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/0cUAAOSwWGlkrryk/s-l225.jpg"
+          },
+          "price": {
+              "value": "9.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C314707272611%7C0",
+          "seller": {
+              "username": "maplegroupusa",
+              "feedbackPercentage": "98.9",
+              "feedbackScore": 16439
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/0cUAAOSwWGlkrryk/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/314707272611?hash=item494603e3a3:g:0cUAAOSwWGlkrryk&amdata=enc%3AAQAIAAAAsGPOVbCuc9gsimagdigWHb18YhS9Z54c6fJtT5f7%2FJnzWZd3g9LcaJorH0pnnCdW03V3hPk0wUYarslorXVsI0wh7RJ%2FjEUTBl8Vor6JD1Axrp0SwOgy3EWdeUPEp4hg4dtHcjLWQfgzR79Jl1PBSQsdnk6fsCBa5CI%2Bh6i%2FS0I2aPxE7yyZ50sk%2FN7gZqAlo8JkSaWKezxJsuwnRdyK5ZjcDBBHFZwQ6dCrWUt03JzK",
+          "itemLocation": {
+              "postalCode": "100**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/4M4AAOSwYLFkrr3P/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/L1QAAOSwy~dkrr3P/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/IzwAAOSwHohkrr3P/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/TjUAAOSwZGRksGIu/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/w-AAAOSwgzVksGIu/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/6YoAAOSwISpksGIu/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/BmMAAOSwKg5ksGIu/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/1A8AAOSwDvZksGIu/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/n-8AAOSwOzNksGKy/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/crAAAOSw97ZksGKy/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "314707272611",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-07-12T14:49:21.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|204641631769|0",
+          "title": "Ready 2 Robot: Mongo Toy - Tag Team Battle Pack Character",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/a2YAAOSwZ35lvnTs/s-l225.jpg"
+          },
+          "price": {
+              "value": "4.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C204641631769%7C0",
+          "seller": {
+              "username": "theacryliclightshop",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 144
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/a2YAAOSwZ35lvnTs/s-l1200.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "7.99",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/204641631769?hash=item2fa5977e19:g:a2YAAOSwZ35lvnTs&amdata=enc%3AAQAIAAAAsDsHCbe8%2FqXkq4ZXDrZoGAYQCUiguWgxGT2uz9gnOpNx%2B9%2B8CrnQiJ%2BZYi3cA%2FQg0N14xIe5bbBjPVsM8tft2cDJu59o9NgOnYggOWutrRDvMTQPlhcX4uwxQzDLHkAg%2BKKkXpE3QG1u3xQ0sp9Gj6PVixf7qbcMI1XTM8cR4ovuNrOlJWZGDhxBAGcJES18ta2F2I5lXqagMzWFrxQfL1fTQ4AGWSS1jDi7tYd57Bg3",
+          "itemLocation": {
+              "postalCode": "283**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Iv4AAOSwS71lvnUA/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "204641631769",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-02-03T17:25:20.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|285659746740|0",
+          "title": "1st Gear 1/64 International ProStar+ w/53' Trailer, Briggs & Stratton 69-0200",
+          "leafCategoryIds": [
+              "180506"
+          ],
+          "categories": [
+              {
+                  "categoryId": "180506",
+                  "categoryName": "Contemporary Manufacture"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "222",
+                  "categoryName": "Diecast & Toy Vehicles"
+              },
+              {
+                  "categoryId": "180273",
+                  "categoryName": "Cars, Trucks & Vans"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/-8cAAOSw6UtlqZhq/s-l225.jpg"
+          },
+          "price": {
+              "value": "99.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C285659746740%7C0",
+          "seller": {
+              "username": "vintage-z",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 1141
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/-8cAAOSw6UtlqZhq/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "12.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "epid": "1721624198",
+          "itemWebUrl": "https://www.ebay.com/itm/285659746740?hash=item4282a5d1b4:g:-8cAAOSw6UtlqZhq&amdata=enc%3AAQAIAAAAsEsH1dFtakfy6kGFKM3e%2F70u01waFYBNVVPYBtF7%2BRutwBdcnNgfv8G0W9c8aCxHfQyWu%2Bxd3YgHUB1xTl%2BS73ZMAQUiprz0Wm6OjuLRgPJH7k4aag2BGvCLZsk5eeS64Rp30xL3X4nu0knKoimPkgrJDrRc0TljhR2Avvl1j8bYgHNFE8RKTCeVBvfoKd%2FdypHu8gbXhQL%2B2n9PxuNV57n6qmvU3JNP0zyuDyr6l%2Bai",
+          "itemLocation": {
+              "postalCode": "546**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Uk8AAOSwWh9lqZhr/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/0akAAOSw6iJlqZht/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/vlYAAOSwox9lqZhu/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/lbMAAOSwMa9lqZhv/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/axAAAOSw8-FlqZhw/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/EnwAAOSwUHxlqZhx/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/8scAAOSwVQVlqZhy/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/oE0AAOSw3fZlqZhz/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "285659746740",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-01-18T23:07:03.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|233632046181|0",
+          "title": "10 PCS Masha and The Bear Action Figures Set Party Toys Dolls Gift Cake Toppers",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/1LIAAOSwqjxe94ik/s-l225.jpg"
+          },
+          "price": {
+              "value": "14.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C233632046181%7C0",
+          "seller": {
+              "username": "super-fast-shipping-center",
+              "feedbackPercentage": "98.6",
+              "feedbackScore": 509860
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/1LIAAOSwqjxe94ik/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/233632046181?hash=item36658e1c65:g:1LIAAOSwqjxe94ik",
+          "itemLocation": {
+              "postalCode": "941**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/z9AAAOSwDZde94im/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/euQAAOSwbDRe94io/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/4zIAAOSw161e94ip/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "233632046181",
+          "availableCoupons": false,
+          "itemCreationDate": "2020-06-27T18:00:30.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|185919885612|0",
+          "title": "Disney Moana Sing-A-Long Boombox",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/VWMAAOSwMcZkdgYH/s-l225.jpg"
+          },
+          "price": {
+              "value": "12.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C185919885612%7C0",
+          "seller": {
+              "username": "bullseye_deals",
+              "feedbackPercentage": "97.4",
+              "feedbackScore": 264368
+          },
+          "marketingPrice": {
+              "originalPrice": {
+                  "value": "29.49",
+                  "currency": "USD"
+              },
+              "discountPercentage": "56",
+              "discountAmount": {
+                  "value": "16.50",
+                  "currency": "USD"
+              },
+              "priceTreatment": "LIST_PRICE"
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/VWMAAOSwMcZkdgYH/s-l400.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "epid": "26037724849",
+          "itemWebUrl": "https://www.ebay.com/itm/185919885612?hash=item2b49b0512c:g:VWMAAOSwMcZkdgYH",
+          "itemLocation": {
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/aP4AAOSwOSpkdgYH/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/W98AAOSwtSZkdgYH/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/VtYAAOSwQH1kdgYH/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/nXAAAOSwr7xkdgYH/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "185919885612",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-05-30T14:19:50.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|176182682351|475629796588",
+          "title": "3D Printed Articulated Crystal Dragon Fidget Toys in Egg, Home Office Toys Gift",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=176182682351",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/gIMAAOSwzrtlpQkw/s-l225.jpg"
+          },
+          "price": {
+              "value": "16.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C176182682351%7C475629796588",
+          "seller": {
+              "username": "wx6688",
+              "feedbackPercentage": "99.1",
+              "feedbackScore": 11312
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/gIMAAOSwzrtlpQkw/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/176182682351?hash=item29054e62ef:g:gIMAAOSwzrtlpQkw",
+          "itemLocation": {
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/abkAAOSwP1llpQW9/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/IgoAAOSwaEllpQW-/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Ny4AAOSwmDNlpQW~/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/3kkAAOSwyLNlpQXA/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/0kIAAOSwS9plpQXB/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/k4cAAOSwuPZlpQXC/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/21QAAOSwBLBlpQXC/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ImgAAOSw0mNlpQXD/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ag4AAOSwa7BlpQXE/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/tncAAOSw8NZlpQXG/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/hjoAAOSwk7VlpQXH/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/s4UAAOSw2cllpQXI/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/zFMAAOSw2TBlpQXI/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "176182682351",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-01-15T10:31:42.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|204514982465|0",
+          "title": "McFarlane Toys DC Comics Batman - The Animated Series Robin Build-A-Figure",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/T0oAAOSwzFllOAUH/s-l225.jpg"
+          },
+          "price": {
+              "value": "19.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C204514982465%7C0",
+          "seller": {
+              "username": "bullseye_deals",
+              "feedbackPercentage": "97.4",
+              "feedbackScore": 264368
+          },
+          "marketingPrice": {
+              "originalPrice": {
+                  "value": "29.99",
+                  "currency": "USD"
+              },
+              "discountPercentage": "33",
+              "discountAmount": {
+                  "value": "10.00",
+                  "currency": "USD"
+              },
+              "priceTreatment": "LIST_PRICE"
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/T0oAAOSwzFllOAUH/s-l400.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/204514982465?hash=item2f9e0afa41:g:T0oAAOSwzFllOAUH",
+          "itemLocation": {
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/TB0AAOSwObZlOAUH/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/UFgAAOSw0m9lOAUH/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/mXgAAOSwj1dlOAUH/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/pLMAAOSwKFplOAUH/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "204514982465",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-10-24T17:54:12.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|295837335230|594063426445",
+          "title": "Anime Super Mario Bros Plush Toys Soft Stuffed Doll Kids Birthday Xmas Gifts",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=295837335230",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/pq4AAOSwVaxkv0ow/s-l225.jpg"
+          },
+          "price": {
+              "value": "8.49",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C295837335230%7C594063426445",
+          "seller": {
+              "username": "funnytoys",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 178
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/pq4AAOSwVaxkv0ow/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/295837335230?hash=item44e1477ebe:g:pq4AAOSwVaxkv0ow",
+          "itemLocation": {
+              "postalCode": "******",
+              "country": "CN"
+          },
+          "adultOnly": false,
+          "legacyItemId": "295837335230",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-07-25T04:03:09.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|126253874132|427279231160",
+          "title": "2023 McDONALD'S Squishmallows Squishmallow Plush HAPPY MEAL TOYS Or Set",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=126253874132",
+          "leafCategoryIds": [
+              "767"
+          ],
+          "categories": [
+              {
+                  "categoryId": "767",
+                  "categoryName": "Fast Food"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "19077",
+                  "categoryName": "Fast Food & Cereal Premiums"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/moYAAOSwRClli0Gu/s-l225.jpg"
+          },
+          "price": {
+              "value": "6.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C126253874132%7C427279231160",
+          "seller": {
+              "username": "poofyo101jumpmansneakers",
+              "feedbackPercentage": "99.8",
+              "feedbackScore": 38779
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/moYAAOSwRClli0Gu/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "2.99",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/126253874132?hash=item1d65513bd4:g:moYAAOSwRClli0Gu",
+          "itemLocation": {
+              "postalCode": "281**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/l9QAAOSwv6lli0Gk/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Q7QAAOSw0J5li0Gt/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/7VcAAOSwQ15li0VD/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "126253874132",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-12-26T21:34:09.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|296135189582|0",
+          "title": "T-Rex Dinosaur Toy with Walking Action Light-Up Eyes and Realistic Sounds Orange",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/YpMAAOSw8SNlj0b6/s-l225.jpg"
+          },
+          "price": {
+              "value": "15.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C296135189582%7C0",
+          "seller": {
+              "username": "onltco-productswarehouse",
+              "feedbackPercentage": "99.3",
+              "feedbackScore": 1047
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/YpMAAOSw8SNlj0b6/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE",
+              "BEST_OFFER"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/296135189582?hash=item44f308644e:g:YpMAAOSw8SNlj0b6&amdata=enc%3AAQAIAAAAsCXMwmvmba%2BOj3bO%2F%2FeKsR5VVU9f1yFRADPm7%2FLNICpdT3NRDY3LchP4HYHU0UD%2BN%2BuD8FHF%2F9EGZOqDK%2B8qsSkn%2BxaLanf9Izq1ldS%2BmkDqIuziEiswooXA%2BLS8vmi1fFtGq26VibBnoDZ2w2kxfDkp7tFfsNJAPx7L%2FLDTyds5q89ANrhnyRoLPx7D5ArpROX4YvljhnxjdKW%2FTHwsGuwy4Pntf9mK0hnrJowLqgSu",
+          "itemLocation": {
+              "postalCode": "917**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/MSAAAOSwCNJlj0b8/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/3Y8AAOSwMg1lj0b8/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/2XEAAOSwP9dlj0b8/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/em8AAOSwBPVlj0b8/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/iKQAAOSwBR1lj0b8/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "296135189582",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-12-29T22:30:17.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|354241203942|0",
+          "title": "MOULD KING 21003 Starship Blockade Runner Corvette Tantive IV Spaceship UCS MOC",
+          "leafCategoryIds": [
+              "258040",
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "258040",
+                  "categoryName": "Building Toy Complete Sets & Packs"
+              },
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "263016",
+                  "categoryName": "Building Toys & Blocks"
+              },
+              {
+                  "categoryId": "183446",
+                  "categoryName": "Building Toys"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/OqMAAOSwgIRjti7L/s-l225.jpg"
+          },
+          "price": {
+              "value": "108.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C354241203942%7C0",
+          "seller": {
+              "username": "mouldking2",
+              "feedbackPercentage": "98.8",
+              "feedbackScore": 781
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/OqMAAOSwgIRjti7L/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/354241203942?hash=item527a6bcee6:g:OqMAAOSwgIRjti7L&amdata=enc%3AAQAIAAAAsGIF%2FuOZptPcqguDH1C8S%2BfhH%2BmObu8FZVCA2kYmorM%2FlMbJ3AadMnd9DAVTVFyC%2BT7Ud5981C7jMnQ%2FZxP0vPwfxMy6p2uFZZIaw%2FlOflf9wKemGCrx4u6cbHgTeflcVaE4rYFd0Lyqsd28AT7lERDrzDxFgYTAz56F7FkzRDAH39NwyKERBDd7eo5L6FrldSFTF7fX6vg%2B7v%2BEyr8T%2Fr8PftQB65r7cgD%2BLR4bfaef",
+          "itemLocation": {
+              "postalCode": "088**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/u2UAAOSwVU9jBdKo/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/r5IAAOSwvchjBdKv/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/gzQAAOSwDp5jBdK3/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/cAUAAOSw1hljBdK-/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/KWYAAOSwHJNjOUs-/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "354241203942",
+          "availableCoupons": false,
+          "itemCreationDate": "2022-08-24T07:26:57.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|145589776369|0",
+          "title": "MEGA MAN 4.5\" MOVEABLE FIGURE W/ACCESSORIES & ALTERNATES \"MEGA MAN\" JADA 34221",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/cBwAAOSwUS1lgwZk/s-l225.jpg"
+          },
+          "price": {
+              "value": "17.99",
+              "currency": "USD"
+          },
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C145589776369%7C0",
+          "seller": {
+              "username": "wholesale_diecast_models",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 228273
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/cBwAAOSwUS1lgwZk/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "5.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "epid": "18064538990",
+          "itemWebUrl": "https://www.ebay.com/itm/145589776369?hash=item21e5d3aff1:g:cBwAAOSwUS1lgwZk",
+          "itemLocation": {
+              "postalCode": "900**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ZfYAAOSw4ARlgwZk/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/IcgAAOSwS7llgf6q/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/54cAAOSwVT1lgf6p/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/M5IAAOSwapVlgf6p/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ZEEAAOSw4ARlgf6o/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/wucAAOSwKXZlgf6o/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/T54AAOSwH35lgf6p/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/LtkAAOSwrF5lgf6p/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ATkAAOSwPPplgf6p/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "145589776369",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-02-02T19:32:57.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|265433514005|565256409463",
+          "title": "Action Figure - Toy Guns Collection - 1:18, 1:12, 1:10, 1:6 Scales",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=265433514005",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/2P8AAOSwHDtlYPsC/s-l225.jpg"
+          },
+          "price": {
+              "value": "3.00",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C265433514005%7C565256409463",
+          "seller": {
+              "username": "lightning.count.customs",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 2522
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/2P8AAOSwHDtlYPsC/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "CALCULATED",
+                  "shippingCost": {
+                      "value": "4.50",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/265433514005?hash=item3dcd120015:g:2P8AAOSwHDtlYPsC",
+          "itemLocation": {
+              "postalCode": "656**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/hSIAAOSw0XFkxzXL/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "265433514005",
+          "availableCoupons": false,
+          "itemCreationDate": "2021-12-03T01:24:27.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|296205518446|594281491192",
+          "title": "Zuru Mini Brands Books (you choose)",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=296205518446",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/HGkAAOSwUXhlv9JC/s-l225.jpg"
+          },
+          "price": {
+              "value": "0.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C296205518446%7C594281491192",
+          "seller": {
+              "username": "skysky_213",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 2
+          },
+          "condition": "Used",
+          "conditionId": "3000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/HGkAAOSwUXhlv9JC/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "CALCULATED"
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/296205518446?hash=item44f739866e:g:HGkAAOSwUXhlv9JC",
+          "itemLocation": {
+              "postalCode": "685**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "296205518446",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-02-04T18:29:38.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|225955329693|525049585523",
+          "title": "Authentic Sonny Angel Gifts Of Love Series Mini Figure Confirmed Blind Box Toy",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=225955329693",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/T6AAAOSwCY5loDlH/s-l225.jpg"
+          },
+          "price": {
+              "value": "19.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C225955329693%7C525049585523",
+          "seller": {
+              "username": "asiapop",
+              "feedbackPercentage": "99.3",
+              "feedbackScore": 961
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/T6AAAOSwCY5loDlH/s-l1200.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "7.99",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/225955329693?hash=item349bfcb69d:g:T6AAAOSwCY5loDlH",
+          "itemLocation": {
+              "country": "CN"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/tu0AAOSw3d1loDlR/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/ktcAAOSwPbRloDl6/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/U1YAAOSw1MdloDmX/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/e34AAOSwku1loDmp/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "225955329693",
+          "availableCoupons": false,
+          "itemCreationDate": "2024-01-11T19:06:32.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|394955871424|663523676115",
+          "title": "Skibidi Toilet Plush Cameraman Speakerman Figure Stuffed Plushies Doll Toys Gift",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=394955871424",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/HCsAAOSwtZNlOACC/s-l225.jpg"
+          },
+          "price": {
+              "value": "10.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C394955871424%7C663523676115",
+          "seller": {
+              "username": "jaylene-store",
+              "feedbackPercentage": "99.8",
+              "feedbackScore": 440
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/HCsAAOSwtZNlOACC/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "0.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/394955871424?hash=item5bf53454c0:g:HCsAAOSwtZNlOACC",
+          "itemLocation": {
+              "country": "CN"
+          },
+          "adultOnly": false,
+          "legacyItemId": "394955871424",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-10-24T17:43:50.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|224786095481|523660504012",
+          "title": "Tech Deck Finger Skateboard * 200+ Available * (UPDATED 12/23) * YOU PICK *.",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=224786095481",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/IHYAAOSwuZtjcA9J/s-l225.jpg"
+          },
+          "price": {
+              "value": "8.49",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C224786095481%7C523660504012",
+          "seller": {
+              "username": "mrferge",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 179
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/IHYAAOSwuZtjcA9J/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "4.49",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/224786095481?hash=item34564b9d79:g:IHYAAOSwuZtjcA9J",
+          "itemLocation": {
+              "postalCode": "775**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/FqkAAOSwmcBh2daY/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/H1EAAOSwWKVh2daZ/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "224786095481",
+          "availableCoupons": false,
+          "itemCreationDate": "2022-01-12T01:31:10.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|385815538565|653552111744",
+          "title": "TMNT Playmates Teenage Mutant Ninja Turtles Classic 4\" Action Figures - You Pick",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=385815538565",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/GGUAAOSwrKxlWIDF/s-l225.jpg"
+          },
+          "price": {
+              "value": "19.95",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C385815538565%7C653552111744",
+          "seller": {
+              "username": "classiccurations",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 192
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/GGUAAOSwrKxlWIDF/s-l500.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "3.99",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/385815538565?hash=item59d465eb85:g:GGUAAOSwrKxlWIDF",
+          "itemLocation": {
+              "postalCode": "926**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "385815538565",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-07-22T22:47:52.000Z",
+          "topRatedBuyingExperience": true,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|124821845998|425880262150",
+          "title": "Disney Doorables Series 1 2 3 4 -You Pick- Easy Find List! US Seller~List 1 of 3",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=124821845998",
+          "leafCategoryIds": [
+              "261068"
+          ],
+          "categories": [
+              {
+                  "categoryId": "261068",
+                  "categoryName": "Action Figures"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "246",
+                  "categoryName": "Action Figures & Accessories"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/SEQAAOSwoBZg-fZO/s-l225.jpg"
+          },
+          "price": {
+              "value": "12.00",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C124821845998%7C425880262150",
+          "seller": {
+              "username": "jenlenkersdorfe-0",
+              "feedbackPercentage": "100.0",
+              "feedbackScore": 2347
+          },
+          "condition": "Used",
+          "conditionId": "3000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/SEQAAOSwoBZg-fZO/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "4.00",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/124821845998?hash=item1d0ff637ee:g:SEQAAOSwoBZg-fZO",
+          "itemLocation": {
+              "postalCode": "843**",
+              "country": "US"
+          },
+          "adultOnly": false,
+          "legacyItemId": "124821845998",
+          "availableCoupons": false,
+          "itemCreationDate": "2021-07-23T01:25:30.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": false,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|126164004860|427168593480",
+          "title": "2023 McDONALD'S Disney's 100 Year Anniversary Celebration HAPPY MEAL TOYS Or Set",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=126164004860",
+          "leafCategoryIds": [
+              "767"
+          ],
+          "categories": [
+              {
+                  "categoryId": "767",
+                  "categoryName": "Fast Food"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "19077",
+                  "categoryName": "Fast Food & Cereal Premiums"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/21YAAOSw5mplQUQ7/s-l225.jpg"
+          },
+          "price": {
+              "value": "239.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C126164004860%7C427168593480",
+          "seller": {
+              "username": "poofyo101jumpmansneakers",
+              "feedbackPercentage": "99.8",
+              "feedbackScore": 38779
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/21YAAOSw5mplQUQ7/s-l1600.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "2.99",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/126164004860?hash=item1d5ff5effc:g:21YAAOSw5mplQUQ7&amdata=enc%3AAQAIAAAA0GA7mqhmx4So2Mr0Mre7fPB%2FGvdG0vS8bXNuf8mkgK7U8T8NaDrsjpgaIpqyxpfWSWFRTaifUsjV%2Bcoz7DsH0H8zzGpkXyRBpp%2BHfskjCLYWMrqGOmgb6YNrtiaZ9Y%2Ben%2BKb%2FM2KYbN3Ga61QzmZ0mheObZha3gA9VeiU2qwNLLa0abCEr08I6IoxPw%2B%2FQ4mUfmxThRmeYLUv8%2Bc1wJSPfhAcjHjzNT5UZlLvgTcUp44neOz6cN4X52bU47dCpmoDfJDbtION3FkEaUibHBZ9DY%3D",
+          "itemLocation": {
+              "postalCode": "281**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/1~gAAOSwWsFlQUQU/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/wioAAOSw1JFlQUQI/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/8d4AAOSwjfplQUQQ/s-l225.jpg"
+              },
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/Pi8AAOSwTwplQUQb/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "126164004860",
+          "availableCoupons": false,
+          "itemCreationDate": "2023-10-31T18:40:14.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      },
+      {
+          "itemId": "v1|133960235405|433407702073",
+          "title": "2021 McDONALD'S Disney's 50th Anniversary Disney World HAPPY MEAL TOYS Or Set",
+          "itemGroupHref": "https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=133960235405",
+          "leafCategoryIds": [
+              "767"
+          ],
+          "categories": [
+              {
+                  "categoryId": "767",
+                  "categoryName": "Fast Food"
+              },
+              {
+                  "categoryId": "220",
+                  "categoryName": "Toys & Hobbies"
+              },
+              {
+                  "categoryId": "19077",
+                  "categoryName": "Fast Food & Cereal Premiums"
+              }
+          ],
+          "image": {
+              "imageUrl": "https://i.ebayimg.com/thumbs/images/g/0wEAAOSwu-phQMwW/s-l225.jpg"
+          },
+          "price": {
+              "value": "299.99",
+              "currency": "USD"
+          },
+          "itemGroupType": "SELLER_DEFINED_VARIATIONS",
+          "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C133960235405%7C433407702073",
+          "seller": {
+              "username": "poofyo101jumpmansneakers",
+              "feedbackPercentage": "99.8",
+              "feedbackScore": 38779
+          },
+          "condition": "New",
+          "conditionId": "1000",
+          "thumbnailImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/images/g/0wEAAOSwu-phQMwW/s-l960.jpg"
+              }
+          ],
+          "shippingOptions": [
+              {
+                  "shippingCostType": "FIXED",
+                  "shippingCost": {
+                      "value": "2.99",
+                      "currency": "USD"
+                  }
+              }
+          ],
+          "buyingOptions": [
+              "FIXED_PRICE"
+          ],
+          "itemWebUrl": "https://www.ebay.com/itm/133960235405?hash=item1f30a6f98d:g:0wEAAOSwu-phQMwW&amdata=enc%3AAQAIAAAA0EjUglYlq2OHuAxtHHC7LnKnYPxf1GAhjICUlZx%2F0i%2B80JVJ%2FJH49G0Q6FiBUna51SRmbs%2BRkQuDRE75joFNAv0b5cyQv7keXtEqdpOFUHqov2hmF0SBPgyBKZyZVfA4Q7crKN9QP96Eo2wZqBem5autEr4S7AlnRLOO6QQcdwbUxsNWKLvYW5UCFkWhZ%2BgMA5w4cUrdK%2FdNSNEREOcDKn8Je7f3pJJNJ90qKcxvAAFUgWWIrvT2uC7FKQfF4bx%2Bal5CQF881FkURqv9%2FOt%2BLp0%3D",
+          "itemLocation": {
+              "postalCode": "281**",
+              "country": "US"
+          },
+          "additionalImages": [
+              {
+                  "imageUrl": "https://i.ebayimg.com/thumbs/images/g/TlAAAOSwmb5hQMxG/s-l225.jpg"
+              }
+          ],
+          "adultOnly": false,
+          "legacyItemId": "133960235405",
+          "availableCoupons": false,
+          "itemCreationDate": "2021-12-10T15:22:01.000Z",
+          "topRatedBuyingExperience": false,
+          "priorityListing": true,
+          "listingMarketplaceId": "EBAY_US"
+      }
+  ]
+}

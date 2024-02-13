@@ -42,7 +42,7 @@ const getToken = async () => {
     });
 
     const response = await fetch(
-      'https://dev-2awtbu1bbrbmb57l.us.auth0.com/oauth/token',
+      `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
       {
         method: 'POST',
         headers: {
@@ -99,5 +99,5 @@ module.exports = {
   validateAccessToken,
   checkRequiredPermissions,
   getToken,
-  getManagementClient
+  getManagementClient,
 };

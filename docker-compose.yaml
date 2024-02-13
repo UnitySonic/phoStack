@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  phostack-express:
+    build: 
+      context: ./phostack-express
+      dockerfile: Dockerfile 
+    image: phostack-express.local
+    container_name: phostack-express.local
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./phostack-express:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  phostack-react:
+    build: 
+      context: ./phostack-react
+      dockerfile: Dockerfile
+    image: phostack-react.local
+    container_name: phostack-react.local
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./phostack-react:/app
+      - /app/node_modules
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true

@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const SignupButton = () => {
@@ -14,7 +15,11 @@ const SignupButton = () => {
     });
   };
 
-  return <button onClick={handleSignUp}>Sign Up</button>;
+  return (
+    <Button variant='contained' color='secondary' onClick={handleSignUp}>
+      Sign Up
+    </Button>
+  );
 };
 
 export default SignupButton;

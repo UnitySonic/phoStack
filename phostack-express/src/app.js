@@ -9,17 +9,60 @@ const {
   checkRequiredPermissions,
   getManagementClient,
 } = require('./middleware/auth0.middleware');
+const ebayRouter = require('./ebay/ebay.router');
+const catalogRouter = require('./catalog/catalog.router')
 
-app.use(cors());
+const { logger } = require('./logger');
+const { pool } = require('./db');
+
+const whitelist = ['https://team24.cpsc4911.com', 'http://localhost:5173'];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
-
-app.get('/', (req, res) => {
-  res.send('hello');
+app.use((req, res, next) => {
+  logger.info(`Received a ${req.method} request for ${req.url}`);
+  next();
 });
 
+/* --- UNPROTECTED ROUTES --- */
+
+app.get('/', (req, res) => {
+  res.send('hello there Jeremy Sarasua');
+});
+app.get('/health', (req, res) => {
+  res.status(200).json({ message: 'OK!' });
+});
+
+app.get('/about', async (req, res) => {
+  try {
+    const [rows, fields] = await pool.execute('SELECT * FROM about;');
+    res.json({
+      about: rows
+    });
+  }
+  catch(error) {
+    console.error('Error retrieving users: ', error);
+    res.status(500).send('Error retrieving users from database');
+  }
+});
+
+/* --- PROTECTED ROUTES --- */
+
 app.use(validateAccessToken);
+app.use('/ebay-proxy', ebayRouter);
+app.use('/catalog-param', catalogRouter)
 
 app.get('/admin', checkRequiredPermissions(['read:test']), async (req, res) => {
   const managementClient = await getManagementClient();
@@ -40,7 +83,6 @@ app.get('/admin', checkRequiredPermissions(['read:test']), async (req, res) => {
     updatedUserMetadata
   );
   console.log(response2.data);
-  
   // const auth = req.auth
   // console.log(auth)
   // console.log(auth)

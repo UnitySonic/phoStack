@@ -6,13 +6,12 @@ function ProtectedPage() {
 
   const fetchData = async () => {
     const accessToken = await getAccessTokenSilently();
-    console.log(accessToken)
     const url = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/admin`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
+        authorization: `Bearer ${accessToken}`,
       },
     });
 

@@ -1,0 +1,5 @@
+apps:
+  - name: phostack-express
+    script: ./dist/app.js
+    exec_mode: cluster
+    instances: max

@@ -8,7 +8,7 @@ function HomePage() {
 
   return (
     <>
-      <p>This is the home page</p>
+      <p>This is the home page. Someone work on this page please.</p>
 
       {!isAuthenticated && (
         <>
