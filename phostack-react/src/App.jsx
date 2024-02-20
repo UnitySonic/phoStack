@@ -17,8 +17,26 @@ import CatalogPage from './pages/CatalogPage.jsx';
 import CssBaseline from '@mui/material/CssBaseline';
 import CatalogSettingsPage from './pages/CatalogSettingsPage.jsx';
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx';
+import NewApplicationPage from './pages/NewApplicationPage.jsx';
+import Checkout from './pages/Checkout';
+import DriverApplicationsPage from './pages/DriverApplicationsPage.jsx';
+import ApplicationManagementPage from './pages/ApplicationManagementPage.jsx';
+import DriversManagementPage from './pages/DriversManagementPage.jsx';
+import AddNewSponsorUserPage from './pages/AddNewSponsorUserPage.jsx';
+import PointsPage from './pages/PointsPage.jsx';
 
+import AddNewDriverUserPage from './pages/AddNewDriverUserPage.jsx';
+import AdminOrganizationsPage from './pages/AdminOrganizationsPage.jsx';
+import AdminNewOrganizationPage from './pages/AdminNewOrganizationPage.jsx';
 import { createTheme, ThemeProvider } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import AdminDriversManagementPage from './pages/AdminDriversManagementPage.jsx';
+import AdminAddNewDriverUserPage from './pages/AdminAddNewDriverUserPage.jsx';
+import AdminSponsorsManagementPage from './pages/AdminSponsorsManagementPage.jsx';
+import AdminAddNewSponsorUserPage from './pages/AdminAddNewSponsorUserPage.jsx';
+import AdminManagementPage from './pages/AdminManagementPage.jsx';
+import AdminAddNewAdminUserPage from './pages/AdminAddNewAdminUserPage.jsx';
 
 const theme = createTheme({
   palette: {
@@ -52,11 +70,78 @@ const router = createBrowserRouter([
       },
       {
         path: 'about',
-        element: <About />
+        element: <About />,
       },
       {
         path: 'protected',
         element: <AuthenticationGuard component={ProtectedPage} />,
+      },
+      {
+        path: 'admin/admins-management',
+        element: <AuthenticationGuard component={AdminManagementPage} />,
+      },
+      {
+        path: 'admin/admins/new',
+        element: <AuthenticationGuard component={AdminAddNewAdminUserPage} />,
+      },
+      {
+        path: 'admin/organizations-management',
+        element: <AuthenticationGuard component={AdminOrganizationsPage} />,
+      },
+      {
+        path: 'admin/organizations/new',
+        element: <AuthenticationGuard component={AdminNewOrganizationPage} />,
+      },
+      {
+        path: 'admin/drivers-management',
+        element: <AuthenticationGuard component={AdminDriversManagementPage} />,
+      },
+      {
+        path: 'admin/sponsors-management',
+        element: (
+          <AuthenticationGuard component={AdminSponsorsManagementPage} />
+        ),
+      },
+      {
+        path: 'admin/sponsors/new',
+        element: <AuthenticationGuard component={AdminAddNewSponsorUserPage} />,
+      },
+      {
+        path: 'admin/drivers/new',
+        element: <AuthenticationGuard component={AdminAddNewDriverUserPage} />,
+      },
+      {
+        path: 'applications-management',
+        element: <AuthenticationGuard component={ApplicationManagementPage} />,
+      },
+      {
+        path: 'drivers-management',
+        element: <AuthenticationGuard component={DriversManagementPage} />,
+      },
+      {
+        path: 'drivers-management/:id/points',
+        element: <AuthenticationGuard component={PointsPage} />,
+      },
+      {
+        path: 'drivers/new',
+        element: <AuthenticationGuard component={AddNewDriverUserPage} />,
+      },
+      {
+        path: 'applications',
+        element: <AuthenticationGuard component={DriverApplicationsPage} />,
+      },
+      {
+        path: 'applications/new',
+        element: <AuthenticationGuard component={NewApplicationPage} />,
+      },
+      {
+
+        path: 'purchase/:productID',
+        element:  <AuthenticationGuard component={Checkout}/>,
+      },
+      {
+        path: 'sponsors/new',
+        element: <AuthenticationGuard component={AddNewSponsorUserPage} />,
       },
       {
         path: 'catalog',
@@ -79,7 +164,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <RouterProvider router={router} />
+        </LocalizationProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

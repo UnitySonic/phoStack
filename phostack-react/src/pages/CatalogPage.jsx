@@ -27,6 +27,8 @@ function CatalogPage() {
       getEbayItems({ signal, params: queryParams, getAccessTokenSilently }),
   });
 
+
+
   const handlePageChange = (event, value) => {
     setPage(value);
   };
@@ -60,6 +62,8 @@ function CatalogPage() {
                 title={product?.title}
                 price={product?.price?.value}
                 productId={product?.itemId}
+                quantity={product?.estimatedAvailabilities?.[0]?.estimatedAvailableQuantity || 1}
+                
               />
             </Grid>
           ))}

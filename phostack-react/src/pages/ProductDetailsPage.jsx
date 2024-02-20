@@ -39,6 +39,26 @@ function ProductDetailsPage() {
     autoplaySpeed: 2000,
   };
 
+  
+  const imageUrl = data?.image?.imageUrl;
+  const title = data?.title;
+  const price = data?.price?.value
+  const productId =  data?.itemId;
+  const quantity =  data ?.estimatedAvailabilities?.[0]?.estimatedAvailableQuantity 
+
+  const handleBuyButtonClick = () => {
+    console.log('Buy button clicked');
+    navigate(`/purchase/${data.itemId}`, {
+      state: {
+        imageUrl,
+        title,
+        price,
+        productId,
+        quantity,
+      }
+    }); // Navigate to '/purchase/:productId' route with props as state
+  };
+
   return (
     <>
       <Grid container spacing={3} sx={{ marginBottom: '20px' }}>
@@ -84,7 +104,7 @@ function ProductDetailsPage() {
               <Button variant='contained' color='primary' sx={{ mr: 1 }}>
                 Add to Cart
               </Button>
-              <Button variant='contained' color='secondary'>
+              <Button variant='contained' color='secondary' onClick={handleBuyButtonClick}>
                 Buy
               </Button>
             </CardContent>

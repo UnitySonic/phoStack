@@ -5,7 +5,7 @@ const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: 'admin',
   password: process.env.DB_PASSWORD,
-  database: 'phoStack',
+  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
@@ -13,6 +13,13 @@ const pool = mysql.createPool({
   queueLimit: 0,
   enableKeepAlive: true,
   keepAliveInitialDelay: 0,
+  dateStrings: true,
+  typeCast: function (field, next) {
+    if (field.type === 'DECIMAL' || field.type === 'NEWDECIMAL') {
+      return parseFloat(field.string());
+    }
+    return next();
+  },
 });
 
 module.exports = {

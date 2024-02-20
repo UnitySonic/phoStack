@@ -7,12 +7,26 @@ import {
 } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Link} from "react-router-dom"
 
-const ProductCard = ({ imageUrl, title, price, productId }) => {
-  const handleBuyButtonClick = (event) => {
+const ProductCard = ({ imageUrl, title, price, productId, quantity }) => {
+  const navigate = useNavigate();
+
+  const handleBuyButtonClick = () => {
     console.log('Buy button clicked');
+    navigate(`/purchase/${productId}`, {
+      state: {
+        imageUrl,
+        title,
+        price,
+        productId,
+        quantity,
+      }
+    }); // Navigate to '/purchase/:productId' route with props as state
   };
+
+  
 
   const handleAddToCardButtonClick = (event) => {
     console.log('Add to Card button clicked');
@@ -58,7 +72,7 @@ const ProductCard = ({ imageUrl, title, price, productId }) => {
           color='primary'
           startIcon={<AddShoppingCartIcon />}
           sx={{ mt: 1 }}
-          onClick={handleBuyButtonClick}
+          onClick={handleAddToCardButtonClick}
         >
           Add to Cart
         </Button>
@@ -67,7 +81,7 @@ const ProductCard = ({ imageUrl, title, price, productId }) => {
           color='secondary'
           startIcon={<ShoppingCartIcon />}
           sx={{ mt: 1, ml: 1 }}
-          onClick={handleAddToCardButtonClick}
+          onClick={handleBuyButtonClick}
         >
           Buy
         </Button>

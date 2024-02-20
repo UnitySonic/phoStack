@@ -11,6 +11,10 @@ const {
 } = require('./middleware/auth0.middleware');
 const ebayRouter = require('./ebay/ebay.router');
 const catalogRouter = require('./catalog/catalog.router')
+const usersRouter = require('./users/users.router')
+const organizationsRouter = require('./organizations/organizations.router')
+const applicationsRouter = require('./applications/applications.router')
+const orderRouter = require('./orders/orders.router')
 
 const { logger } = require('./logger');
 const { pool } = require('./db');
@@ -38,8 +42,11 @@ app.use((req, res, next) => {
 
 /* --- UNPROTECTED ROUTES --- */
 
+
+
+
 app.get('/', (req, res) => {
-  res.send('hello there Jeremy Sarasua');
+  res.send('hello there');
 });
 app.get('/health', (req, res) => {
   res.status(200).json({ message: 'OK!' });
@@ -60,9 +67,15 @@ app.get('/about', async (req, res) => {
 
 /* --- PROTECTED ROUTES --- */
 
+app.use('/users', usersRouter)
 app.use(validateAccessToken);
 app.use('/ebay-proxy', ebayRouter);
-app.use('/catalog-param', catalogRouter)
+app.use('/catalog-param', catalogRouter);
+app.use('/organizations', organizationsRouter);
+app.use('/applications', applicationsRouter)
+app.use('/orders', orderRouter)
+
+
 
 app.get('/admin', checkRequiredPermissions(['read:test']), async (req, res) => {
   const managementClient = await getManagementClient();

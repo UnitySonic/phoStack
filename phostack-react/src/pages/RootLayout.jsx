@@ -15,11 +15,21 @@ function RootLayout() {
 
   return (
     <div
-      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
     >
       <div style={{ display: 'flex', flex: 1 }}>
         <MainNav />
-        <div style={{ flex: 1, marginTop: '64px', padding: '25px 25px 0px 25px' }}>
+        <div
+          style={{
+            flex: 1,
+            marginTop: '64px',
+            padding: '25px 25px 0px 25px',
+          }}
+        >
           <Outlet />
         </div>
       </div>

@@ -8,10 +8,10 @@ VALUES (24, 2, "PhoStack", "2024-04-22", "PhoStack Driver Incentive Program", "H
 Our software application promotes positive driver feedback by allowing driver sponsors to incentivize their drivers on good and bad driving behavior. To begin, drivers will need to apply to their sponsor's organization and receive approval. Sponsors can define behavior criteria for their approved drivers within our software and assign point values associated with behaviors. Drivers will accrue points by implementing good behavior and can purchase products from their sponsors catalog. Happy Driving!");
 
 -- Seed data for Organization table
-INSERT INTO Organization (orgName, orgDescription) VALUES 
-('Amazon', 'This is the company description for Amazon'),
-('Google', 'This is the company description for Google'),
-('Tesla', 'This is the company description for Tesla');
+INSERT INTO Organization (orgName, orgDescription, orgStatus) VALUES 
+('Amazon', 'This is the company description for Amazon', 'active'),
+('Google', 'This is the company description for Google', 'active'),
+('Tesla', 'This is the company description for Tesla', 'active');
 
 -- Seed data for Behavior table
 INSERT INTO Behavior (pointValue, behaviorName, behaviorDescription, behaviorStatus) VALUES 
@@ -33,9 +33,44 @@ INSERT INTO CatalogParam (CatalogParamSearch, CatalogParamMinPrice, CatalogParam
 ('iphone', 20.00, 100.00, null, 2),
 ('iphone', 5.00, 30.00, null, 3);
 
+-- Seed data for User
+INSERT INTO User (userId, firstName, lastName, userType, email, picture)
+VALUES ('auth0|65b9a896724a3409a69ff940', 'Trinh', 'Tran', 'NewUser', 'trinht0517@gmail.com', 'profile_picture_url_here');
+INSERT INTO NewUser (userId)
+VALUES ('auth0|65b9a896724a3409a69ff940');
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture)
+VALUES ('auth0|65c191a02a18b1ef030bdd1d', 'Sponsor', 'User', 'SponsorUser', 'muntran0517@gmail.com', 'profile_picture_url_here');
+INSERT INTO SponsorUser (userId, orgId)
+VALUES ('auth0|65c191a02a18b1ef030bdd1d', 1);
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture)
+VALUES ('auth0|65c297e045eaef5c191a4ec5', 'Admin', 'User', 'AdminUser', 'trinht2002@gmail.com', 'profile_picture_url_here');
+INSERT INTO AdminUser (userId)
+VALUES ('auth0|65c297e045eaef5c191a4ec5');
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture)
+VALUES ('auth0|65cd306958eec057963119ae', 'TrinhProd', 'TranProd', 'NewUser', 'trinht0517@gmail.com', 'profile_picture_url_here');
+INSERT INTO NewUser (userId)
+VALUES ('auth0|65cd306958eec057963119ae');
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture)
+VALUES ('auth0|65d104888e15898d2090754d', 'TrinhProd', 'TranProd', 'SponsorUser', 'muntran0517@gmail.com', 'profile_picture_url_here');
+INSERT INTO SponsorUser (userId, orgId)
+VALUES ('auth0|65d104888e15898d2090754d', 1);
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture)
+VALUES ('auth0|65d3b4c270752b95a8d5f2ac', 'TrinhProd', 'TranProd', 'AdminUser', 'trinht2002@gmail.com', 'profile_picture_url_here');
+INSERT INTO AdminUser (userId)
+VALUES ('auth0|65d3b4c270752b95a8d5f2ac');
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture)
+VALUES ('auth0|65c19bdb336d930a6664aec5', 'pizza', 'chicken', 'NewUser', 'john.doe@example.com', 'profile_picture_url_here');
+INSERT INTO NewUser (userId)
+VALUES ('auth0|65c19bdb336d930a6664aec5');
+
 -- Seed data for DriverApplication table
 INSERT INTO DriverApplication (userId, orgId, applicationStatus, employeeCode) VALUES 
-('auth0|65b9a896724a3409a69ff940', 1, 'approved', 'iafjaiowj21ji41ij'),
 ('auth0|65c19bdb336d930a6664aec5', 1, 'new', '324ij21i4jnfnf');
 
 -- Seed data for DriverApplicationLog table
