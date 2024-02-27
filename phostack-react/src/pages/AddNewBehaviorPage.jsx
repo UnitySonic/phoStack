@@ -1,3 +1,7 @@
+/*
+README: THIS PAGE IS CURRENTLY NOT BEING USED BECAUSE BEHAVIOR FUNCTIONALITY IS OUT OF SCOPE OF THE ADMIN
+*/
+
 import { useState } from 'react';
 import {
   TextField,
@@ -11,40 +15,28 @@ import {
   InputAdornment,
   Typography,
 } from '@mui/material';
-import { queryClient } from '../util/http';
 import CustomAlert from '../components/UI/CustomAlert';
 import useUser from '../hooks/useUser';
+import { queryClient } from '../util/http';
 import { useMutation } from '@tanstack/react-query';
+import { saveBehavior } from '../util/behavior';
 import { useAuth0 } from '@auth0/auth0-react';
-import { saveOrganization } from '../util/organizations';
-import { styled } from '@mui/system';
 
-const CustomTextarea = styled(TextareaAutosize)({
-  width: '100%',
-  marginTop: '1rem',
-  padding: '8px',
-  fontSize: '16px',
-  borderRadius: '4px',
-  border: '1px solid #ccc',
-});
-
-const AdminNewOrganizationPage = () => {
+const AddNewBehaviorPage = () => {
+  const { user } = useUser();
   const { getAccessTokenSilently } = useAuth0();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [dollarPerPoint, setDollarPerPoint] = useState(0.01);
+  const [behaviorPointValue, setBehaviorPointValue] = useState(0);
   const [status, setStatus] = useState('active');
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const { mutate, isPending, isSaveError, saveError } = useMutation({
-    mutationFn: saveOrganization,
+    mutationFn: saveBehavior,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['organizations'],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ['users', 'drivers'],
+        queryKey: ['behaviors'],
       });
       setShowSuccessAlert(true);
       setName('');
@@ -57,13 +49,14 @@ const AdminNewOrganizationPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const orgData = {
-      orgName: name,
-      orgDescription: description,
-      dollarPerPoint,
-      orgStatus: status,
+    const behaviorData = {
+      orgId: user?.orgId,
+      pointValue: behaviorPointValue,
+      behaviorName: name,
+      behaviorDescription: description,
+      behaviorStatus: status
     };
-    mutate({ orgData, getAccessTokenSilently });
+    mutate({ behaviorData, getAccessTokenSilently });
   };
 
   return (
@@ -71,19 +64,19 @@ const AdminNewOrganizationPage = () => {
       {showErrorAlert && (
         <CustomAlert
           type='error'
-          message='Failed to create organization'
+          message='Failed to create behavior'
           onClose={() => setShowErrorAlert(false)}
         />
       )}
       {showSuccessAlert && (
         <CustomAlert
           type='success'
-          message='Create organization success!'
+          message='Create behavior success!'
           onClose={() => setShowSuccessAlert(false)}
         />
       )}
       <Typography variant='h4' component='h1' sx={{ marginBottom: '1rem' }}>
-        Add Organization
+        Add Behavior
       </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
@@ -94,21 +87,21 @@ const AdminNewOrganizationPage = () => {
           fullWidth
           required
         />
-        <CustomTextarea
+        <TextareaAutosize
           aria-label='Description'
           placeholder='Description'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           minRows={3}
+          style={{ width: '100%', marginTop: '1rem', padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }}
         />
         <FormControl fullWidth margin='normal'>
-          <InputLabel htmlFor='dollarPerPoint'>Dollar Per Point</InputLabel>
+          <InputLabel htmlFor='behaviorPointValue'>Behavior Point Value</InputLabel>
           <Input
-            id='dollarPerPoint'
+            id='behaviorPointValue'
             type='number'
-            value={dollarPerPoint}
-            onChange={(e) => setDollarPerPoint(e.target.value)}
-            startAdornment={<InputAdornment position='start'>$</InputAdornment>}
+            value={behaviorPointValue}
+            onChange={(e) => setBehaviorPointValue(e.target.value)}
           />
         </FormControl>
         <FormControl variant='outlined' fullWidth style={{ marginTop: '1rem' }}>
@@ -133,6 +126,5 @@ const AdminNewOrganizationPage = () => {
       </form>
     </>
   );
-};
-
-export default AdminNewOrganizationPage;
+}
+export default AddNewBehaviorPage;

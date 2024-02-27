@@ -2,6 +2,12 @@ require('dotenv').config({ path: `.env.${process.env.NODE_ENV || 'local'}` });
 const express = require('express');
 const app = express();
 const cors = require('cors');
+
+
+
+
+
+
 const { errorHandler } = require('./middleware/error.middleware');
 const { notFoundHandler } = require('./middleware/not-found.middleware');
 const {
@@ -10,11 +16,15 @@ const {
   getManagementClient,
 } = require('./middleware/auth0.middleware');
 const ebayRouter = require('./ebay/ebay.router');
-const catalogRouter = require('./catalog/catalog.router')
-const usersRouter = require('./users/users.router')
-const organizationsRouter = require('./organizations/organizations.router')
-const applicationsRouter = require('./applications/applications.router')
-const orderRouter = require('./orders/orders.router')
+const catalogRouter = require('./catalog/catalog.router');
+const usersRouter = require('./users/users.router');
+const organizationsRouter = require('./organizations/organizations.router');
+const applicationsRouter = require('./applications/applications.router');
+const orderRouter = require('./orders/orders.router');
+const applicationLogsRouter = require('./audit-logs/applications/logs.applications.router');
+const LoginLogsRouter = require('./audit-logs/login/logs.login.router')
+const pictureRouter = require('./profile-picture/picture.router')
+const behaviorRouter = require('./behaviors/behaviors.router');
 
 const { logger } = require('./logger');
 const { pool } = require('./db');
@@ -32,6 +42,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
@@ -41,9 +52,6 @@ app.use((req, res, next) => {
 });
 
 /* --- UNPROTECTED ROUTES --- */
-
-
-
 
 app.get('/', (req, res) => {
   res.send('hello there');
@@ -56,26 +64,27 @@ app.get('/about', async (req, res) => {
   try {
     const [rows, fields] = await pool.execute('SELECT * FROM about;');
     res.json({
-      about: rows
+      about: rows,
     });
-  }
-  catch(error) {
+  } catch (error) {
     console.error('Error retrieving users: ', error);
     res.status(500).send('Error retrieving users from database');
   }
 });
 
 /* --- PROTECTED ROUTES --- */
-
-app.use('/users', usersRouter)
 app.use(validateAccessToken);
+
+app.use('/users', usersRouter);
 app.use('/ebay-proxy', ebayRouter);
 app.use('/catalog-param', catalogRouter);
 app.use('/organizations', organizationsRouter);
 app.use('/applications', applicationsRouter)
 app.use('/orders', orderRouter)
-
-
+app.use('/behaviors', behaviorRouter)
+app.use('/pictures', pictureRouter)
+app.use('/logs/applications', applicationLogsRouter);
+app.use('/logs/login', LoginLogsRouter)
 
 app.get('/admin', checkRequiredPermissions(['read:test']), async (req, res) => {
   const managementClient = await getManagementClient();

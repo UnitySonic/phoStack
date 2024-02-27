@@ -7,7 +7,8 @@ const {
   createNewUser,
   getDrivers,
   getSponsors,
-  getAdmins
+  getAdmins,
+  changePassword,
 } = require('./users.service');
 
 const saveUser = async (req, res, next) => {
@@ -128,6 +129,16 @@ const addNewAdminUser = async (req, res) => {
   }
 };
 
+const changeUserPassword = async (req, res) => {
+  try {
+    await changePassword(req.params.id, req.body);
+    res.status(200).json({ message: 'success' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Error' });
+  }
+};
+
 module.exports = {
   saveUser,
   fetchUsers,
@@ -139,5 +150,6 @@ module.exports = {
   fetchDrivers,
   fetchSponsors,
   fetchAdmins,
-  addNewAdminUser
+  addNewAdminUser,
+  changeUserPassword,
 };

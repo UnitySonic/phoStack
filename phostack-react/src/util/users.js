@@ -250,3 +250,32 @@ export async function fetchAdmins({
 
   return await response.json();
 }
+
+export async function changePassword({
+  userId,
+  passwordData,
+  getAccessTokenSilently,
+}) {
+  const url = `${
+    import.meta.env.VITE_EXPRESS_BACKEND_URL
+  }/users/${userId}/password`;
+  const accessToken = await getAccessTokenSilently();
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(passwordData),
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = new Error('An error occurred while saving new driver user');
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
+
+  return await response.json();
+}

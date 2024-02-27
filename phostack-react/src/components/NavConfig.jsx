@@ -11,6 +11,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import ListIcon from '@mui/icons-material/List';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import PsychologyIcon from '@mui/icons-material/Psychology';
 import useUser from '../hooks/useUser';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
@@ -19,12 +20,15 @@ import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import PeopleIcon from '@mui/icons-material/People';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
-
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const SHOW_ALL = false;
 
 const linksByRole = {
   AdminUser: [
     { text: 'Home', icon: <Home />, to: '/' },
+    { text: 'Profile', icon: <AccountCircleIcon />, to: '/profile' },
     {
       text: 'Admins',
       icon: <AdminPanelSettingsIcon />,
@@ -65,15 +69,23 @@ const linksByRole = {
       icon: <AddReactionIcon />,
       to: 'admin/drivers/new',
     },
+    {
+      text: 'Application Logs',
+      icon: <SubscriptionsIcon />,
+      to: 'logs/applications',
+    },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],
   DriverUser: [
     { text: 'Home', icon: <Home />, to: '/' },
+    { text: 'Profile', icon: <AccountCircleIcon />, to: '/profile' },
     { text: 'Catalog', icon: <InventoryIcon />, to: '/catalog' },
+    { text: 'Behaviors', icon: <PsychologyIcon />, to: '/behaviors' },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],
   SponsorUser: [
     { text: 'Home', icon: <Home />, to: '/' },
+    { text: 'Profile', icon: <AccountCircleIcon />, to: '/profile' },
     { text: 'Catalog', icon: <InventoryIcon />, to: '/catalog' },
     {
       text: 'Catalog Settings',
@@ -89,6 +101,11 @@ const linksByRole = {
       text: 'Drivers Management',
       icon: <DirectionsCarIcon />,
       to: '/drivers-management',
+    },
+    {
+      text: 'Behaviors',
+      icon: <PsychologyIcon />,
+      to: '/behaviors',
     },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],

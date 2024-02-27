@@ -6,6 +6,10 @@ const {
   getApplicationFromDb,
 } = require('./applications.service');
 
+const {
+  saveApplicationLogToDb,
+} = require('../audit-logs/applications/logs.applications.service');
+
 const { modifyUserInDb, changeUserType } = require('../users/users.service');
 
 const saveApplication = async (req, res, next) => {
@@ -28,7 +32,12 @@ const saveApplication = async (req, res, next) => {
     }
 
     await modifyUserInDb(userId, { firstName, lastName });
-    await saveApplicationToDb(userId, req.body);
+    const r = await saveApplicationToDb(userId, req.body);
+    await saveApplicationLogToDb({
+      applicationId: r.insertId,
+      applicationStatus: 'new',
+      reason: 'new',
+    });
     res.status(200).json({ message: 'success' });
   } catch (error) {
     console.error(error);
@@ -48,7 +57,6 @@ const fetchApplications = async (req, res) => {
 
 const changeApplication = async (req, res) => {
   const { reason = null, applicationStatus = null } = req.body;
-  console.log(reason, applicationStatus);
   try {
     const application = await getApplicationFromDb(req.params.id);
 
@@ -56,16 +64,14 @@ const changeApplication = async (req, res) => {
       return res.status(404).json({ message: 'Not found!' });
     }
     const cannotCancel =
-      application.applicationStatus != 'new' &&
-      applicationStatus == 'canceled';
+      application.applicationStatus != 'new' && applicationStatus == 'canceled';
 
     if (cannotCancel) {
       return res.status(403).json({ message: 'Forbidden' });
     }
 
     const isApprovedToBeDriver =
-      application.applicationStatus == 'new' &&
-      applicationStatus == 'approved';
+      application.applicationStatus == 'new' && applicationStatus == 'approved';
 
     if (isApprovedToBeDriver) {
       await changeUserType(application.userId, {
@@ -76,7 +82,11 @@ const changeApplication = async (req, res) => {
     }
 
     await modifyApplicationInDb(application.applicationId, req.body);
-
+    await saveApplicationLogToDb({
+      applicationId: application.applicationId,
+      applicationStatus,
+      reason,
+    });
     return res.status(200).json({ message: 'success' });
   } catch (error) {
     console.error(error);

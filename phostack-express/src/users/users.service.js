@@ -178,7 +178,7 @@ const modifyUserInDb = async (userId, user) => {
 
     const statusChanged = userStatus && currentUser.userStatus != userStatus;
     if (statusChanged) {
-      await changeBlockStatusInAuth0(userId, userStatus == 'inactive')
+      await changeBlockStatusInAuth0(userId, userStatus == 'inactive');
     }
 
     const updateFields = [];
@@ -457,6 +457,23 @@ const changeBlockStatusInAuth0 = async (userId, blocked = true) => {
   }
 };
 
+const changePassword = async (userId, { password }) => {
+  try {
+    const managementClient = await getManagementClient();
+    const response = await managementClient.users.update(
+      { id: userId },
+      {
+        password,
+      }
+    );
+    console.log(response);
+    return response?.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 module.exports = {
   saveUserToDb,
   getUsersFromDb,
@@ -467,5 +484,6 @@ module.exports = {
   createNewUser,
   getDrivers,
   getSponsors,
-  getAdmins
+  getAdmins,
+  changePassword,
 };

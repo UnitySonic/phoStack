@@ -2,6 +2,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RootLayout from './pages/RootLayout';
 import ErrorPage from './pages/ErrorPage';
@@ -22,8 +23,11 @@ import Checkout from './pages/Checkout';
 import DriverApplicationsPage from './pages/DriverApplicationsPage.jsx';
 import ApplicationManagementPage from './pages/ApplicationManagementPage.jsx';
 import DriversManagementPage from './pages/DriversManagementPage.jsx';
+import BehaviorsPage from './pages/BehaviorsPage.jsx';
+import AddNewBehaviorPage from './pages/AddNewBehaviorPage.jsx';
 import AddNewSponsorUserPage from './pages/AddNewSponsorUserPage.jsx';
 import PointsPage from './pages/PointsPage.jsx';
+
 
 import AddNewDriverUserPage from './pages/AddNewDriverUserPage.jsx';
 import AdminOrganizationsPage from './pages/AdminOrganizationsPage.jsx';
@@ -37,6 +41,10 @@ import AdminSponsorsManagementPage from './pages/AdminSponsorsManagementPage.jsx
 import AdminAddNewSponsorUserPage from './pages/AdminAddNewSponsorUserPage.jsx';
 import AdminManagementPage from './pages/AdminManagementPage.jsx';
 import AdminAddNewAdminUserPage from './pages/AdminAddNewAdminUserPage.jsx';
+import ProfilePicturePage from './pages/profilePicture.jsx';
+import DriverApplicationsAuditLogsPage from './pages/DriverApplicationsAuditLogsPage.jsx';
+import PasswordResetPage from './pages/PasswordResetPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 const theme = createTheme({
   palette: {
@@ -75,6 +83,14 @@ const router = createBrowserRouter([
       {
         path: 'protected',
         element: <AuthenticationGuard component={ProtectedPage} />,
+      },
+      {
+        path: 'logs/applications',
+        element: <AuthenticationGuard component={DriverApplicationsAuditLogsPage} />,
+      },
+      {
+        path: 'password-reset',
+        element: <AuthenticationGuard component={PasswordResetPage} />,
       },
       {
         path: 'admin/admins-management',
@@ -119,6 +135,14 @@ const router = createBrowserRouter([
         element: <AuthenticationGuard component={DriversManagementPage} />,
       },
       {
+        path: 'behaviors',
+        element: <AuthenticationGuard component={BehaviorsPage} />,
+      },
+      {
+        path: 'behaviors/new',
+        element: <AuthenticationGuard component={AddNewBehaviorPage} />,
+      },
+      {
         path: 'drivers-management/:id/points',
         element: <AuthenticationGuard component={PointsPage} />,
       },
@@ -135,9 +159,13 @@ const router = createBrowserRouter([
         element: <AuthenticationGuard component={NewApplicationPage} />,
       },
       {
+        path: 'profiletest',
+        element: <AuthenticationGuard component = {ProfilePicturePage}/>,
+      },
+      {
 
         path: 'purchase/:productID',
-        element:  <AuthenticationGuard component={Checkout}/>,
+        element: <AuthenticationGuard component={Checkout} />,
       },
       {
         path: 'sponsors/new',
@@ -154,6 +182,10 @@ const router = createBrowserRouter([
       {
         path: 'catalog-settings',
         element: <AuthenticationGuard component={CatalogSettingsPage} />,
+      },
+      {
+        path: 'profile',
+        element: <AuthenticationGuard component={ProfilePage} />,
       },
     ],
   },

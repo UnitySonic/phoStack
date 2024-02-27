@@ -5,12 +5,27 @@ import Dashboard from '../components/Dashboard';
 import {Link} from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react';
 
+
+
+
+const handleUpload = (file) => {
+  // Do something with the uploaded file, for example, display it
+  console.log('Uploaded file:', file);
+};
+
 function HomePage() {
   const { isAuthenticated } = useAuth0();
+
+
+
   let username = "User"
   if(isAuthenticated){
     username = useAuth0().user.nickname
+
   }
+
+
+
   return (
     <>
       {!isAuthenticated && (
@@ -44,7 +59,9 @@ function HomePage() {
         <>
           <h1>Welcome, {username}</h1>
           <Dashboard/>
+          
         </>
+    
       )}
     </>
   );

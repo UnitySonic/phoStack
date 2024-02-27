@@ -111,12 +111,13 @@ const saveApplicationToDb = async (userId, application) => {
     connection = await pool.getConnection();
     connection.beginTransaction();
 
-    await connection.execute(
+    const [result] = await connection.execute(
       'INSERT INTO `DriverApplication` (userId, orgId, applicationStatus, employeeCode) \
       VALUES (?,?,?,?)',
       [userId, orgId, applicationStatus, employeeCode]
     );
     await connection.commit();
+    return result;
   } catch (error) {
     if (connection) {
       await connection.rollback();
