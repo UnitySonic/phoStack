@@ -65,7 +65,7 @@ const ProductCard = ({ imageUrl, title, price, productId, quantity }) => {
           {title}
         </Typography>
         <Typography variant='body1' color='text.secondary' gutterBottom>
-          ${price}
+          Point Cost: {price}
         </Typography>
         <Button
           variant='contained'

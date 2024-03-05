@@ -1,5 +1,6 @@
 const {
   getOrganizationsFromDb,
+  getOrganizationFromDb,
   saveOrganization,
   modifyOrganization,
 } = require('./organizations.service');
@@ -8,6 +9,16 @@ const fetchOrganizations = async (req, res) => {
   try {
     const organizations = await getOrganizationsFromDb(req.query);
     res.json(organizations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Error' });
+  }
+};
+
+const fetchOrganization = async (req, res) => {
+  try {
+    const organization = await getOrganizationFromDb(req.params.orgId);
+    res.json(organization);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Error' });
@@ -38,6 +49,7 @@ const patchOrganization = async (req, res) => {
 
 module.exports = {
   fetchOrganizations,
+  fetchOrganization,
   createOrganization,
   patchOrganization
 };

@@ -18,22 +18,19 @@ const Dashboard = () =>{
     }
     return(
     <>
-        <h3>Dashboard
-            <div style={dashBoardStyle}>
-                <Bar
-                    data={{
-                        labels: ["J", "F", "M"],
-                        datasets: [
-                            {
-                                label: "Points",
-                                data: [1, 5, 10],
-                            },
-                        ],
-                    }}
-                />
-            </div>
-        </h3>
-        
+        <div style={dashBoardStyle}>
+            <Bar
+                data={{
+                    labels: ["J", "F", "M"],
+                    datasets: [
+                        {
+                            label: "Points",
+                            data: [1, 5, 10],
+                        },
+                    ],
+                }}
+            />
+        </div>
     </>
     )
 }

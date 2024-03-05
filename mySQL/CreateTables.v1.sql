@@ -22,19 +22,6 @@ CREATE TABLE IF NOT EXISTS Organization (
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
-CREATE TABLE IF NOT EXISTS Behavior (
-  behaviorId INT AUTO_INCREMENT PRIMARY KEY,
-  orgId INT,
-  pointValue INT NOT NULL,
-  behaviorName VARCHAR(50),
-  behaviorDescription VARCHAR(255),
-  behaviorStatus VARCHAR(50),
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-  FOREIGN KEY (orgId) REFERENCES Organization(orgId)
-);
-
 CREATE TABLE IF NOT EXISTS CatalogParam (
 	CatalogParamId INT AUTO_INCREMENT PRIMARY KEY,
   CatalogParamSearch VARCHAR(255),
@@ -88,6 +75,20 @@ CREATE TABLE IF NOT EXISTS DriverUser (
   FOREIGN KEY (orgId) REFERENCES Organization(orgId)
 );
 
+CREATE TABLE IF NOT EXISTS Behavior (
+  behaviorId INT AUTO_INCREMENT PRIMARY KEY,
+  orgId INT,
+  userId VARCHAR(50),
+  pointValue INT NOT NULL,
+  behaviorName VARCHAR(50),
+  behaviorDescription VARCHAR(255),
+  behaviorStatus VARCHAR(50),
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (orgId) REFERENCES Organization(orgId),
+  FOREIGN KEY (userId) REFERENCES User(userId)
+);
+
 CREATE TABLE IF NOT EXISTS DriverApplication (
   applicationId INT AUTO_INCREMENT PRIMARY KEY,
   userId VARCHAR(50),
@@ -108,16 +109,32 @@ CREATE TABLE IF NOT EXISTS DriverApplicationLog(
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS ShippingAddress(
+  addressId INT AUTO_INCREMENT PRIMARY KEY,
+  addressFirstName VARCHAR(50),
+  addressLastName VARCHAR(50),
+  addressLineOne VARCHAR(255),
+  addressLineTwo VARCHAR(255),
+  addressCity VARCHAR(50),
+  addressState VARCHAR(50),
+  addressZip VARCHAR(50),
+  addressCountry VARCHAR(50)
+);
+
 CREATE TABLE IF NOT EXISTS OrderInfo (
   orderId INT AUTO_INCREMENT PRIMARY KEY,
   orderTotal DECIMAL(10,2),
   orderStatus VARCHAR(50),
   orderBy VARCHAR(50),
   orderFor VARCHAR(50),
+  orgId INT,
+  addressId INT,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   FOREIGN KEY (orderBy) REFERENCES User(userId),
-  FOREIGN KEY (orderFor) REFERENCES User(userId)
+  FOREIGN KEY (orderFor) REFERENCES User(userId),
+  FOREIGN KEY (orgId) REFERENCES Organization(orgId),
+  FOREIGN KEY (addressId) REFERENCES ShippingAddress(addressId)
 );
 
 CREATE TABLE IF NOT EXISTS OrderInfo_Item (
@@ -133,11 +150,13 @@ CREATE TABLE IF NOT EXISTS PointLog(
   logId INT AUTO_INCREMENT PRIMARY KEY,
   behaviorId INT,
   orderId INT,
+  orgId INT,
   pointGivenBy VARCHAR(50),
   pointGivenTo VARCHAR(50),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (behaviorId) REFERENCES Behavior(behaviorId),
-  FOREIGN KEY (orderId) REFERENCES OrderInfo(orderId)
+  FOREIGN KEY (orderId) REFERENCES OrderInfo(orderId),
+  FOREIGN KEY (orgId) REFERENCES Organization(OrgId)
 );
 
 COMMIT;

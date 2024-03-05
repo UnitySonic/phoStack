@@ -23,6 +23,11 @@ import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LoginIcon from '@mui/icons-material/Login';
+import PasswordIcon from '@mui/icons-material/Password';
+import NumbersIcon from '@mui/icons-material/Numbers';
+
+
 const SHOW_ALL = false;
 
 const linksByRole = {
@@ -74,6 +79,21 @@ const linksByRole = {
       icon: <SubscriptionsIcon />,
       to: 'logs/applications',
     },
+    {
+      text: 'Login Logs',
+      icon: <LoginIcon />,
+      to: 'logs/login',
+    },
+    {
+      text: 'Password Logs',
+      icon: <PasswordIcon />,
+      to: 'logs/password',
+    },
+    {
+      text: 'Point Logs',
+      icon: <NumbersIcon />,
+      to: 'logs/points',
+    },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],
   DriverUser: [
@@ -106,6 +126,26 @@ const linksByRole = {
       text: 'Behaviors',
       icon: <PsychologyIcon />,
       to: '/behaviors',
+    },
+    {
+      text: 'Application Logs',
+      icon: <SubscriptionsIcon />,
+      to: 'logs/applications',
+    },
+    {
+      text: 'Login Logs',
+      icon: <LoginIcon />,
+      to: 'logs/login',
+    },
+    {
+      text: 'Password Logs',
+      icon: <PasswordIcon />,
+      to: 'logs/password',
+    },
+    {
+      text: 'Point Logs',
+      icon: <NumbersIcon />,
+      to: 'logs/points',
     },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],

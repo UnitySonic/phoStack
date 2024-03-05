@@ -60,6 +60,11 @@ INSERT INTO SponsorUser (userId, orgId)
 VALUES ('auth0|65d104888e15898d2090754d', 1);
 
 INSERT INTO User (userId, firstName, lastName, userType, email, picture)
+VALUES ('auth0|65d4f22c5e6a3ae0d45c29a0', 'Jeremy', 'Sarasua', 'SponsorUser', 'jersarasua@gmail.com', 'profile_picture_url_here');
+INSERT INTO SponsorUser (userId)
+VALUES ('auth0|65d4f22c5e6a3ae0d45c29a0');
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture)
 VALUES ('auth0|65d3b4c270752b95a8d5f2ac', 'TrinhProd', 'TranProd', 'AdminUser', 'trinht2002@gmail.com', 'profile_picture_url_here');
 INSERT INTO AdminUser (userId)
 VALUES ('auth0|65d3b4c270752b95a8d5f2ac');

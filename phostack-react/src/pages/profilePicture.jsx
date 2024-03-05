@@ -1,4 +1,4 @@
-import Dashboard from '../components/Dashboard';
+import Dashboard from '../components/dashboards/Dashboard';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import UploadButton from '../components/buttons/UploadButton';

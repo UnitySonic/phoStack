@@ -2,12 +2,6 @@ require('dotenv').config({ path: `.env.${process.env.NODE_ENV || 'local'}` });
 const express = require('express');
 const app = express();
 const cors = require('cors');
-
-
-
-
-
-
 const { errorHandler } = require('./middleware/error.middleware');
 const { notFoundHandler } = require('./middleware/not-found.middleware');
 const {
@@ -25,6 +19,7 @@ const applicationLogsRouter = require('./audit-logs/applications/logs.applicatio
 const LoginLogsRouter = require('./audit-logs/login/logs.login.router')
 const pictureRouter = require('./profile-picture/picture.router')
 const behaviorRouter = require('./behaviors/behaviors.router');
+const pointsLogsRouter = require('./audit-logs/points/logs.points.router')
 
 const { logger } = require('./logger');
 const { pool } = require('./db');
@@ -84,7 +79,8 @@ app.use('/orders', orderRouter)
 app.use('/behaviors', behaviorRouter)
 app.use('/pictures', pictureRouter)
 app.use('/logs/applications', applicationLogsRouter);
-app.use('/logs/login', LoginLogsRouter)
+app.use('/logs/login', LoginLogsRouter);
+app.use('/logs/points', pointsLogsRouter);
 
 app.get('/admin', checkRequiredPermissions(['read:test']), async (req, res) => {
   const managementClient = await getManagementClient();

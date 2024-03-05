@@ -4,6 +4,7 @@ const getOrganizationsFromDb = async (params) => {
   const { offset = 0, limit = 1000 } = params;
   const numericOffset = +offset;
   const numericLimit = +limit;
+ 
 
   let connection;
   try {
@@ -13,6 +14,36 @@ const getOrganizationsFromDb = async (params) => {
     const [results] = await connection.query(
       `SELECT * FROM Organization LIMIT ? OFFSET ?`,
       [numericLimit, numericOffset]
+    );
+    await connection.commit();
+    return results;
+  } catch (error) {
+    if (connection) {
+      await connection.rollback();
+    }
+    throw error;
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+};
+
+const getOrganizationFromDb = async (orgId) => {
+
+
+
+
+ 
+
+  let connection;
+  try {
+    connection = await pool.getConnection();
+    connection.beginTransaction();
+
+    const [results] = await connection.query(
+      `SELECT * FROM Organization WHERE orgId = ?`,
+      [orgId]
     );
     await connection.commit();
     return results;
@@ -115,6 +146,7 @@ const modifyOrganization = async (orgId, organization) => {
 
 module.exports = {
   getOrganizationsFromDb,
+  getOrganizationFromDb,
   saveOrganization,
   modifyOrganization
 };

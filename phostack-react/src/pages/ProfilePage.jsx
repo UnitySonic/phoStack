@@ -16,6 +16,7 @@ import { changeUser } from '../util/users';
 import { useMutation } from '@tanstack/react-query';
 import CustomAlert from '../components/UI/CustomAlert';
 import CancelIcon from '@mui/icons-material/Cancel';
+import UploadButton from '../components/buttons/UploadButton';
 
 const ProfilePage = () => {
   const { user, isLoading: isUserLoading } = useUser();
@@ -105,6 +106,7 @@ const ProfilePage = () => {
             src={picture}
             sx={{ width: 150, height: 150, mx: 'auto' }}
           />
+          {editMode && <UploadButton />} {/* Render UploadButton only when in edit mode */}
           <Typography variant='h5' align='center' gutterBottom>
             {firstNameField} {lastNameField}
           </Typography>
@@ -159,6 +161,7 @@ const ProfilePage = () => {
             />
             {editMode ? (
               <>
+              
                 <Button
                   color='error'
                   variant='contained'

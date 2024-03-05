@@ -45,6 +45,9 @@ import ProfilePicturePage from './pages/profilePicture.jsx';
 import DriverApplicationsAuditLogsPage from './pages/DriverApplicationsAuditLogsPage.jsx';
 import PasswordResetPage from './pages/PasswordResetPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
+import LoginAuditLogsPage from './pages/LoginAuditLogsPage.jsx';
+import PasswordAuditLogsPage from './pages/PasswordAuditLogsPage.jsx';
+import PointsAuditLogsPage from './pages/PointsAuditLogsPage.jsx';
 
 const theme = createTheme({
   palette: {
@@ -186,6 +189,18 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <AuthenticationGuard component={ProfilePage} />,
+      },
+      {
+        path: 'logs/login',
+        element: <AuthenticationGuard component={LoginAuditLogsPage} />,
+      },
+      {
+        path: 'logs/password',
+        element: <AuthenticationGuard component={PasswordAuditLogsPage} />,
+      },
+      {
+        path: 'logs/points',
+        element: <AuthenticationGuard component={PointsAuditLogsPage} />,
       },
     ],
   },

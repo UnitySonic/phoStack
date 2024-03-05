@@ -28,6 +28,8 @@ function RootLayout() {
             flex: 1,
             marginTop: '64px',
             padding: '25px 25px 0px 25px',
+            width: '100vw',
+            overflowX: 'scroll'
           }}
         >
           <Outlet />

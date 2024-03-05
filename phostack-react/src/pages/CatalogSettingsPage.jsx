@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
@@ -16,16 +16,36 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { categories } from '../util/category';
 import CustomAlert from '../components/UI/CustomAlert';
+import { changeOrganization } from '../util/organizations';
+import { fetchOrganizations } from '../util/organizations';
+import useUser from '../hooks/useUser';
+import { fetchOrganization } from '../util/organizations';
+import Spinner from '../components/UI/Spinner';
 
 function CatalogSettingsPage() {
-  const orgID = 3;
+  
+  //Someone needs to write code here so that orgID isn't hard coded anymore!
+  
+  
+
   const { getAccessTokenSilently } = useAuth0();
   const [searchInput, setSearchInput] = useState('');
   const [minPriceInput, setMinPriceInput] = useState('');
   const [maxPriceInput, setMaxPriceInput] = useState('');
+  const [pointConversionRate, setPointConversionRate] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+
+
+  const {user} = useUser();
+
+  const orgID = user?.orgId
+  
+
+  
+
+
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['ebay_params', orgID],
@@ -33,15 +53,47 @@ function CatalogSettingsPage() {
       getEbayParams({ signal, orgID, getAccessTokenSilently }),
   });
 
+  //OrganizationStuff
+
+  const { data: getOrgData, isLoading : getOrgisLoading, isError: getOrgIsError, error: getOrgError } = useQuery({
+    queryKey: ['organization', orgID],
+    queryFn: ({ signal }) =>
+      fetchOrganization({ signal, orgID, getAccessTokenSilently }),
+  });
+
+
+  //
+
+
+
+  const {mutate: orgmutate, isPending : orgIsPending, isSaveError: orgIsSaveError, saveError : orgSaveError, isSuccess : orgIsSuccess } = useMutation({
+    mutationFn: changeOrganization,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['organizations'],
+      });
+      setShowSuccessAlert(true);
+    },
+    onError: (error) => {
+      setShowErrorAlert(true);
+    },
+  });
+
+
+  //End 
+
   useEffect(() => {
-    if (data?.length > 0) {
+    if (data?.length > 0 && !getOrgisLoading) {
       console.log(data)
       setSearchInput(data[0].CatalogParamSearch || '');
       setMinPriceInput(+data[0].CatalogParamMinPrice || '');
       setMaxPriceInput(+data[0].CatalogParamMaxPrice || '');
       setSelectedCategory(data[0].CatalogParamCategories || '');
+   
+      setPointConversionRate(getOrgData[0].dollarPerPoint || '');
+      
     }
-  }, [data]);
+  }, [data, getOrgisLoading]);
 
   const { mutate, isPending, isSaveError, saveError } = useMutation({
     mutationFn: saveEbayParams,
@@ -53,6 +105,13 @@ function CatalogSettingsPage() {
       setShowErrorAlert(true);
     },
   });
+
+ 
+
+
+
+
+
 
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
@@ -70,6 +129,11 @@ function CatalogSettingsPage() {
     setSelectedCategory(event.target.value);
   };
 
+  const handlePointConversionChange = (event) =>
+  {
+    setPointConversionRate(event.target.value);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const queryParams = {
@@ -78,8 +142,18 @@ function CatalogSettingsPage() {
       CatalogParamMaxPrice: maxPriceInput || null,
       CatalogParamCategories: selectedCategory || null,
     };
-    console.log(queryParams);
+  
     mutate({ orgID, queryParams, getAccessTokenSilently });
+
+
+
+    const orgData = {
+      dollarPerPoint: pointConversionRate,
+    };
+
+    const orgId = orgID
+
+    orgmutate({orgId, orgData, getAccessTokenSilently});
   };
 
   return (
@@ -139,6 +213,16 @@ function CatalogSettingsPage() {
             value={maxPriceInput}
             onChange={handleMaxPriceChange}
             startAdornment={<InputAdornment position='start'>$</InputAdornment>}
+          />
+        </FormControl>
+        <FormControl fullWidth margin='normal'>
+          <InputLabel htmlFor='point_conversion'>Point Conversion Rate</InputLabel>
+          <Input
+            id='point_conversion'
+            type='number'
+            value={pointConversionRate}
+            onChange={handlePointConversionChange}
+            startAdornment={<InputAdornment position='start'></InputAdornment>}
           />
         </FormControl>
         <Button variant='contained' color='primary' type='submit'>

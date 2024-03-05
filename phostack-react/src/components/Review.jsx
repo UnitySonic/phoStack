@@ -14,16 +14,6 @@ const products = [
  
 ];
 
-function convertPriceToCents(priceString) {
-  // Remove any non-digit characters from the price string
-  const cleanPriceString = priceString.replace(/[^\d.]/g, '');
-
-  // Convert the cleaned price string to cents
-  const priceInCents = parseFloat(cleanPriceString) * 100;
-
-  // Round the price to the nearest integer
-  return Math.round(priceInCents);
-}
 
 
 
@@ -39,13 +29,13 @@ export default function Review({reviewData, formData} )  {
         {products.map((product) => (
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
             <ListItemText primary={reviewData.title}/>
-            <Typography variant="body2">{convertPriceToCents(reviewData.price)}</Typography>
+            <Typography variant="body2">{reviewData.price}</Typography>
           </ListItem>
         ))}
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-          {convertPriceToCents(reviewData.price)}
+          {reviewData.price}
           </Typography>
         </ListItem>
       </List>

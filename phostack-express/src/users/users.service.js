@@ -65,8 +65,16 @@ const saveUserToDb = async (user) => {
 };
 
 const getUserSubTypeInfo = async (connection, userId, userType) => {
+  if (userType === "NewUser" || userType === "AdminUser") {
+    const [results] = await connection.execute(
+      `SELECT * FROM ${userType} WHERE userId = ? LIMIT 1`,
+      [userId]
+    );
+    return results?.[0];
+  }
+
   const [results] = await connection.execute(
-    `SELECT * FROM ${userType} WHERE userId = ? LIMIT 1`,
+    `SELECT U.*, O.orgName FROM ${userType} U JOIN Organization O on O.orgId = U.orgId WHERE userId = ? LIMIT 1`,
     [userId]
   );
   return results?.[0];
@@ -309,13 +317,30 @@ const getDriversByOrgId = async (orgId) => {
       where orgId = ?',
       [orgId]
     );
-
     return rows;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
+
+const getSponsorsByOrgId = async (orgId) => {
+  try {
+    const [rows, fields] = await pool.execute(
+      `select S.userId, orgId, U.userStatus,\
+      firstName, lastName, \
+      userType, email, \
+      createdAt, picture from SponsorUser S \
+      JOIN User U on S.userId = U.UserId \
+      where orgId = ?`,
+      [orgId]
+    );
+    return rows;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 const getDrivers = async () => {
   try {
@@ -486,4 +511,5 @@ module.exports = {
   getSponsors,
   getAdmins,
   changePassword,
+  getSponsorsByOrgId
 };

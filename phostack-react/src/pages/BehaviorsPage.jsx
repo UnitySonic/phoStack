@@ -130,7 +130,6 @@ const BehaviorsPage = () => {
           <ListItemIcon>
             <PlusOneIcon fontSize='small' />
           </ListItemIcon>
-          <ListItemText>Manage Points</ListItemText>
         </MenuItem>,
         <MenuItem
           key='activate'

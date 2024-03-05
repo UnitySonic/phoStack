@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getEbayItem } from '../util/ebay';
+import { useMemo, useEffect, useState } from 'react';
 import {
   Grid,
   Typography,
@@ -14,9 +15,12 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Divider from '@mui/material/Divider';
+import { fetchOrganizations } from '../util/organizations';
+import Spinner from '../components/UI/Spinner';
 
 function ProductDetailsPage() {
   const { getAccessTokenSilently } = useAuth0();
+  const [organization, setOrganization] = useState(null);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -27,6 +31,54 @@ function ProductDetailsPage() {
     queryFn: ({ signal }) =>
       getEbayItem({ signal, itemId, getAccessTokenSilently }),
   });
+
+  const {
+    data: organizationsData = [],
+    isLoading: organizationsDataIsLoading,
+    isError: organizationsDataIsError,
+    error: organizationsDataError,
+  } = useQuery({
+    queryKey: ['organizations'],
+    queryFn: ({ signal1 }) =>
+      fetchOrganizations({ signal1, getAccessTokenSilently }),
+  });
+
+
+  const organizations = useMemo(() => {
+    return (
+      organizationsData
+        ?.filter((org) => org.orgStatus === 'active')
+        .map((org) => ({
+          id: org.orgId,
+          label: org.orgName,
+          point: org.dollarPerPoint,
+
+        })) || []
+    );
+  }, [organizationsData]);
+
+  useEffect(() => {
+    if (organizations?.length > 0) {
+      setOrganization(organizations[2]);
+    }
+  }, [organizations]);
+
+
+
+  //price Conversion
+
+  const priceConvert = (priceString, dollarPerPoint) => {
+    // Remove any non-digit characters from the price string
+    const cleanPriceString = priceString.replace(/[^\d.]/g, '');
+
+    // Convert the cleaned price string to cents
+    const priceInCents = parseFloat(cleanPriceString);
+
+ 
+
+
+    return (Math.round(priceInCents / dollarPerPoint))
+  }
 
   // Settings for react-slick slider
   const settings = {
@@ -42,13 +94,16 @@ function ProductDetailsPage() {
   
   const imageUrl = data?.image?.imageUrl;
   const title = data?.title;
-  const price = data?.price?.value
+  const priceUSD = data?.price?.value
+
   const productId =  data?.itemId;
   const quantity =  data ?.estimatedAvailabilities?.[0]?.estimatedAvailableQuantity 
 
   const handleBuyButtonClick = () => {
     console.log('Buy button clicked');
-    navigate(`/purchase/${data.itemId}`, {
+    const price = priceConvert(priceUSD, organization.point);
+  
+    navigate(`/purchase/${productId}`, {
       state: {
         imageUrl,
         title,
@@ -58,6 +113,12 @@ function ProductDetailsPage() {
       }
     }); // Navigate to '/purchase/:productId' route with props as state
   };
+
+
+
+  if (isLoading || organizationsDataIsLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -83,7 +144,7 @@ function ProductDetailsPage() {
                 {data?.shortDescription}
               </Typography>
               <Typography variant='body1' gutterBottom>
-                Price: ${data?.price?.value}
+                Point Cost: {!organizationsDataIsLoading && organization ? priceConvert(priceUSD, organization.point) : 'Loading...'}
               </Typography>
               <Divider />
               <Typography variant='body1' gutterBottom>

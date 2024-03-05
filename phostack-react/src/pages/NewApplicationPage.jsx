@@ -94,6 +94,9 @@ const NewApplicationPage = () => {
     mutate({ applicationData, getAccessTokenSilently });
   };
 
+
+
+
   return (
     <>
       {showErrorAlert && (

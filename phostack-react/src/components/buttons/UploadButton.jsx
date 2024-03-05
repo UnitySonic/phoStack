@@ -51,14 +51,14 @@ function UploadButton({ onUpload }) {
     return (
         <div {...getRootProps()} style={styles}>
             <input {...getInputProps()} />
-            <p>Drag & drop an image here, or click to select one</p>
+            <p>Click to to change your profile picture</p>
         </div>
     );
 }
 
 const styles = {
     width: '200px', // Adjust the width of the button
-    height: '150px',
+    height: '120px',
     border: '2px dashed #ccc',
     borderRadius: '4px',
     padding: '20px',

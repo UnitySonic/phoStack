@@ -17,6 +17,7 @@ const useUser = () => {
     enabled: !!userId,
   });
 
+  
   return { user, isLoading, isError, error };
 };
 

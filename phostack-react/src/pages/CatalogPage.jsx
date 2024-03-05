@@ -1,19 +1,37 @@
 import ProductCard from '../components/ProductCard';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery,  } from '@tanstack/react-query';
 import Alert from '@mui/material/Alert';
 import Spinner from '../components/UI/Spinner';
 import AlertTitle from '@mui/material/AlertTitle';
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Grid, Box } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getEbayItems } from '../util/ebay';
+import { fetchOrganization } from '../util/organizations';
+import useUser from '../hooks/useUser';
+
+
+
+
+
+
+
+
+
+
 function CatalogPage() {
   const { getAccessTokenSilently } = useAuth0();
   const [page, setPage] = useState(1);
+
+
   const limit = 40;
 
-  const orgID = 3;
+  const {user} = useUser()
+  const orgID = user?.orgId;
+
+
+
   let queryParams = {
     orgID,
     offset: (page - 1) * limit,
@@ -21,11 +39,36 @@ function CatalogPage() {
     // filter: 'price:[10..50],priceCurrency:USD'
   };
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data: ebayData, isLoading: ebayIsLoading, isError: ebayIsError, error: ebayError } = useQuery({
     queryKey: ['ebay_products', queryParams],
     queryFn: ({ signal }) =>
       getEbayItems({ signal, params: queryParams, getAccessTokenSilently }),
   });
+
+  const { data: getOrgData, isLoading : getOrgisLoading, isError: getOrgIsError, error: getOrgError } = useQuery({
+    queryKey: ['organization', orgID],
+    queryFn: ({ signal }) =>
+      fetchOrganization({ signal, orgID, getAccessTokenSilently }),
+  });
+
+
+  
+
+  //price Conversion
+
+  const priceConvert = (priceString, dollarPerPoint) => {
+    // Remove any non-digit characters from the price string
+    const cleanPriceString = priceString.replace(/[^\d.]/g, '');
+
+    // Convert the cleaned price string to cents
+    const priceInCents = parseFloat(cleanPriceString);
+
+ 
+
+
+    return (Math.round(priceInCents / dollarPerPoint))
+  }
+  //end price conversion
 
 
 
@@ -35,11 +78,11 @@ function CatalogPage() {
 
   let content;
 
-  if (isLoading) {
+  if (ebayIsLoading) {
     return <Spinner />;
   }
 
-  if (isError) {
+  if (ebayIsError) {
     content = (
       <Alert severity='error'>
         <AlertTitle>Error</AlertTitle>
@@ -48,23 +91,27 @@ function CatalogPage() {
       </Alert>
     );
   }
+  
 
-  if (data && data.total > 0) {
-    const maxPage = Math.ceil(Math.min(data.total, 3000) / limit);
+  if (ebayData && ebayData.total > 0) {
+    const maxPage = Math.ceil(Math.min(ebayData.total, 3000) / limit);
     const currentPage = Math.min(page, maxPage);
     content = (
       <Box>
         <Grid container spacing={3}>
-          {data.itemSummaries.map((product) => (
+          {ebayData.itemSummaries.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={product.itemId}>
+              
+              {!getOrgisLoading ? 
               <ProductCard
                 imageUrl={product?.thumbnailImages?.[0]?.imageUrl}
                 title={product?.title}
-                price={product?.price?.value}
+                price={priceConvert(product?.price?.value, getOrgData[0].dollarPerPoint)}
                 productId={product?.itemId}
                 quantity={product?.estimatedAvailabilities?.[0]?.estimatedAvailableQuantity || 1}
-                
-              />
+
+              /> : 'Loading...'}
+              
             </Grid>
           ))}
         </Grid>
