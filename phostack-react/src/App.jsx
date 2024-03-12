@@ -4,6 +4,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import RootLayout from './pages/RootLayout';
 import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
@@ -28,7 +29,6 @@ import AddNewBehaviorPage from './pages/AddNewBehaviorPage.jsx';
 import AddNewSponsorUserPage from './pages/AddNewSponsorUserPage.jsx';
 import PointsPage from './pages/PointsPage.jsx';
 
-
 import AddNewDriverUserPage from './pages/AddNewDriverUserPage.jsx';
 import AdminOrganizationsPage from './pages/AdminOrganizationsPage.jsx';
 import AdminNewOrganizationPage from './pages/AdminNewOrganizationPage.jsx';
@@ -48,6 +48,11 @@ import ProfilePage from './pages/ProfilePage.jsx';
 import LoginAuditLogsPage from './pages/LoginAuditLogsPage.jsx';
 import PasswordAuditLogsPage from './pages/PasswordAuditLogsPage.jsx';
 import PointsAuditLogsPage from './pages/PointsAuditLogsPage.jsx';
+import TestView from './pages/TestView.jsx';
+import OrdersPage from './pages/OrdersPage.jsx';
+
+import store from './store/index.js';
+import { alpha } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
@@ -62,7 +67,23 @@ const theme = createTheme({
   typography: {
     fontFamily: 'Roboto, sans-serif', // Customize font family
   },
+  direction: 'ltr',
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 768,
+      md: 1024,
+      lg: 1266,
+      xl: 1536,
+    },
+  },
 });
+
+theme.customShadows = {
+  button: `0 2px #0000000b`,
+  text: `0 -1px 0 rgb(0 0 0 / 12%)`,
+  z1: `0px 2px 8px ${alpha(theme.palette.grey[900], 0.15)}`,
+};
 
 const router = createBrowserRouter([
   {
@@ -89,7 +110,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'logs/applications',
-        element: <AuthenticationGuard component={DriverApplicationsAuditLogsPage} />,
+        element: (
+          <AuthenticationGuard component={DriverApplicationsAuditLogsPage} />
+        ),
       },
       {
         path: 'password-reset',
@@ -163,10 +186,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'profiletest',
-        element: <AuthenticationGuard component = {ProfilePicturePage}/>,
+        element: <AuthenticationGuard component={ProfilePicturePage} />,
       },
       {
-
         path: 'purchase/:productID',
         element: <AuthenticationGuard component={Checkout} />,
       },
@@ -202,20 +224,30 @@ const router = createBrowserRouter([
         path: 'logs/points',
         element: <AuthenticationGuard component={PointsAuditLogsPage} />,
       },
+      {
+        path: 'view',
+        element: <AuthenticationGuard component={TestView} />,
+      },
+      {
+        path: 'orders',
+        element: <AuthenticationGuard component={OrdersPage} />,
+      },
     ],
   },
 ]);
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <QueryClientProvider client={queryClient}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <RouterProvider router={router} />
-        </LocalizationProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <QueryClientProvider client={queryClient}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <RouterProvider router={router} />
+          </LocalizationProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

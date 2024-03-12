@@ -58,10 +58,10 @@ export async function getEbayItem({ signal, itemId, getAccessTokenSilently }) {
   return data;
 }
 
-export async function getEbayParams({ signal, orgID, getAccessTokenSilently }) {
+export async function getEbayParams({ signal, orgId, getAccessTokenSilently }) {
   const url = `${
     import.meta.env.VITE_EXPRESS_BACKEND_URL
-  }/catalog-param/${orgID}`;
+  }/catalog-param/${orgId}`;
 
   const accessToken = await getAccessTokenSilently();
   const response = await fetch(url, {
@@ -86,13 +86,13 @@ export async function getEbayParams({ signal, orgID, getAccessTokenSilently }) {
 }
 
 export async function saveEbayParams({
-  orgID,
+  orgId,
   queryParams,
   getAccessTokenSilently,
 }) {
   const url = `${
     import.meta.env.VITE_EXPRESS_BACKEND_URL
-  }/catalog-param/${orgID}`;
+  }/catalog-param/${orgId}`;
   const accessToken = await getAccessTokenSilently();
 
   const response = await fetch(url, {

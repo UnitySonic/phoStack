@@ -26,9 +26,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LoginIcon from '@mui/icons-material/Login';
 import PasswordIcon from '@mui/icons-material/Password';
 import NumbersIcon from '@mui/icons-material/Numbers';
-
-
-const SHOW_ALL = false;
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ShopIcon from '@mui/icons-material/Shop';
 
 const linksByRole = {
   AdminUser: [
@@ -99,14 +98,21 @@ const linksByRole = {
   DriverUser: [
     { text: 'Home', icon: <Home />, to: '/' },
     { text: 'Profile', icon: <AccountCircleIcon />, to: '/profile' },
-    { text: 'Catalog', icon: <InventoryIcon />, to: '/catalog' },
+    { text: 'Catalog', icon: <ShopIcon />, to: '/catalog' },
+    { text: 'Orders', icon: <InventoryIcon />, to: '/orders' },
     { text: 'Behaviors', icon: <PsychologyIcon />, to: '/behaviors' },
+    { text: 'Applications', icon: <ListIcon />, to: '/applications' },
+    {
+      text: 'New Application',
+      icon: <HowToRegIcon />,
+      to: '/applications/new',
+    },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],
   SponsorUser: [
     { text: 'Home', icon: <Home />, to: '/' },
     { text: 'Profile', icon: <AccountCircleIcon />, to: '/profile' },
-    { text: 'Catalog', icon: <InventoryIcon />, to: '/catalog' },
+    { text: 'Catalog', icon: <ShopIcon />, to: '/catalog' },
     {
       text: 'Catalog Settings',
       icon: <FilterListIcon />,
@@ -158,77 +164,12 @@ const linksByRole = {
     },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],
-  TestUser: [
-    { text: 'Home', icon: <Home />, to: '/' },
-    { text: 'Applications', icon: <ListIcon />, to: '/applications' },
-    {
-      text: 'New Application',
-      icon: <HowToRegIcon />,
-      to: '/applications/new',
-    },
-    { text: 'Catalog', icon: <InventoryIcon />, to: '/catalog' },
-    {
-      text: 'Catalog Settings',
-      icon: <FilterListIcon />,
-      to: '/catalog-settings',
-    },
-    {
-      text: 'Apps Management',
-      icon: <ListIcon />,
-      to: '/applications-management',
-    },
-    {
-      text: 'Drivers Management',
-      icon: <DirectionsCarIcon />,
-      to: '/drivers-management',
-    },
-    {
-      text: 'Admins',
-      icon: <AdminPanelSettingsIcon />,
-      to: '/admin/admins-management',
-    },
-    {
-      text: 'Organizations',
-      icon: <BusinessIcon />,
-      to: '/admin/organizations-management',
-    },
-    {
-      text: 'Sponsors',
-      icon: <PeopleIcon />,
-      to: '/admin/sponsors-management',
-    },
-    {
-      text: 'Drivers',
-      icon: <DirectionsCarIcon />,
-      to: '/admin/drivers-management',
-    },
-    {
-      text: 'Add Admin User',
-      icon: <AddModeratorIcon />,
-      to: '/admin/admins/new',
-    },
-    {
-      text: 'Add Organization',
-      icon: <AddBusinessIcon />,
-      to: '/admin/organizations/new',
-    },
-    {
-      text: 'Add Sponsor User',
-      icon: <PersonAddIcon />,
-      to: '/admin/sponsors/new',
-    },
-    {
-      text: 'Add Driver User',
-      icon: <AddReactionIcon />,
-      to: 'admin/drivers/new',
-    },
-    { text: 'About', icon: <InfoIcon />, to: '/about' },
-  ],
 };
 
 const NavConfig = () => {
   const { user } = useUser();
-  const userType = SHOW_ALL ? 'TestUser' : user?.userType;
+  const { viewAs } = user;
+  const userType = viewAs?.userType;
   const userLinks = linksByRole[userType] || [
     { text: 'Home', icon: <Home />, to: '/' },
   ];

@@ -19,6 +19,7 @@ import { changePassword } from '../util/users';
 function PasswordResetPage() {
   const { getAccessTokenSilently } = useAuth0();
   const { user } = useUser();
+  const { viewAs } = user;
 
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -107,7 +108,7 @@ function PasswordResetPage() {
   };
 
   const handleSubmit = () => {
-    const { userId } = user || {};
+    const { userId } = viewAs || {};
     if (password === confirmPassword && userId) {
       mutate({ userId, passwordData: { password }, getAccessTokenSilently });
     } else {

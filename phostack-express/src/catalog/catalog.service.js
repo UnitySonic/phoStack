@@ -32,11 +32,11 @@ const saveCatalogParamByOrgId = async (req, res, next) => {
   }
 };
 
-const getCatalogParamByOrgId = async (orgID) => {
+const getCatalogParamByOrgId = async (orgId) => {
   try {
     const [results, fields] = await pool.execute(
       'SELECT * FROM `CatalogParam` WHERE `OrganizationOrgID` = ? ORDER BY CatalogParamCreatedAt DESC LIMIT 1',
-      [orgID]
+      [orgId]
     );
     return results;
   } catch (error) {

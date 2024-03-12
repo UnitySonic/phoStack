@@ -13,7 +13,8 @@ import useUser from '../hooks/useUser';
 const NewApplicationPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { user } = useUser();
-
+  const { viewAs = {}} = user;
+  const { userId } = viewAs;
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [employeeCode, setEmployeeCode] = useState('');
@@ -33,11 +34,11 @@ const NewApplicationPage = () => {
   });
 
   useEffect(() => {
-    if (user) {
-      setFirstName(user.firstName || '');
-      setLastName(user.lastName || '');
+    if (viewAs) {
+      setFirstName(viewAs?.firstName || '');
+      setLastName(viewAs?.lastName || '');
     }
-  }, [user]);
+  }, [viewAs]);
 
   const {
     data: organizationsData = [],
@@ -85,17 +86,19 @@ const NewApplicationPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const applicationData = {
-      firstName,
-      lastName,
-      employeeCode,
-      orgId: organization.id,
-    };
-    mutate({ applicationData, getAccessTokenSilently });
+    if (userId) {
+      const applicationData = {
+        firstName,
+        lastName,
+        employeeCode,
+        orgId: organization.id,
+        userId,
+      };
+      mutate({ applicationData, getAccessTokenSilently });
+    } else {
+      setShowErrorAlert(true);
+    }
   };
-
-
-
 
   return (
     <>

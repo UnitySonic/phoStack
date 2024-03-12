@@ -4,7 +4,7 @@ import MuiDrawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -13,13 +13,12 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import LoginButton from './buttons/LoginButton';
-import LogoutButton from './buttons/LogoutButton';
-import SignupButton from './buttons/SignupButton';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import ProfileHeader from './HeaderProfile';
+import ViewToggle from './ViewToggle';
 
 import NavConfig from './NavConfig';
+import useUser from '../hooks/useUser';
 
 const drawerWidth = 240;
 
@@ -69,6 +68,14 @@ const Drawer = styled(MuiDrawer, {
 
 const MainNav = () => {
   const { isAuthenticated } = useAuth0();
+  const { user } = useUser();
+  const { viewAs } = user;
+
+  const [viewAsMode, setViewAsMode] = useState(user?.userId !== viewAs?.userId);
+  useEffect(() => {
+    setViewAsMode(user?.userId !== viewAs?.userId);
+  }, [user, viewAs]);
+
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -104,21 +111,10 @@ const MainNav = () => {
               PhoStack
             </Link>
           </Typography>
+          {viewAsMode && <ViewToggle />}
           <Box sx={{ display: 'flex', gap: '8px' }}>
-            {isAuthenticated ? (
-              <LogoutButton />
-            ) : (
-              <>
-                <LoginButton />
-                <SignupButton />
-              </>
-            )}
+            <ProfileHeader />
           </Box>
-          {/* <IconButton color='inherit'>
-            <Badge badgeContent={4} color='secondary'>
-              <NotificationsIcon />
-            </Badge>
-          </IconButton> */}
         </Toolbar>
       </AppBar>
       <Drawer variant='permanent' open={open}>

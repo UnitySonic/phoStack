@@ -20,7 +20,6 @@ import CustomAlert from '../components/UI/CustomAlert';
 const AdminAddNewAdminUserPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { user } = useUser();
-  const orgId = user?.orgId;
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -127,7 +126,7 @@ const AdminAddNewAdminUserPage = () => {
       password,
       userType: 'AdminUser',
     };
-    mutate({ orgId, userData, getAccessTokenSilently });
+    mutate({ userData, getAccessTokenSilently });
   };
 
   return (

@@ -13,6 +13,7 @@ import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import { queryClient } from '../util/http';
 import { changeUser } from '../util/users';
 import CustomAlert from '../components/UI/CustomAlert';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import { Button, Box, Typography, Grid } from '@mui/material';
 
@@ -47,6 +48,8 @@ const AdminSponsorsManagementPage = () => {
     placeholderData: keepPreviousData,
   });
 
+  console.log(data);
+
   const { mutate, isPending, isSaveError, saveError, isSuccess } = useMutation({
     mutationFn: changeUser,
     onSuccess: () => {
@@ -57,6 +60,14 @@ const AdminSponsorsManagementPage = () => {
     },
     onError: (error) => {
       setShowErrorAlert(true);
+    },
+  });
+
+  const { mutate: mutateView } = useMutation({
+    mutationFn: changeUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      navigate('/');
     },
   });
 
@@ -79,14 +90,14 @@ const AdminSponsorsManagementPage = () => {
         size: 150,
       },
       {
-        accessorKey: 'orgName',
+        accessorFn: (originalRow) => originalRow.organizations?.[0]?.orgName,
+        id: 'organization',
         header: 'Organization',
-        size: 150,
       },
       {
-        accessorKey: 'orgStatus',
+        accessorFn: (originalRow) => originalRow.organizations?.[0]?.orgStatus,
+        id: 'orgStatus',
         header: 'Org Status',
-        size: 150,
       },
       {
         accessorFn: (originalRow) => new Date(originalRow?.createdAt),
@@ -129,6 +140,19 @@ const AdminSponsorsManagementPage = () => {
     }
   };
 
+  const handleViewAs = (row) => {
+    const { userId: viewAsUserId } = row.original;
+    if (viewAsUserId && user.userId) {
+      mutateView({
+        userId: user.userId,
+        userData: { viewAs: viewAsUserId },
+        getAccessTokenSilently,
+      });
+    } else {
+      setShowErrorAlert(true);
+    }
+  };
+
   const table = useMaterialReactTable({
     columns,
     data,
@@ -160,6 +184,16 @@ const AdminSponsorsManagementPage = () => {
           <DoNotDisturbIcon fontSize='small' />
         </ListItemIcon>
         <ListItemText>Deactivate</ListItemText>
+      </MenuItem>,
+      <MenuItem
+        key='viewAs'
+        onClick={() => handleViewAs(row)}
+        disabled={row?.original?.userStatus === 'inactive'}
+      >
+        <ListItemIcon>
+          <VisibilityIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>View As</ListItemText>
       </MenuItem>,
     ],
   });

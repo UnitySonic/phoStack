@@ -5,6 +5,7 @@ import CustomAlert from '../components/UI/CustomAlert';
 import AddIcon from '@mui/icons-material/Add';
 import { useMemo, useState } from 'react';
 import { queryClient } from '../util/http';
+import useUser from '../hooks/useUser';
 
 import { Button, Box, Typography, Grid, MenuItem } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
@@ -19,8 +20,10 @@ import {
 } from 'material-react-table';
 
 const DriverApplicationsPage = () => {
-  const { getAccessTokenSilently, user } = useAuth0();
-  const userId = user?.sub;
+  const { getAccessTokenSilently } = useAuth0();
+  const { user } = useUser();
+  const { viewAs = {} } = user;
+  const { userId } = viewAs;
   const navigate = useNavigate();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -87,7 +90,7 @@ const DriverApplicationsPage = () => {
         id: 'createdAt',
         header: 'Date',
         filterVariant: 'date-range',
-        Cell: ({ cell }) => cell.getValue().toLocaleDateString(), 
+        Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
       },
     ],
     []

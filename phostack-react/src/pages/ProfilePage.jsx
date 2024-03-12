@@ -20,6 +20,7 @@ import UploadButton from '../components/buttons/UploadButton';
 
 const ProfilePage = () => {
   const { user, isLoading: isUserLoading } = useUser();
+  const { viewAs } = user;
   const [editMode, setEditMode] = useState(false);
   const [firstNameField, setFirstNameField] = useState('');
   const [lastNameField, setLastNameField] = useState('');
@@ -34,7 +35,7 @@ const ProfilePage = () => {
     userId,
     picture,
     email,
-  } = user || {};
+  } = viewAs || {};
 
   useEffect(() => {
     setFirstNameField(firstName);

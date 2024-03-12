@@ -18,7 +18,7 @@ const products = [
 
 
 
-export default function Review({reviewData, formData} )  {
+export default function Review({reviewData, formData, userPointValue} )  {
   const addresses = [formData.address1, formData.city, formData.state, formData.zip, formData.country];
   return (
     <React.Fragment>
@@ -36,6 +36,12 @@ export default function Review({reviewData, formData} )  {
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
           {reviewData.price}
+          </Typography>
+        </ListItem>
+        <ListItem sx={{ py: 1, px: 0 }}>
+          <ListItemText primary="Points Balance After Purchase:" />
+          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+            {(userPointValue) - reviewData.price}
           </Typography>
         </ListItem>
       </List>

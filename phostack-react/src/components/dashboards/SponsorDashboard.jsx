@@ -1,10 +1,13 @@
 import { Grid, ListItemSecondaryAction } from "@mui/material";
 import {Chart as CharJS} from 'chart.js/auto';
 import {Bar, Chart, Pie} from 'react-chartjs-2';
-import { useQuery, keepPreviousData, useMutation} from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { Line } from 'react-chartjs-2'
 import useUser from '../../hooks/useUser'
-
+import { fetchDriversByOrgId } from '../../util/users';
+import { useEffect, useMemo, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 const SponsorDashboard = ()  =>{
     const dashBoardStyle = {
         //dimension
@@ -25,32 +28,48 @@ const SponsorDashboard = ()  =>{
         flexDirection: 'row', // default is row, but you can explicitly set it
         justifyContent: 'space-between',
     }
+    const { getAccessTokenSilently } = useAuth0();
     const {user} = useUser();
-    const orgId = '1' //idk what orgs we have
-    //console.log(orgId)
+    const viewAs = user?.viewAs;
+    const orgId = viewAs?.selectedOrgId;
+    const navigate = useNavigate();
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [drivers, setDrivers] = useState(false)
     const {
-        data = [],
-        isLoading,
-        isError,
-        error,
-        refetch,
-        isRefetching,
+      data = [],
+      isLoading,
+      isError,
+      error,
+      refetch,
+      isRefetching,
     } = useQuery({
-        queryKey: ['users', 'drivers', { orgId }],
-        queryFn: ({ signal }) =>
+      queryKey: ['users', 'drivers', {orgId} ],
+      queryFn: ({signal}) =>
         fetchDriversByOrgId({
-            signal,
-            orgId,
-            getAccessTokenSilently,
+          signal,
+          orgId,
+          getAccessTokenSilently,
         }),
-        placeholderData: keepPreviousData,
+        placeholderData: keepPreviousData
     });
+    let points = [];
+    let disp = [];
+    let driverList = data
+    driverList.map((e)=>(
+      disp.push(
+        <li key={e}>{e.firstName + " " + e.lastName}</li>
+      ),
+      console.log(e.pointValue),
+      points.push(e.pointValue)
+    ));
+    console.log(points)
     const chartData = {
         labels: ['January', 'February', 'March', 'April', 'May'],
         datasets: [
           {
             label: 'Earnings',
-            data: [2000, 2500, 1800, 3000, 2800],
+            data: points,
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 2,
             fill: false,
@@ -62,19 +81,19 @@ const SponsorDashboard = ()  =>{
         scales: {
             y: {
                 ticks:{
-                    stepSize: 500,
+                    stepSize: 1000,
                     min: 0,
-                    max: 3500,
+                    max: 100_000
                 },
                 beginAtZero: true
             },
         },
     };
     const pieData = {
-        labels: ['Driver 1', 'Driver 2', 'Driver 3'],
+        labels: drivers,
         datasets: [
           {
-            data: [30, 50, 20], // Values for each slice
+            data: points, // Values for each slice
             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Colors for each slice
             hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Colors on hover
           },
@@ -82,15 +101,14 @@ const SponsorDashboard = ()  =>{
     }
     return(
     <>
+    {/* display data when finished loading */}
+    {isLoading && <div>Loading data...</div>}
+    {!isLoading &&
         <div style={HorizontalRow}>
             <div style = {dashBoardStyle}>
                 Drivers
                 <ol>
-                    {/* {data.map((item, index)=>(
-                    <li key={index}>{item}</li>))} */}
-                    <li>Driver1</li>
-                    <li>Driver2</li>
-                    <li>Driver3</li>
+                  {disp}
                 </ol>
             </div>
             <div style={{ border: '2px solid black', borderRadius: '2px', padding: '10px' }}>
@@ -102,6 +120,7 @@ const SponsorDashboard = ()  =>{
                 <Line data={chartData} options={chartOptions}/>
             </div>
         </div>
+    }
     </>
     )
 }

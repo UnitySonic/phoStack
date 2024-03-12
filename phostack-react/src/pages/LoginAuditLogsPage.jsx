@@ -23,7 +23,8 @@ const TYPE_TO_STRING = {
 const LoginAuditLogsPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { user, isLoading: userIsLoading } = useUser();
-  const { userId, userType, orgId} = user || {};
+  const { viewAs = {} } = user;
+  const { userId, userType, selectedOrgId: orgId } = viewAs;
 
   const params = {
     q: `(type: "s" OR "f" OR "fp")`,
@@ -53,7 +54,7 @@ const LoginAuditLogsPage = () => {
   const { data = [] } = useQuery({
     queryKey: qKey,
     queryFn: queryFunction,
-    enabled: !!user
+    enabled: !!user,
   });
   console.log(data);
 
@@ -66,8 +67,10 @@ const LoginAuditLogsPage = () => {
         size: 150,
       },
       {
-        accessorKey: 'orgName',
-        header: 'Organization',
+        accessorFn: (originalRow) =>
+          originalRow?.organizations?.map((org) => org.orgName).join(', '),
+        id: 'organizations',
+        header: 'Organizations',
         size: 150,
       },
       {
@@ -95,7 +98,9 @@ const LoginAuditLogsPage = () => {
   const handleExportRows = (rows) => {
     const rowData = rows.map((row) => ({
       type: TYPE_TO_STRING[row?.original?.type],
-      organization: row?.original?.orgName,
+      organizations: row?.original?.organizations
+        ?.map((org) => org.orgName)
+        .join(', '),
       user: row?.original?.user_name,
       userId: row?.original?.user_id,
       date: row?.original?.date,
@@ -107,7 +112,7 @@ const LoginAuditLogsPage = () => {
   const handleExportData = () => {
     const rowData = data.map((row) => ({
       type: TYPE_TO_STRING[row?.type],
-      organization: row?.orgName,
+      organizations: row?.organizations?.map((org) => org.orgName).join(', '),
       user: row?.user_name,
       userId: row?.user_id,
       date: row?.date,

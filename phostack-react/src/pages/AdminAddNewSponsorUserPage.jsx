@@ -152,14 +152,15 @@ const AdminAddNewSponsorUserPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const orgId = organization?.id;
     const userData = {
       firstName,
       lastName,
       email,
       password,
       userType: 'SponsorUser',
+      selectedOrgId: orgId
     };
-    const orgId = organization?.id;
     if (orgId) {
       mutate({ orgId, userData, getAccessTokenSilently });
     } else {

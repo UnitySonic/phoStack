@@ -1,7 +1,3 @@
-/*
-README: THIS PAGE IS CURRENTLY NOT BEING USED BECAUSE BEHAVIOR FUNCTIONALITY IS OUT OF SCOPE OF THE ADMIN
-*/
-
 import { useState } from 'react';
 import {
   TextField,
@@ -24,6 +20,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const AddNewBehaviorPage = () => {
   const { user } = useUser();
+  const viewAsUser = user?.viewAs;
   const { getAccessTokenSilently } = useAuth0();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -50,7 +47,7 @@ const AddNewBehaviorPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const behaviorData = {
-      orgId: user?.orgId,
+      orgId: viewAsUser?.selectedOrgId,
       pointValue: behaviorPointValue,
       behaviorName: name,
       behaviorDescription: description,

@@ -7,27 +7,39 @@ const {
 } = require('./applications.service');
 
 const {
+  addOrganizationToUser,
+  getUserFromDbById,
+} = require('../users/users.service');
+const {
   saveApplicationLogToDb,
 } = require('../audit-logs/applications/logs.applications.service');
 
 const { modifyUserInDb, changeUserType } = require('../users/users.service');
 
 const saveApplication = async (req, res, next) => {
-  const userId = req.auth.payload.sub;
-  const { firstName, lastName, orgId } = req.body;
+  const { firstName, lastName, orgId, userId} = req.body;
   try {
+    const user = await getUserFromDbById(userId);
+    const userAlreadyInOrganization = user?.organizations?.find(
+      (org) => org.orgId == orgId
+    );
+    if (userAlreadyInOrganization) {
+      console.log(
+        `Failed to created application. User ${userId} already in orgId: ${orgId}`
+      );
+      return res.status(403).json({ message: 'Forbidden' });
+    }
     const result = await getApplicationsFromDb({ userId });
     const userApplications = result?.applications;
 
-    const isApproved = userApplications.some(
-      (application) => application.applicationStatus == 'approved'
-    );
-    const isNew = userApplications.some(
+    const applicationForOrgAlreadyExistsOrApproved = userApplications.some(
       (application) =>
-        application.orgId == orgId && application.applicationStatus == 'new'
+        application.orgId == orgId &&
+        (application.applicationStatus == 'new' ||
+          application.applicationStatus == 'approved')
     );
 
-    if (isApproved || isNew) {
+    if (applicationForOrgAlreadyExistsOrApproved) {
       return res.status(403).json({ message: 'Forbidden' });
     }
 
@@ -70,15 +82,27 @@ const changeApplication = async (req, res) => {
       return res.status(403).json({ message: 'Forbidden' });
     }
 
+    const user = await getUserFromDbById(application.userId);
+    const userAlreadyInOrganization = user?.organizations?.find(
+      (org) => org.orgId == application.orgId
+    );
+
     const isApprovedToBeDriver =
-      application.applicationStatus == 'new' && applicationStatus == 'approved';
+      application.applicationStatus != 'approved' &&
+      applicationStatus == 'approved' && !userAlreadyInOrganization;
 
     if (isApprovedToBeDriver) {
       await changeUserType(application.userId, {
         userType: 'DriverUser',
-        orgId: application.orgId,
         pointValue: 0,
       });
+      const hasNoOrganization = user?.organizations?.length == 0;
+      if (hasNoOrganization) {
+        await modifyUserInDb(application.userId, {
+          selectedOrgId: application.orgId,
+        });
+      }
+      await addOrganizationToUser(application.userId, application.orgId);
     }
 
     await modifyApplicationInDb(application.applicationId, req.body);

@@ -20,7 +20,8 @@ import CustomAlert from '../components/UI/CustomAlert';
 const AddNewSponsorUserPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { user } = useUser();
-  const orgId = user?.orgId;
+  const { viewAs } = user;
+  const orgId = viewAs?.selectedOrgId;
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -126,6 +127,7 @@ const AddNewSponsorUserPage = () => {
       email,
       password,
       userType: 'SponsorUser',
+      selectedOrgId: orgId
     };
     mutate({ orgId, userData, getAccessTokenSilently });
   };

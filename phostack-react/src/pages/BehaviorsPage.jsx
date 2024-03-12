@@ -18,13 +18,13 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from 'material-react-table';
-import { fetchBehaviors, fetchBehaviorsByOrgId } from '../util/behavior';
+import { changeBehavior, fetchBehaviorsByOrgId, fetchActiveBehaviorsByOrgId } from '../util/behavior';
 
 const BehaviorsPage = () => {
     const { getAccessTokenSilently } = useAuth0();
     const { user } = useUser();
-    const orgId = user?.orgId;
-    const userType = user?.userType;
+    const viewAsUser = user?.viewAs;
+    const orgId = viewAsUser?.selectedOrgId;
     const navigate = useNavigate();
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -39,61 +39,91 @@ const BehaviorsPage = () => {
     } = useQuery({
       queryKey: ['behaviors', { orgId }],
       queryFn: ({ signal }) =>
-      fetchBehaviorsByOrgId({
-        orgId,
-        signal,
-        getAccessTokenSilently,
-      }),
+      {
+        if(viewAsUser?.userType === "SponsorUser")
+        {
+          return fetchBehaviorsByOrgId({
+            orgId,
+            signal,
+            getAccessTokenSilently,
+          });
+        }
+        else if(viewAsUser?.userType === "DriverUser")
+        {
+          return fetchActiveBehaviorsByOrgId({
+            orgId,
+            signal,
+            getAccessTokenSilently,
+          });
+        }
+      },
       placeholderData: keepPreviousData,
     });
 
+    // Mutate
+    const { mutate, isPending, isSaveError, saveError, isSuccess } = useMutation({
+      mutationFn: changeBehavior,
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ['behaviors'],
+        });
+        setShowSuccessAlert(true);
+      },
+      onError: (error) => {
+        setShowErrorAlert(true);
+      }
+    });
+
     const columns = useMemo(
-      () => [
-        {
-          accessorKey: 'behaviorName',
-          header: 'Name',
-          size: 125,
-        },
-        {
-          accessorKey: 'pointValue',
-          header: 'Points',
-          size: 50,
-        },
-        {
-          accessorKey: 'behaviorStatus',
-          header: 'Status',
-          size: 100,
-        },
-        // TODO: FIX SPACING IN TABLE TO HANDLE OVERFLOW
-        {
-          accessorKey: 'behaviorDescription',
-          header: 'Description'        
-        },
-        {
-          accessorFn: (originalRow) => new Date(originalRow?.createdAt),
-          id: 'createdAt',
-          header: 'Created',
-          filterVariant: 'date-range',
-          Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
-        },
-      ],
-      []
+      () => {
+        const defaultColumns = [
+          {
+            accessorKey: 'behaviorName',
+            header: 'Name',
+            size: 125,
+          },
+          {
+            accessorKey: 'pointValue',
+            header: 'Points',
+            size: 50,
+          },
+          // TODO: FIX SPACING IN TABLE TO HANDLE OVERFLOW
+          {
+            accessorKey: 'behaviorDescription',
+            header: 'Description'        
+          },
+          {
+            accessorFn: (originalRow) => new Date(originalRow?.createdAt),
+            id: 'createdAt',
+            header: 'Created',
+            filterVariant: 'date-range',
+            Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
+          },
+        ];
+        // If viewAsUser is a sponsor, include behaviorStatus in columns
+        if (viewAsUser?.userType === "SponsorUser") {
+          defaultColumns.push({
+            accessorKey: 'behaviorStatus',
+            header: 'Status',
+            size: 100,
+          });
+        }
+
+        return defaultColumns;
+      },
+      [viewAsUser?.userType]
     );
   
     const handleAddNewBehavior = () => {
       navigate('/behaviors/new');
     };
   
-    const handlePoints = (row) => {
-      navigate('/drivers-management/' + data[row.index].userId + '/points');
-    };
-  
-    const handleDriverActivate = (row) => {
-      const { userId } = row.original;
-      if (userId) {
+    const handleBehaviorActivate = (row) => {
+      const { behaviorId } = row.original;
+      if (behaviorId) {
         mutate({
-          userId,
-          userData: { userStatus: 'active' },
+          behaviorId,
+          behaviorData: { behaviorStatus: 'active' },
           getAccessTokenSilently,
         });
       } else {
@@ -101,12 +131,12 @@ const BehaviorsPage = () => {
       }
     };
   
-    const handleDriverDeactivate = (row) => {
-      const { userId } = row.original;
-      if (userId) {
+    const handleBehaviorDeactivate = (row) => {
+      const { behaviorId } = row.original;
+      if (behaviorId) {
         mutate({
-          userId,
-          userData: { userStatus: 'inactive' },
+          behaviorId,
+          behaviorData: { behaviorStatus: 'inactive' },
           getAccessTokenSilently,
         });
       } else {
@@ -124,16 +154,12 @@ const BehaviorsPage = () => {
         variant: 'outlined',
       },
       initialState: { density: 'compact' },
-      enableRowActions: true,
+      // Show behavior options if viewAsUser is of type sponsor
+      enableRowActions: viewAsUser?.userType==="SponsorUser" ? true : false,
       renderRowActionMenuItems: ({ row }) => [
-        <MenuItem key='points' onClick={() => handlePoints(row)}>
-          <ListItemIcon>
-            <PlusOneIcon fontSize='small' />
-          </ListItemIcon>
-        </MenuItem>,
         <MenuItem
           key='activate'
-          onClick={() => handleDriverActivate(row)}
+          onClick={() => handleBehaviorActivate(row)}
           disabled={row?.original?.userStatus === 'active'}
         >
           <ListItemIcon>
@@ -143,7 +169,7 @@ const BehaviorsPage = () => {
         </MenuItem>,
         <MenuItem
           key='deactivate'
-          onClick={() => handleDriverDeactivate(row)}
+          onClick={() => handleBehaviorDeactivate(row)}
           disabled={row?.original?.userStatus === 'inactive'}
         >
           <ListItemIcon>
@@ -176,7 +202,7 @@ const BehaviorsPage = () => {
           </Typography>
         </Box>
         <MaterialReactTable table={table} />
-        {userType === 'SponsorUser' && (
+        {viewAsUser?.userType === 'SponsorUser' && (
           <Grid container justifyContent='flex-end' mt={3}>
             <Button
               variant='contained'

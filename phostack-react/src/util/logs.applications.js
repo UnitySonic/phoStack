@@ -19,7 +19,7 @@ export async function fetchApplicationLogs({ signal, params, getAccessTokenSilen
   });
 
   if (!response.ok) {
-    const error = new Error('An error occurred while fetching ebay params');
+    const error = new Error('An error occurred while fetching application logs');
     error.code = response.status;
     error.info = await response.json();
     throw error;

@@ -34,45 +34,38 @@ INSERT INTO CatalogParam (CatalogParamSearch, CatalogParamMinPrice, CatalogParam
 ('iphone', 5.00, 30.00, null, 3);
 
 -- Seed data for User
-INSERT INTO User (userId, firstName, lastName, userType, email, picture)
-VALUES ('auth0|65b9a896724a3409a69ff940', 'Trinh', 'Tran', 'NewUser', 'trinht0517@gmail.com', 'profile_picture_url_here');
-INSERT INTO NewUser (userId)
-VALUES ('auth0|65b9a896724a3409a69ff940');
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs)
+VALUES ('auth0|65b9a896724a3409a69ff940', 'Trinh', 'Tran', 'NewUser', 'trinht0517@gmail.com', 'profile_picture_url_here', 'active', 0, 'auth0|65b9a896724a3409a69ff940');
 
-INSERT INTO User (userId, firstName, lastName, userType, email, picture)
-VALUES ('auth0|65c191a02a18b1ef030bdd1d', 'Sponsor', 'User', 'SponsorUser', 'muntran0517@gmail.com', 'profile_picture_url_here');
-INSERT INTO SponsorUser (userId, orgId)
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs, selectedOrgId)
+VALUES ('auth0|65c191a02a18b1ef030bdd1d', 'Sponsor', 'User', 'SponsorUser', 'muntran0517@gmail.com', 'profile_picture_url_here', 'active', 0, 'auth0|65c191a02a18b1ef030bdd1d', 1);
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs)
+VALUES ('auth0|65c297e045eaef5c191a4ec5', 'Admin', 'User', 'AdminUser', 'trinht2002@gmail.com', 'profile_picture_url_here', 'active', 0, 'auth0|65c297e045eaef5c191a4ec5');
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs)
+VALUES ('auth0|65cd306958eec057963119ae', 'TrinhProd', 'TranProd', 'NewUser', 'trinht0517@gmail.com', 'profile_picture_url_here', 'active', 0, 'auth0|65cd306958eec057963119ae');
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs, selectedOrgId)
+VALUES ('auth0|65d104888e15898d2090754d', 'TrinhProd', 'TranProd', 'SponsorUser', 'muntran0517@gmail.com', 'profile_picture_url_here', 'active', 0, 'auth0|65d104888e15898d2090754d', 1);
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs, selectedOrgId)
+VALUES ('auth0|65ce76a3ee8c93f9886e62e2', 'JeremySponsor', 'SarasuaSponsor', 'SponsorUser', 'jersarasua@gmail.com', 'profile_picture_url_here', 'active', 0, 'auth0|65ce76a3ee8c93f9886e62e2', 1);
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs)
+VALUES ('auth0|65d3b4c270752b95a8d5f2ac', 'TrinhProd', 'TranProd', 'AdminUser', 'trinht2002@gmail.com', 'profile_picture_url_here', 'active', 0, 'auth0|65d3b4c270752b95a8d5f2ac');
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs)
+VALUES ('auth0|65c19bdb336d930a6664aec5', 'pizza', 'chicken', 'NewUser', 'john.doe@example.com', 'profile_picture_url_here', 'active', 0, 'auth0|65c19bdb336d930a6664aec5');
+
+INSERT INTO User_Organization(userId, orgId)
 VALUES ('auth0|65c191a02a18b1ef030bdd1d', 1);
 
-INSERT INTO User (userId, firstName, lastName, userType, email, picture)
-VALUES ('auth0|65c297e045eaef5c191a4ec5', 'Admin', 'User', 'AdminUser', 'trinht2002@gmail.com', 'profile_picture_url_here');
-INSERT INTO AdminUser (userId)
-VALUES ('auth0|65c297e045eaef5c191a4ec5');
-
-INSERT INTO User (userId, firstName, lastName, userType, email, picture)
-VALUES ('auth0|65cd306958eec057963119ae', 'TrinhProd', 'TranProd', 'NewUser', 'trinht0517@gmail.com', 'profile_picture_url_here');
-INSERT INTO NewUser (userId)
-VALUES ('auth0|65cd306958eec057963119ae');
-
-INSERT INTO User (userId, firstName, lastName, userType, email, picture)
-VALUES ('auth0|65d104888e15898d2090754d', 'TrinhProd', 'TranProd', 'SponsorUser', 'muntran0517@gmail.com', 'profile_picture_url_here');
-INSERT INTO SponsorUser (userId, orgId)
+INSERT INTO User_Organization(userId, orgId)
 VALUES ('auth0|65d104888e15898d2090754d', 1);
 
-INSERT INTO User (userId, firstName, lastName, userType, email, picture)
-VALUES ('auth0|65d4f22c5e6a3ae0d45c29a0', 'Jeremy', 'Sarasua', 'SponsorUser', 'jersarasua@gmail.com', 'profile_picture_url_here');
-INSERT INTO SponsorUser (userId)
-VALUES ('auth0|65d4f22c5e6a3ae0d45c29a0');
-
-INSERT INTO User (userId, firstName, lastName, userType, email, picture)
-VALUES ('auth0|65d3b4c270752b95a8d5f2ac', 'TrinhProd', 'TranProd', 'AdminUser', 'trinht2002@gmail.com', 'profile_picture_url_here');
-INSERT INTO AdminUser (userId)
-VALUES ('auth0|65d3b4c270752b95a8d5f2ac');
-
-INSERT INTO User (userId, firstName, lastName, userType, email, picture)
-VALUES ('auth0|65c19bdb336d930a6664aec5', 'pizza', 'chicken', 'NewUser', 'john.doe@example.com', 'profile_picture_url_here');
-INSERT INTO NewUser (userId)
-VALUES ('auth0|65c19bdb336d930a6664aec5');
+INSERT INTO User_Organization(userId, orgId)
+VALUES ('auth0|65ce76a3ee8c93f9886e62e2', 1);
 
 -- Seed data for DriverApplication table
 INSERT INTO DriverApplication (userId, orgId, applicationStatus, employeeCode) VALUES 

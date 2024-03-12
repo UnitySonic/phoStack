@@ -20,7 +20,8 @@ import CustomAlert from '../components/UI/CustomAlert';
 const AddNewDriverUserPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { user } = useUser();
-  const orgId = user?.orgId;
+  const { viewAs } = user;
+  const orgId = viewAs?.selectedOrgId;
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -126,7 +127,8 @@ const AddNewDriverUserPage = () => {
       email,
       password,
       userType: 'DriverUser',
-      pointValue: 0
+      pointValue: 0,
+      selectedOrgId: orgId
     };
     mutate({ orgId, userData, getAccessTokenSilently });
   };

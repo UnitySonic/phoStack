@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import useUser from '../hooks/useUser';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import CustomAlert from '../components/UI/CustomAlert';
 import { getUser } from '../util/users';
@@ -37,7 +38,7 @@ function PointsPage() {
 
 
   const { id } = useParams(); // Correctly extract driverId from useParams
-  const userId = id;
+  const driverUserId = id;
   var isLoading;
   var isError;
   const { mutate, isPending, isSaveError, saveError } = useMutation({
@@ -58,16 +59,19 @@ function PointsPage() {
 
   // Get the driver information using id from URL
   const {
-    data: user,
+    data: driverUser,
   } = useQuery({
-    queryKey: ['getDriver', { userId }],
+    queryKey: ['getDriver', { driverUserId }],
     queryFn: ({ signal }) =>
-      getUser({ signal, userId, getAccessTokenSilently }),
-    enabled: !!userId,
+      getUser({ signal, userId: driverUserId, getAccessTokenSilently }),
+    enabled: !!driverUserId,
   });
 
-  // Get all of the organizations behaviors
-  const orgId = user?.orgId;
+  // Get all of the organizations behaviors(using the sponsor's viewAs user id)
+  const { user } = useUser();
+  const viewAsUser = user?.viewAs;
+  const orgId = viewAsUser?.selectedOrgId;
+
   const {
     data: behaviors = [],
     refetch: behaviorsRefetch,
@@ -107,17 +111,17 @@ function PointsPage() {
 
   const HandleSubmit = (e) => {
     e.preventDefault();
-    const newPointValue = user?.pointValue + pointAdjustment;
-    mutate({ userId, userData: { pointValue: newPointValue }, getAccessTokenSilently });
+    const newPointValue = driverUser?.pointValue + pointAdjustment;
+    mutate({ userId: driverUserId, userData: { pointValue: newPointValue }, getAccessTokenSilently });
   };
 
   const HandleAdHocSubmit = (e) => {
     e.preventDefault();
-    const newPointValue = user?.pointValue + parseInt(adHocPointValue);
-    mutate({ userId, userData: { pointValue: newPointValue }, getAccessTokenSilently });
+    const newPointValue = driverUser?.pointValue + parseInt(adHocPointValue);
+    mutate({ userId: driverUserId, userData: { pointValue: newPointValue }, getAccessTokenSilently });
   };
 
-  if(user)
+  if(driverUser)
   {
     return (
       <>
@@ -135,8 +139,8 @@ function PointsPage() {
           onClose={() => setShowSuccessAlert(false)}
         />
       )}
-        <h1>Currently Select Driver: {user?.firstName} {user?.lastName}</h1>
-        <h3>Current Points: {user?.pointValue}</h3>
+        <h1>Currently Select Driver: {driverUser?.firstName} {driverUser?.lastName}</h1>
+        <h3>Current Points: {driverUser?.pointValue}</h3>
 
         <FormControl fullWidth margin='normal'>
           <InputLabel htmlFor='behavior'>Behavior</InputLabel>

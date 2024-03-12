@@ -17,14 +17,25 @@ import 'slick-carousel/slick/slick-theme.css';
 import Divider from '@mui/material/Divider';
 import { fetchOrganizations } from '../util/organizations';
 import Spinner from '../components/UI/Spinner';
+import useUser from '../hooks/useUser';
+import CustomAlert from '../components/UI/CustomAlert';
+
 
 function ProductDetailsPage() {
   const { getAccessTokenSilently } = useAuth0();
   const [organization, setOrganization] = useState(null);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const params = useParams();
   const navigate = useNavigate();
   const itemId = params.id;
+
+  const { user } = useUser();
+  const { viewAs } = user;
+  const orgId = viewAs?.selectedOrgId;
+  const userOrganizations = viewAs?.organizations || [];
+  const selectedOrganization = userOrganizations.find(org => org.orgId == orgId);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['ebay_products', { itemId }],
@@ -32,37 +43,10 @@ function ProductDetailsPage() {
       getEbayItem({ signal, itemId, getAccessTokenSilently }),
   });
 
-  const {
-    data: organizationsData = [],
-    isLoading: organizationsDataIsLoading,
-    isError: organizationsDataIsError,
-    error: organizationsDataError,
-  } = useQuery({
-    queryKey: ['organizations'],
-    queryFn: ({ signal1 }) =>
-      fetchOrganizations({ signal1, getAccessTokenSilently }),
-  });
 
 
-  const organizations = useMemo(() => {
-    return (
-      organizationsData
-        ?.filter((org) => org.orgStatus === 'active')
-        .map((org) => ({
-          id: org.orgId,
-          label: org.orgName,
-          point: org.dollarPerPoint,
 
-        })) || []
-    );
-  }, [organizationsData]);
-
-  useEffect(() => {
-    if (organizations?.length > 0) {
-      setOrganization(organizations[2]);
-    }
-  }, [organizations]);
-
+  
 
 
   //price Conversion
@@ -101,27 +85,41 @@ function ProductDetailsPage() {
 
   const handleBuyButtonClick = () => {
     console.log('Buy button clicked');
-    const price = priceConvert(priceUSD, organization.point);
-  
-    navigate(`/purchase/${productId}`, {
-      state: {
-        imageUrl,
-        title,
-        price,
-        productId,
-        quantity,
-      }
-    }); // Navigate to '/purchase/:productId' route with props as state
+    const price = priceConvert(priceUSD, selectedOrganization.dollarPerPoint);
+
+    if(viewAs.pointValue < price)
+    {
+      setShowErrorAlert(true)
+    }
+    else
+    {
+      navigate(`/purchase/${productId}`, {
+        state: {
+          imageUrl,
+          title,
+          price,
+          productId,
+          quantity,
+        }
+      }); // Navigate to '/purchase/:productId' route with props as state
+    }
   };
 
 
 
-  if (isLoading || organizationsDataIsLoading) {
+  if (isLoading) {
     return <Spinner />;
   }
 
   return (
     <>
+      {showErrorAlert && (
+        <CustomAlert
+          type='error'
+          message='You do not have enough points to purchase this item'
+          onClose={() => setShowErrorAlert(false)}
+        />
+      )}
       <Grid container spacing={3} sx={{ marginBottom: '20px' }}>
         <Grid item xs={12} md={6}>
           <Card>
@@ -144,7 +142,7 @@ function ProductDetailsPage() {
                 {data?.shortDescription}
               </Typography>
               <Typography variant='body1' gutterBottom>
-                Point Cost: {!organizationsDataIsLoading && organization ? priceConvert(priceUSD, organization.point) : 'Loading...'}
+                Point Cost: {!isLoading && selectedOrganization ? priceConvert(priceUSD, selectedOrganization.dollarPerPoint) : 'Loading...'}
               </Typography>
               <Divider />
               <Typography variant='body1' gutterBottom>

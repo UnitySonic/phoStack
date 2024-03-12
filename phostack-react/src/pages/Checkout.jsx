@@ -25,14 +25,16 @@ function Checkout() {
   const [activeStep, setActiveStep] = useState(0);
   const productInfo = useLocation();
   const { imageUrl, title, price, productId, quantity } = productInfo.state;
-  console.log(price)
+ 
 
   const { getAccessTokenSilently } = useAuth0();
   const { user = {}, isLoading: isUserLoading } = useUser();
-  
-  
-  
-  
+  const { viewAs } = user;
+  const orgId = viewAs?.selectedOrgId;
+  const userOrganizations = viewAs?.organizations || [];
+  const selectedOrganization = userOrganizations.find(
+    (org) => org.orgId == orgId
+  );
 
   const { mutate, isPending, isSaveError, saveError } = useMutation({
     mutationFn: saveOrder,
@@ -57,44 +59,40 @@ function Checkout() {
   });
 
   const handleAddressFormSubmit = (data) => {
-    console.log("We have been submitted")
-    console.log(data)
+    console.log('We have been submitted');
+    console.log(data);
     setFormData(data);
   };
-
-  useEffect(() => {
-    if (activeStep === 2) {
-     
-      const orderData = {
-        orderStatus: 'processing',
-        orderBy: user.userId,
-        orderFor: user.userId,
-        orderTotal: productInfo.state.price,
-        itemID: productInfo.state.productId,
-        quantity: productInfo.state.quantity,
-        orgId: user.orgId,
-        addressFirstName : formData.firstName,
-        addressLastName : formData.lastName,
-        addressLineOne : formData.address1,
-        addressLineTwo: formData.address2,
-        addressCity : formData.city,
-        addressState: formData.state,
-        addressZip: formData.zip,
-        addressCountry : formData.country,
-
-      };
-      mutate({ orderData, getAccessTokenSilently });
-    }
-  }, [activeStep, user]);
 
 
 
   const handleNext = () => {
+    
     if (isFormDataValid()) {
       setActiveStep(activeStep + 1);
-    } else {
-      alert('Missing field! Please fill out all fields.');
+    } 
+    if (activeStep === 1) {
+      const orderData = {
+        orderStatus: 'processing',
+        orderBy: user?.userId,
+        orderFor: viewAs?.userId,
+        orderTotal: productInfo.state.price,
+        itemID: productInfo.state.productId,
+        quantity: productInfo.state.quantity,
+        orgId,
+        addressFirstName: formData.firstName,
+        addressLastName: formData.lastName,
+        addressLineOne: formData.address1,
+        addressLineTwo: formData.address2,
+        addressCity: formData.city,
+        addressState: formData.state,
+        addressZip: formData.zip,
+        addressCountry: formData.country,
+        dollarPerPoint: selectedOrganization?.dollarPerPoint
+      };
+      mutate({ orderData, getAccessTokenSilently });
     }
+    console.log(activeStep)
   };
 
   const handleBack = () => {
@@ -126,7 +124,7 @@ function Checkout() {
           />
         );
       case 1:
-        return <Review reviewData={locData} formData={formData} />;
+        return <Review reviewData={locData} formData={formData} userPointValue = {viewAs.pointValue}/>;
       case 2:
         console.log('Hello');
 
@@ -171,7 +169,7 @@ function Checkout() {
                 Thank you for your order.
               </Typography>
               <Typography variant='subtitle1'>
-                Your order number is #2001539. We have emailed your order
+                Your order has been placed! We have emailed your order
                 confirmation, and will send you an update when your order has
                 shipped.
               </Typography>

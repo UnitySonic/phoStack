@@ -20,15 +20,18 @@ import {
 
 const ApplicationManagementPage = () => {
   const { getAccessTokenSilently } = useAuth0();
-  const { user } = useUser();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [actionType, setActionType] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const { user } = useUser();
+  const { viewAs } = user;
+
+  const orgId = viewAs?.selectedOrgId;
 
   const queryParams = {
-    orgId: user?.orgId,
+    orgId
   };
 
   const {
@@ -47,6 +50,7 @@ const ApplicationManagementPage = () => {
         getAccessTokenSilently,
       }),
     placeholderData: keepPreviousData,
+    enabled: !!orgId
   });
 
   const { mutate, isPending, isSaveError, saveError, isSuccess } = useMutation({
@@ -94,7 +98,7 @@ const ApplicationManagementPage = () => {
         id: 'createdAt',
         header: 'Date',
         filterVariant: 'date-range',
-        Cell: ({ cell }) => cell.getValue().toLocaleDateString(), 
+        Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
       },
     ],
     []

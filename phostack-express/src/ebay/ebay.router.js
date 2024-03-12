@@ -27,14 +27,14 @@ ebayRouter.get('/items/:id', async (req, res, next) => {
 });
 
 ebayRouter.get('/items', async (req, res, next) => {
-  const { orgID, limit, offset } = req.query;
+  const { orgId, limit, offset } = req.query;
   const ebayQueryParams = {
     q: 'iphone',
     limit,
     offset,
   };
   try {
-    const catalogParamsResults = await getCatalogParamByOrgId(orgID);
+    const catalogParamsResults = await getCatalogParamByOrgId(orgId);
     const found = catalogParamsResults.length > 0;
     if (found) {
       const queryParams = catalogParamsResults[0];

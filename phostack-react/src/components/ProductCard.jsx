@@ -9,21 +9,34 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom';
 import { Link} from "react-router-dom"
+import CustomAlert from "./UI/CustomAlert"
+import {useState} from 'react'
 
-const ProductCard = ({ imageUrl, title, price, productId, quantity }) => {
+
+const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quantity }) => {
   const navigate = useNavigate();
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const handleBuyButtonClick = () => {
-    console.log('Buy button clicked');
-    navigate(`/purchase/${productId}`, {
-      state: {
-        imageUrl,
-        title,
-        price,
-        productId,
-        quantity,
-      }
-    }); // Navigate to '/purchase/:productId' route with props as state
+
+    if(userPointValue <  price)
+    {
+      setShowErrorAlert(true)
+    }
+    else
+    {
+      console.log('Buy button clicked');
+      navigate(`/purchase/${productId}`, {
+        state: {
+          imageUrl,
+          title,
+          price,
+          productId,
+          quantity,
+        }
+      }); // Navigate to '/purchase/:productId' route with props as state
+    }
   };
 
   
@@ -31,7 +44,16 @@ const ProductCard = ({ imageUrl, title, price, productId, quantity }) => {
   const handleAddToCardButtonClick = (event) => {
     console.log('Add to Card button clicked');
   };
+
   return (
+  <>
+    { showErrorAlert && (
+      <CustomAlert
+        type='error'
+        message='You do not have enough points to purchase this item'
+        onClose={() => setShowErrorAlert(false)}
+      />
+    )}
     <Card
       sx={{
         maxWidth: 300,
@@ -87,6 +109,7 @@ const ProductCard = ({ imageUrl, title, price, productId, quantity }) => {
         </Button>
       </CardContent>
     </Card>
+    </>
   );
 };
 

@@ -17,17 +17,9 @@ import MenuItem from '@mui/material/MenuItem';
 import { categories } from '../util/category';
 import CustomAlert from '../components/UI/CustomAlert';
 import { changeOrganization } from '../util/organizations';
-import { fetchOrganizations } from '../util/organizations';
 import useUser from '../hooks/useUser';
-import { fetchOrganization } from '../util/organizations';
-import Spinner from '../components/UI/Spinner';
 
 function CatalogSettingsPage() {
-  
-  //Someone needs to write code here so that orgID isn't hard coded anymore!
-  
-  
-
   const { getAccessTokenSilently } = useAuth0();
   const [searchInput, setSearchInput] = useState('');
   const [minPriceInput, setMinPriceInput] = useState('');
@@ -37,36 +29,27 @@ function CatalogSettingsPage() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-
-  const {user} = useUser();
-
-  const orgID = user?.orgId
-  
-
-  
-
-
+  const { user } = useUser();
+  const { viewAs } = user;
+  const orgId = viewAs?.selectedOrgId;
+  const userOrganizations = viewAs?.organizations || [];
+  const selectedOrganization = userOrganizations.find(
+    (org) => org.orgId == orgId
+  );
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['ebay_params', orgID],
+    queryKey: ['ebay_params', orgId],
     queryFn: ({ signal }) =>
-      getEbayParams({ signal, orgID, getAccessTokenSilently }),
+      getEbayParams({ signal, orgId, getAccessTokenSilently }),
   });
 
-  //OrganizationStuff
-
-  const { data: getOrgData, isLoading : getOrgisLoading, isError: getOrgIsError, error: getOrgError } = useQuery({
-    queryKey: ['organization', orgID],
-    queryFn: ({ signal }) =>
-      fetchOrganization({ signal, orgID, getAccessTokenSilently }),
-  });
-
-
-  //
-
-
-
-  const {mutate: orgmutate, isPending : orgIsPending, isSaveError: orgIsSaveError, saveError : orgSaveError, isSuccess : orgIsSuccess } = useMutation({
+  const {
+    mutate: orgmutate,
+    isPending: orgIsPending,
+    isSaveError: orgIsSaveError,
+    saveError: orgSaveError,
+    isSuccess: orgIsSuccess,
+  } = useMutation({
     mutationFn: changeOrganization,
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -79,21 +62,16 @@ function CatalogSettingsPage() {
     },
   });
 
-
-  //End 
-
   useEffect(() => {
-    if (data?.length > 0 && !getOrgisLoading) {
-      console.log(data)
+    if (data?.length > 0) {
+      console.log(data);
       setSearchInput(data[0].CatalogParamSearch || '');
       setMinPriceInput(+data[0].CatalogParamMinPrice || '');
       setMaxPriceInput(+data[0].CatalogParamMaxPrice || '');
       setSelectedCategory(data[0].CatalogParamCategories || '');
-   
-      setPointConversionRate(getOrgData[0].dollarPerPoint || '');
-      
+      setPointConversionRate(+selectedOrganization?.dollarPerPoint || '');
     }
-  }, [data, getOrgisLoading]);
+  }, [data, selectedOrganization]);
 
   const { mutate, isPending, isSaveError, saveError } = useMutation({
     mutationFn: saveEbayParams,
@@ -105,13 +83,6 @@ function CatalogSettingsPage() {
       setShowErrorAlert(true);
     },
   });
-
- 
-
-
-
-
-
 
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
@@ -129,10 +100,9 @@ function CatalogSettingsPage() {
     setSelectedCategory(event.target.value);
   };
 
-  const handlePointConversionChange = (event) =>
-  {
+  const handlePointConversionChange = (event) => {
     setPointConversionRate(event.target.value);
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -142,18 +112,13 @@ function CatalogSettingsPage() {
       CatalogParamMaxPrice: maxPriceInput || null,
       CatalogParamCategories: selectedCategory || null,
     };
-  
-    mutate({ orgID, queryParams, getAccessTokenSilently });
 
-
-
-    const orgData = {
-      dollarPerPoint: pointConversionRate,
-    };
-
-    const orgId = orgID
-
-    orgmutate({orgId, orgData, getAccessTokenSilently});
+    mutate({ orgId, queryParams, getAccessTokenSilently });
+    orgmutate({
+      orgId,
+      orgData: { dollarPerPoint: pointConversionRate },
+      getAccessTokenSilently,
+    });
   };
 
   return (
@@ -216,7 +181,9 @@ function CatalogSettingsPage() {
           />
         </FormControl>
         <FormControl fullWidth margin='normal'>
-          <InputLabel htmlFor='point_conversion'>Point Conversion Rate</InputLabel>
+          <InputLabel htmlFor='point_conversion'>
+            Point Conversion Rate
+          </InputLabel>
           <Input
             id='point_conversion'
             type='number'

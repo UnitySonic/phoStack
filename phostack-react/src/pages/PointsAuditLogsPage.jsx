@@ -17,7 +17,8 @@ import {
 const PointsAuditLogsPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { user, isLoading: userIsLoading } = useUser();
-  const { userType, orgId } = user || {};
+  const { viewAs = {} } = user;
+  const { userId, userType, selectedOrgId: orgId } = viewAs;
 
   let params = {};
 
@@ -36,7 +37,7 @@ const PointsAuditLogsPage = () => {
         getAccessTokenSilently,
       }),
   });
-
+  
   const newData = useMemo(() => {
     return data.map((d) => {
       if (d.orderId) {

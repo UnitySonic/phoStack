@@ -20,7 +20,8 @@ import {
 const DriverApplicationsAuditLogsPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { user, isLoading: userIsLoading } = useUser();
-  const { userId, userType, orgId } = user || {};
+  const { viewAs = {} } = user;
+  const { userId, userType, selectedOrgId: orgId} = viewAs;
   const navigate = useNavigate();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);

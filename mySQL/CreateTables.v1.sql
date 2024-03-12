@@ -42,35 +42,20 @@ CREATE TABLE IF NOT EXISTS User (
   email VARCHAR(50),
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   picture VARCHAR(255),
-  userStatus VARCHAR(50) DEFAULT 'active'
-);
-
-CREATE TABLE IF NOT EXISTS NewUser (
-  userId VARCHAR(50) PRIMARY KEY,
-
-  FOREIGN KEY (userId) REFERENCES User(userId)
-);
-
-CREATE TABLE IF NOT EXISTS AdminUser (
-  userId VARCHAR(50) PRIMARY KEY,
-
-  FOREIGN KEY (userId) REFERENCES User(userId)
-);
-
-
-CREATE TABLE IF NOT EXISTS SponsorUser (
-  userId VARCHAR(50) PRIMARY KEY,
-  orgId INT,
-
-  FOREIGN KEY (userId) REFERENCES User(userId),
-  FOREIGN KEY (orgId) REFERENCES Organization(orgId)
-);
-
-CREATE TABLE IF NOT EXISTS DriverUser (
-  userId VARCHAR(50) PRIMARY KEY,
-  orgId INT,
+  userStatus VARCHAR(50) DEFAULT 'active',
   pointValue INT DEFAULT 0,
+  selectedOrgId INT,
+  viewAs VARCHAR(50) 
+);
 
+
+CREATE TABLE IF NOT EXISTS User_Organization (
+  userId VARCHAR(50) NOT NULL,
+  orgId INT NOT NULL,
+  memberStatus VARCHAR(50) DEFAULT 'active',
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  PRIMARY KEY(userId, orgId),
   FOREIGN KEY (userId) REFERENCES User(userId),
   FOREIGN KEY (orgId) REFERENCES Organization(orgId)
 );
@@ -129,6 +114,7 @@ CREATE TABLE IF NOT EXISTS OrderInfo (
   orderFor VARCHAR(50),
   orgId INT,
   addressId INT,
+  dollarPerPoint DECIMAL(10,2) DEFAULT 0.01,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
   FOREIGN KEY (orderBy) REFERENCES User(userId),

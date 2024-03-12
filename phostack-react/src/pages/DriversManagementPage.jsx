@@ -1,8 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useQuery, keepPreviousData, useMutation} from '@tanstack/react-query';
+import { useQuery, keepPreviousData, useMutation } from '@tanstack/react-query';
 import { fetchDriversByOrgId } from '../util/users';
 import AddIcon from '@mui/icons-material/Add';
-import { useMemo, useState} from 'react';
+import { useMemo, useState } from 'react';
 import useUser from '../hooks/useUser';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -19,11 +19,13 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from 'material-react-table';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const DriversManagementPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { user } = useUser();
-  const orgId = user?.orgId;
+  const { viewAs } = user;
+  const orgId = viewAs?.selectedOrgId;
   const navigate = useNavigate();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -56,6 +58,14 @@ const DriversManagementPage = () => {
     },
     onError: (error) => {
       setShowErrorAlert(true);
+    },
+  });
+
+  const { mutate: mutateView } = useMutation({
+    mutationFn: changeUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      navigate('/');
     },
   });
 
@@ -131,6 +141,19 @@ const DriversManagementPage = () => {
     }
   };
 
+  const handleViewAs = (row) => {
+    const { userId: viewAsUserId } = row.original;
+    if (viewAsUserId && user.userId) {
+      mutateView({
+        userId: user.userId,
+        userData: { viewAs: viewAsUserId },
+        getAccessTokenSilently,
+      });
+    } else {
+      setShowErrorAlert(true);
+    }
+  };
+
   const table = useMaterialReactTable({
     columns,
     data,
@@ -168,6 +191,16 @@ const DriversManagementPage = () => {
           <DoNotDisturbIcon fontSize='small' />
         </ListItemIcon>
         <ListItemText>Deactivate</ListItemText>
+      </MenuItem>,
+      <MenuItem
+        key='viewAs'
+        onClick={() => handleViewAs(row)}
+        disabled={row?.original?.userStatus === 'inactive'}
+      >
+        <ListItemIcon>
+          <VisibilityIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>View As</ListItemText>
       </MenuItem>,
     ],
   });

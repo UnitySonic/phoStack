@@ -1,5 +1,5 @@
 import ProductCard from '../components/ProductCard';
-import { useQuery,  } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import Alert from '@mui/material/Alert';
 import Spinner from '../components/UI/Spinner';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -8,51 +8,37 @@ import Pagination from '@mui/material/Pagination';
 import { Grid, Box } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getEbayItems } from '../util/ebay';
-import { fetchOrganization } from '../util/organizations';
 import useUser from '../hooks/useUser';
-
-
-
-
-
-
-
-
-
 
 function CatalogPage() {
   const { getAccessTokenSilently } = useAuth0();
   const [page, setPage] = useState(1);
-
-
   const limit = 40;
 
-  const {user} = useUser()
-  const orgID = user?.orgId;
-
-
+  const { user } = useUser();
+  const { viewAs } = user;
+  const orgId = viewAs?.selectedOrgId;
+  const userPointValue = viewAs?.pointValue;
+  const userOrganizations = viewAs?.organizations || [];
+  const selectedOrganization = userOrganizations.find(org => org.orgId == orgId);
 
   let queryParams = {
-    orgID,
+    orgId,
     offset: (page - 1) * limit,
     limit,
     // filter: 'price:[10..50],priceCurrency:USD'
   };
 
-  const { data: ebayData, isLoading: ebayIsLoading, isError: ebayIsError, error: ebayError } = useQuery({
+  const {
+    data: ebayData,
+    isLoading: ebayIsLoading,
+    isError: ebayIsError,
+    error: ebayError,
+  } = useQuery({
     queryKey: ['ebay_products', queryParams],
     queryFn: ({ signal }) =>
       getEbayItems({ signal, params: queryParams, getAccessTokenSilently }),
   });
-
-  const { data: getOrgData, isLoading : getOrgisLoading, isError: getOrgIsError, error: getOrgError } = useQuery({
-    queryKey: ['organization', orgID],
-    queryFn: ({ signal }) =>
-      fetchOrganization({ signal, orgID, getAccessTokenSilently }),
-  });
-
-
-  
 
   //price Conversion
 
@@ -63,14 +49,9 @@ function CatalogPage() {
     // Convert the cleaned price string to cents
     const priceInCents = parseFloat(cleanPriceString);
 
- 
-
-
-    return (Math.round(priceInCents / dollarPerPoint))
-  }
+    return Math.round(priceInCents / dollarPerPoint);
+  };
   //end price conversion
-
-
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -91,7 +72,6 @@ function CatalogPage() {
       </Alert>
     );
   }
-  
 
   if (ebayData && ebayData.total > 0) {
     const maxPage = Math.ceil(Math.min(ebayData.total, 3000) / limit);
@@ -101,17 +81,20 @@ function CatalogPage() {
         <Grid container spacing={3}>
           {ebayData.itemSummaries.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={product.itemId}>
-              
-              {!getOrgisLoading ? 
               <ProductCard
                 imageUrl={product?.thumbnailImages?.[0]?.imageUrl}
                 title={product?.title}
-                price={priceConvert(product?.price?.value, getOrgData[0].dollarPerPoint)}
+                price={priceConvert(
+                  product?.price?.value,
+                  selectedOrganization?.dollarPerPoint
+                )}
+                userPointValue={userPointValue}
                 productId={product?.itemId}
-                quantity={product?.estimatedAvailabilities?.[0]?.estimatedAvailableQuantity || 1}
-
-              /> : 'Loading...'}
-              
+                quantity={
+                  product?.estimatedAvailabilities?.[0]
+                    ?.estimatedAvailableQuantity || 1
+                }
+              />
             </Grid>
           ))}
         </Grid>

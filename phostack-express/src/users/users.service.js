@@ -10,9 +10,10 @@ const saveUserToDb = async (user) => {
     userType = null,
     email = null,
     picture = null,
-    orgId = null,
-    pointValue = null,
     userStatus = 'active',
+    pointValue = 0,
+    organizations = null,
+    selectedOrgId = null
   } = user;
 
   let connection;
@@ -21,36 +22,34 @@ const saveUserToDb = async (user) => {
     connection.beginTransaction();
 
     await connection.execute(
-      'INSERT INTO `User` (userId, firstName, lastName, userType, email, picture, userStatus) \
-      VALUES (?,?,?,?,?,?,?)',
-      [userId, firstName, lastName, userType, email, picture, userStatus]
+      'INSERT INTO `User` (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs, selectedOrgId) \
+      VALUES (?,?,?,?,?,?,?,?,?,?)',
+      [
+        userId,
+        firstName,
+        lastName,
+        userType,
+        email,
+        picture,
+        userStatus,
+        pointValue,
+        userId,
+        selectedOrgId
+      ]
     );
 
-    let sql = [
-      'INSERT INTO `NewUser` (userId) \
-      VALUES (?)',
-      [userId],
-    ];
-    if (userType === 'DriverUser') {
-      sql = [
-        'INSERT INTO `DriverUser` (userId, orgId, pointValue) \
-        VALUES (?,?,?)',
-        [userId, orgId, pointValue],
-      ];
-    } else if (userType === 'AdminUser') {
-      sql = [
-        'INSERT INTO `AdminUser` (userId) \
-        VALUES (?)',
-        [userId],
-      ];
-    } else if (userType === 'SponsorUser') {
-      sql = [
-        'INSERT INTO `SponsorUser` (userId, orgId) \
-        VALUES (?,?)',
-        [userId, orgId],
-      ];
+    if (organizations && organizations.length > 0) {
+      const placeholders = organizations.map(() => '(?, ?)').join(', ');
+      const organizationValues = organizations.flatMap((orgId) => [
+        userId,
+        orgId,
+      ]);
+
+      const query = `INSERT INTO \`User_Organization\` (userId, orgId) VALUES ${placeholders}`;
+
+      await connection.execute(query, organizationValues);
     }
-    await connection.execute(sql[0], sql[1]);
+
     await connection.commit();
   } catch (error) {
     if (connection) {
@@ -64,47 +63,81 @@ const saveUserToDb = async (user) => {
   }
 };
 
-const getUserSubTypeInfo = async (connection, userId, userType) => {
-  if (userType === "NewUser" || userType === "AdminUser") {
-    const [results] = await connection.execute(
-      `SELECT * FROM ${userType} WHERE userId = ? LIMIT 1`,
-      [userId]
-    );
-    return results?.[0];
-  }
-
-  const [results] = await connection.execute(
-    `SELECT U.*, O.orgName FROM ${userType} U JOIN Organization O on O.orgId = U.orgId WHERE userId = ? LIMIT 1`,
-    [userId]
-  );
-  return results?.[0];
-};
-
 const getUsersFromDb = async (params) => {
-  const { offset = 0, limit = 1000 } = params;
+  const { offset = 0, limit = 1000, filters = {}} = params;
   const numericOffset = +offset;
   const numericLimit = +limit;
   let connection;
   try {
     connection = await pool.getConnection();
     connection.beginTransaction();
-    const [results] = await connection.query(
-      `SELECT * FROM User LIMIT ? OFFSET ?`,
-      [numericLimit, numericOffset]
-    );
 
-    const users = await Promise.all(
-      results.map(async (user) => {
-        const subTypeInfo = await getUserSubTypeInfo(
-          connection,
-          user.userId,
-          user.userType
-        );
-        return { ...user, ...subTypeInfo };
-      })
-    );
+    // Constructing WHERE clause based on filters
+    let whereClause = '';
+    const filterKeys = Object.keys(filters);
+    if (filterKeys.length > 0) {
+      whereClause = '';
+      filterKeys.forEach((key, index) => {
+        let sqlKey = key;
+        if (key == 'orgId') {
+          sqlKey = 'O.orgId'
+        }
+        whereClause += `${sqlKey} = ?`;
+        if (index < filterKeys.length - 1) {
+          whereClause += ' AND ';
+        }
+      });
+    }
+
+    const query = `
+      SELECT U.*, UO.createdAt as joinDate, O.orgId, O.orgName, O.orgDescription, O.dollarPerPoint, O.orgStatus, O.createdAt as orgCreatedAt
+      FROM User U
+      LEFT JOIN User_Organization UO ON U.userId = UO.userId
+      LEFT JOIN Organization O ON UO.orgId = O.orgId
+      WHERE (memberStatus = 'active' OR memberStatus IS NULL)
+      ${whereClause ? `AND ${whereClause}` : whereClause}
+      LIMIT ?, ?`;
+
+    const [results] = await connection.query(query, [...Object.values(filters), numericOffset, numericLimit]);
+
+    const usersWithOrgs = results.reduce((acc, user) => {
+      const existingUser = acc.find((u) => u.userId === user.userId);
+      const orgData = {
+        orgId: user.orgId,
+        orgName: user.orgName,
+        orgDescription: user.orgDescription,
+        dollarPerPoint: user.dollarPerPoint,
+        orgStatus: user.orgStatus,
+        joinDate: user.joinDate
+      };
+
+      const userData = {
+        userId: user.userId,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        userType: user.userType,
+        email: user.email,
+        createdAt: user.createdAt,
+        picture: user.picture,
+        userStatus: user.userStatus,
+        pointValue: user.pointValue,
+        selectedOrgId: user.selectedOrgId,
+        viewAs: user.viewAs,
+      };
+
+      if (existingUser) {
+        existingUser.organizations.push(orgData);
+      } else {
+        acc.push({
+          ...userData,
+          organizations: user.orgId ? [orgData] : [],
+        });
+      }
+      return acc;
+    }, []);
+
     await connection.commit();
-    return users;
+    return usersWithOrgs;
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -116,6 +149,7 @@ const getUsersFromDb = async (params) => {
     }
   }
 };
+
 
 const getUserFromDbById = async (userId) => {
   let connection;
@@ -124,25 +158,48 @@ const getUserFromDbById = async (userId) => {
     connection.beginTransaction();
 
     const [results] = await connection.execute(
-      'SELECT * FROM User WHERE userId = ? LIMIT 1',
+      `SELECT U.*, UO.createdAt as joinDate, O.orgId, O.orgName, O.orgDescription, O.dollarPerPoint, O.orgStatus, O.createdAt as orgCreatedAt
+      FROM User U
+      LEFT JOIN User_Organization UO ON U.userId = UO.userId
+      LEFT JOIN Organization O ON UO.orgId = O.orgId
+      WHERE (memberStatus = 'active' OR memberStatus IS NULL) AND U.userId = ?`,
       [userId]
     );
 
     if (results.length === 0) {
-      return null;
+      throw new Error('User not found');
     }
-
-    const user = results[0];
-
-    const subTypeInfo = await getUserSubTypeInfo(
-      connection,
-      user.userId,
-      user.userType
-    );
 
     await connection.commit();
 
-    return { ...user, ...subTypeInfo };
+    const userWithOrgs = {
+      userId: results[0].userId,
+      firstName: results[0].firstName,
+      lastName: results[0].lastName,
+      userType: results[0].userType,
+      email: results[0].email,
+      createdAt: results[0].createdAt,
+      picture: results[0].picture,
+      userStatus: results[0].userStatus,
+      pointValue: results[0].pointValue,
+      selectedOrgId: results[0].selectedOrgId,
+      viewAs: results[0].viewAs,
+      createdAt: results[0].createdAt,
+
+      organizations: results[0].orgId
+        ? results.map((row) => ({
+            orgId: row.orgId,
+            orgName: row.orgName,
+            orgDescription: row.orgDescription,
+            dollarPerPoint: row.dollarPerPoint,
+            orgStatus: row.orgStatus,
+            createdAt: row.orgCreatedAt,
+            joinDate: row.joinDate,
+          }))
+        : [],
+    };
+
+    return userWithOrgs;
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -162,9 +219,11 @@ const modifyUserInDb = async (userId, user) => {
     userType = null,
     email = null,
     picture = null,
-    orgId = null,
-    pointValue = null,
     userStatus = null,
+    pointValue = null,
+    selectedOrgId = null,
+    viewAs = null,
+    addPoints = null
   } = user;
 
   let connection;
@@ -212,6 +271,22 @@ const modifyUserInDb = async (userId, user) => {
       updateFields.push('userStatus = ?');
       updateValues.push(userStatus);
     }
+    if (pointValue !== null) {
+      updateFields.push('pointValue = ?');
+      updateValues.push(pointValue);
+    }
+    if (selectedOrgId !== null) {
+      updateFields.push('selectedOrgId = ?');
+      updateValues.push(selectedOrgId);
+    }
+    if (viewAs !== null) {
+      updateFields.push('viewAs = ?');
+      updateValues.push(viewAs);
+    }
+    if (addPoints !== null) {
+      updateFields.push('pointValue = (pointValue + ?)');
+      updateValues.push(addPoints);
+    }
 
     if (updateFields.length > 0) {
       const updateQuery = `UPDATE User SET ${updateFields.join(
@@ -224,46 +299,12 @@ const modifyUserInDb = async (userId, user) => {
 
     // Check if userType is changing
     if (userType && userType !== currentUser.userType) {
-      // Delete user from current subtype table
-      await connection.execute(
-        `DELETE FROM ${currentUser.userType} WHERE userId = ?`,
-        [userId]
-      );
-
-      // Insert user into new subtype table
-      if (userType === 'DriverUser') {
-        await connection.execute(
-          'INSERT INTO DriverUser (userId, orgId, pointValue) VALUES (?,?,?)',
-          [userId, orgId, pointValue]
-        );
-      } else if (userType === 'AdminUser') {
-        await connection.execute('INSERT INTO AdminUser (userId) VALUES (?)', [
-          userId,
-        ]);
-      } else if (userType === 'SponsorUser') {
-        await connection.execute(
-          'INSERT INTO SponsorUser (userId, orgId) VALUES (?,?)',
-          [userId, orgId]
-        );
-      } else if (userType === 'NewUser') {
-        await connection.execute('INSERT INTO NewUser (userId) VALUES (?)', [
-          userId,
-        ]);
-      }
-
-      // Update userType in User table
       await connection.execute(
         'UPDATE User SET userType = ? WHERE userId = ?',
         [userType, userId]
       );
-    }
 
-    //Update Driver points
-    if (pointValue && !userType && currentUser.userType === 'DriverUser') {
-      await connection.execute(
-        'UPDATE DriverUser SET pointValue = ? WHERE userId = ?',
-        [pointValue, userId]
-      );
+      await assignRoleInAuth0({ userId, userType });
     }
 
     await connection.commit();
@@ -309,12 +350,10 @@ const changeUserType = async (userId, user) => {
 const getDriversByOrgId = async (orgId) => {
   try {
     const [rows, fields] = await pool.execute(
-      'select D.userId, orgId, U.userStatus, \
-      pointValue, firstName, lastName, \
-      userType, email, \
-      createdAt, picture from DriverUser D \
-      JOIN User U on D.userId = U.UserId \
-      where orgId = ?',
+      `SELECT U.* FROM User_Organization UO
+      JOIN User U 
+      ON UO.userId = U.userId
+      WHERE orgId = ? AND memberStatus = 'active' AND userType = 'DriverUser'`,
       [orgId]
     );
     return rows;
@@ -327,12 +366,10 @@ const getDriversByOrgId = async (orgId) => {
 const getSponsorsByOrgId = async (orgId) => {
   try {
     const [rows, fields] = await pool.execute(
-      `select S.userId, orgId, U.userStatus,\
-      firstName, lastName, \
-      userType, email, \
-      createdAt, picture from SponsorUser S \
-      JOIN User U on S.userId = U.UserId \
-      where orgId = ?`,
+      `SELECT U.*, UO.orgId FROM User_Organization UO
+      JOIN User U 
+      ON UO.userId = U.userId
+      WHERE orgId = ? AND memberStatus = 'active' AND userType = 'SponsorUser'`,
       [orgId]
     );
     return rows;
@@ -340,7 +377,7 @@ const getSponsorsByOrgId = async (orgId) => {
     console.error(error);
     throw error;
   }
-}
+};
 
 const getDrivers = async () => {
   try {
@@ -499,6 +536,30 @@ const changePassword = async (userId, { password }) => {
   }
 };
 
+const addOrganizationToUser = async (userId, orgId) => {
+  try {
+    connection = await pool.getConnection();
+    connection.beginTransaction();
+
+    await connection.execute(
+      'INSERT INTO `User_Organization` (userId, orgId) \
+      VALUES (?,?)',
+      [userId, orgId]
+    );
+
+    await connection.commit();
+  } catch (error) {
+    if (connection) {
+      await connection.rollback();
+    }
+    throw error;
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+}
+
 module.exports = {
   saveUserToDb,
   getUsersFromDb,
@@ -511,5 +572,6 @@ module.exports = {
   getSponsors,
   getAdmins,
   changePassword,
-  getSponsorsByOrgId
+  getSponsorsByOrgId,
+  addOrganizationToUser
 };

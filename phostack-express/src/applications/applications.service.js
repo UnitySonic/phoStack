@@ -16,7 +16,6 @@ const getApplicationsFromDb = async (params) => {
   const conditions = [];
   const values = [];
 
-  // Construct conditions and values based on provided parameters
   if (userId) {
     conditions.push('D.userId = ?');
     values.push(userId);

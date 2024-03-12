@@ -153,6 +153,7 @@ const AdminAddNewDriverUserPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const orgId = organization?.id;
     const userData = {
       firstName,
       lastName,
@@ -160,8 +161,8 @@ const AdminAddNewDriverUserPage = () => {
       password,
       userType: 'DriverUser',
       pointValue: 0,
+      selectedOrgId: orgId
     };
-    const orgId = organization?.id;
     if (orgId) {
       mutate({ orgId, userData, getAccessTokenSilently });
     } else {
