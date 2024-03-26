@@ -1,9 +1,9 @@
-import { Grid, ListItemSecondaryAction } from "@mui/material";
-import {Chart as CharJS} from 'chart.js/auto';
-import {Bar, Chart, Pie} from 'react-chartjs-2';
+import { Grid, ListItemSecondaryAction } from '@mui/material';
+import { Chart as CharJS } from 'chart.js/auto';
+import { Bar, Chart, Pie } from 'react-chartjs-2';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import { Line } from 'react-chartjs-2'
-import useUser from '../../hooks/useUser'
+import { Line } from 'react-chartjs-2';
+import useUser from '../../hooks/useUser';
 import { fetchDriversByOrgId } from '../../util/users';
 import { useEffect, useMemo, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -53,16 +53,27 @@ const SponsorDashboard = ()  =>{
         }),
         placeholderData: keepPreviousData
     });
+    console.log(data);
     let points = [];
-    let disp = [];
-    let driverList = data
-    driverList.map((e)=>(
-      disp.push(
-        <li key={e}>{e.firstName + " " + e.lastName}</li>
+    let driverList = [];
+    let names = [];
+    let colors = [];
+    let drivers_arr = data
+    var randomColor = () => {
+      var r = Math.floor(Math.random() * 255);
+      var g = Math.floor(Math.random() * 255);
+      var b = Math.floor(Math.random() * 255);
+      return "rgb(" + r + "," + g + "," + b + ")";
+   };
+    drivers_arr.slice(0, 5).map((e, index)=>(
+      names.push(e.firstName + " " + e.lastName),
+      points.push(e.organizations.find(o => o.orgId == orgId).pointValue),
+      driverList.push(
+        <li key={index}>{e.firstName + " " + e.lastName}</li>
       ),
-      console.log(e.pointValue),
-      points.push(e.pointValue)
+      colors.push(randomColor())
     ));
+    
     console.log(points)
     const chartData = {
         labels: ['January', 'February', 'March', 'April', 'May'],
@@ -90,25 +101,25 @@ const SponsorDashboard = ()  =>{
         },
     };
     const pieData = {
-        labels: drivers,
+        labels: names,
         datasets: [
           {
             data: points, // Values for each slice
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Colors for each slice
-            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'], // Colors on hover
+            backgroundColor: colors, // Colors for each slice
+            hoverBackgroundColor: colors, // Colors on hover
           },
         ],
     }
     return(
     <>
-    {/* display data when finished loading */}
-    {isLoading && <div>Loading data...</div>}
-    {!isLoading &&
+      {/* display data when finished loading */}
+      {isLoading && <div>Loading data...</div>}
+      {!isLoading && (
         <div style={HorizontalRow}>
             <div style = {dashBoardStyle}>
-                Drivers
+                Top Drivers
                 <ol>
-                  {disp}
+                  {driverList}
                 </ol>
             </div>
             <div style={{ border: '2px solid black', borderRadius: '2px', padding: '10px' }}>
@@ -120,9 +131,9 @@ const SponsorDashboard = ()  =>{
                 <Line data={chartData} options={chartOptions}/>
             </div>
         </div>
-    }
+      )}
     </>
-    )
-}
+  );
+};
 
 export default SponsorDashboard;

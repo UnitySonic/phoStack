@@ -1,23 +1,13 @@
-import LoginButton from '../components/buttons/LoginButton';
-import LogoutButton from '../components/buttons/LogoutButton';
-import SignupButton from '../components/buttons/SignupButton';
 import Dashboard from '../components/dashboards/Dashboard';
 import { Link, json } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import useUser from '../hooks/useUser';
 import SponsorDashboard from '../components/dashboards/SponsorDashboard';
-import { Typography } from '@mui/material';
 import AdminDashboard from '../components/dashboards/AdminDashboard';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import { useState } from 'react';
-import { queryClient } from '../util/http';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { changeUser } from '../util/users';
 import DriverSelectOrganization from '../components/DriverSelectOrganization';
 
 function HomePage() {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const { user } = useUser();
   const viewAs = user?.viewAs;
 
@@ -69,7 +59,6 @@ function HomePage() {
         </>
       );
     }
-    //swap these back
     else if (userType == 'AdminUser') {
       return (
         <>

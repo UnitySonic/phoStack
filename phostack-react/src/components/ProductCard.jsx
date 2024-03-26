@@ -13,7 +13,8 @@ import CustomAlert from "./UI/CustomAlert"
 import {useState} from 'react'
 
 
-const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quantity }) => {
+
+const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quantity, userId }) => {
   const navigate = useNavigate();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -27,13 +28,17 @@ const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quanti
     else
     {
       console.log('Buy button clicked');
+
       navigate(`/purchase/${productId}`, {
         state: {
-          imageUrl,
-          title,
-          price,
-          productId,
-          quantity,
+         cart: {
+            [productId]: {
+              imageUrl,
+              title,
+              price,
+              quantity,
+            }
+         }
         }
       }); // Navigate to '/purchase/:productId' route with props as state
     }
@@ -41,8 +46,34 @@ const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quanti
 
   
 
-  const handleAddToCardButtonClick = (event) => {
-    console.log('Add to Card button clicked');
+  const handleAddToCartButtonClick = (event) => {
+    
+    const cart = JSON.parse(localStorage.getItem(`cart_${userId}`));
+    setShowSuccessAlert(true)
+
+    // Create a new cart item object
+    const cartItem = {
+      imageUrl: imageUrl,
+      title: title,
+      price: price,
+      quantity: 1 // Initial quantity when adding to cart
+    };
+
+    // Check if the product already exists in the cart
+    if (cart[productId]) {
+      // If the product already exists, increment the quantity
+      cartItem.quantity = cart[productId].quantity + 1;
+    }
+
+    // Update cart data with the new or updated cart item
+    const updatedCart = {
+      ...cart,
+      [productId]: cartItem
+    };
+
+    // Save updated cart data back to localStorage
+    localStorage.setItem(`cart_${userId}`, JSON.stringify(updatedCart));
+
   };
 
   return (
@@ -54,6 +85,15 @@ const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quanti
         onClose={() => setShowErrorAlert(false)}
       />
     )}
+    {
+      showSuccessAlert && (
+        <CustomAlert
+          type = "success"
+          message = "Added to Cart"
+          onClose={() => setShowSuccessAlert(false)}
+        />
+      )
+    }
     <Card
       sx={{
         maxWidth: 300,
@@ -94,7 +134,7 @@ const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quanti
           color='primary'
           startIcon={<AddShoppingCartIcon />}
           sx={{ mt: 1 }}
-          onClick={handleAddToCardButtonClick}
+          onClick={handleAddToCartButtonClick}
         >
           Add to Cart
         </Button>

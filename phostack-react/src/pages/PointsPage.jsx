@@ -15,15 +15,13 @@ import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import TextareaAutosize from'@mui/material/TextareaAutosize';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 import MenuItem from '@mui/material/MenuItem';
 import { fetchBehaviorsByOrgId } from '../util/behavior';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function PointsPage() {
- // Inside your functional component
+  // Inside your functional component
   const { getAccessTokenSilently } = useAuth0();
   const navigate = useNavigate();
   const [pointAdjustment, setPointAdjustment] = useState('');
@@ -35,7 +33,6 @@ function PointsPage() {
   const [adHocDescription, setAdHocDescription] = useState('');
   const [adHocName, setAdHocName] = useState('');
   const [adHocPointValue, setAdHocPointValue] = useState(0);
-
 
   const { id } = useParams(); // Correctly extract driverId from useParams
   const driverUserId = id;
@@ -58,9 +55,7 @@ function PointsPage() {
   });
 
   // Get the driver information using id from URL
-  const {
-    data: driverUser,
-  } = useQuery({
+  const { data: driverUser } = useQuery({
     queryKey: ['getDriver', { driverUserId }],
     queryFn: ({ signal }) =>
       getUser({ signal, userId: driverUserId, getAccessTokenSilently }),
@@ -75,15 +70,15 @@ function PointsPage() {
   const {
     data: behaviors = [],
     refetch: behaviorsRefetch,
-    isRefetching: behaviorsIsRefetching, 
+    isRefetching: behaviorsIsRefetching,
   } = useQuery({
     queryKey: ['behaviors', { orgId }],
     queryFn: ({ signal }) =>
-    fetchBehaviorsByOrgId({
-      orgId,
-      signal,
-      getAccessTokenSilently,
-    }),
+      fetchBehaviorsByOrgId({
+        orgId,
+        signal,
+        getAccessTokenSilently,
+      }),
     placeholderData: keepPreviousData,
   });
 
@@ -94,7 +89,7 @@ function PointsPage() {
 
   // Handle error state
   if (isError) {
-    return <CustomAlert severity="error" message={isError.message} />;
+    return <CustomAlert severity='error' message={isError.message} />;
   }
 
   const handleBehaviorChange = (event) => {
@@ -111,35 +106,45 @@ function PointsPage() {
 
   const HandleSubmit = (e) => {
     e.preventDefault();
-    const newPointValue = driverUser?.pointValue + pointAdjustment;
-    mutate({ userId: driverUserId, userData: { pointValue: newPointValue }, getAccessTokenSilently });
+    mutate({
+      userId: driverUserId,
+      userData: { points: { orgId, amount: pointAdjustment, type: 'add' } },
+      getAccessTokenSilently,
+    });
   };
 
   const HandleAdHocSubmit = (e) => {
     e.preventDefault();
-    const newPointValue = driverUser?.pointValue + parseInt(adHocPointValue);
-    mutate({ userId: driverUserId, userData: { pointValue: newPointValue }, getAccessTokenSilently });
+    mutate({
+      userId: driverUserId,
+      userData: {
+        points: { orgId, amount: parseInt(adHocPointValue), type: 'add' },
+      },
+      getAccessTokenSilently,
+    });
   };
 
-  if(driverUser)
-  {
+  if (driverUser) {
     return (
       <>
-      {showErrorAlert && (
-        <CustomAlert
-          type='error'
-          message='Failed to create behavior'
-          onClose={() => setShowErrorAlert(false)}
-        />
-      )}
-      {showSuccessAlert && (
-        <CustomAlert
-          type='success'
-          message='Create behavior success!'
-          onClose={() => setShowSuccessAlert(false)}
-        />
-      )}
-        <h1>Currently Select Driver: {driverUser?.firstName} {driverUser?.lastName}</h1>
+        {showErrorAlert && (
+          <CustomAlert
+            type='error'
+            message='Failed to create behavior'
+            onClose={() => setShowErrorAlert(false)}
+          />
+        )}
+        {showSuccessAlert && (
+          <CustomAlert
+            type='success'
+            message='Create behavior success!'
+            onClose={() => setShowSuccessAlert(false)}
+          />
+        )}
+        <h1>
+          Currently Select Driver: {driverUser?.firstName}{' '}
+          {driverUser?.lastName}
+        </h1>
         <h3>Current Points: {driverUser?.pointValue}</h3>
 
         <FormControl fullWidth margin='normal'>
@@ -156,8 +161,11 @@ function PointsPage() {
                   <span>{behavior.behaviorName}</span>
                   <div style={{ marginLeft: '10px' }}>
                     <Chip
-                      label={behavior.pointValue + " points"}
-                      style={{ backgroundColor: behavior.pointValue >= 0 ? '#12DD11' : '#F62E10' }}
+                      label={behavior.pointValue + ' points'}
+                      style={{
+                        backgroundColor:
+                          behavior.pointValue >= 0 ? '#12DD11' : '#F62E10',
+                      }}
                     />
                   </div>
                 </div>
@@ -181,10 +189,19 @@ function PointsPage() {
               value={adHocDescription}
               onChange={(e) => setAdHocDescription(e.target.value)}
               minRows={3}
-              style={{ width: '100%', marginTop: '1rem', padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }}
+              style={{
+                width: '100%',
+                marginTop: '1rem',
+                padding: '8px',
+                fontSize: '16px',
+                borderRadius: '4px',
+                border: '1px solid #ccc',
+              }}
             />
             <FormControl fullWidth margin='normal'>
-              <InputLabel htmlFor='behaviorPointValue'>Behavior Point Value</InputLabel>
+              <InputLabel htmlFor='behaviorPointValue'>
+                Behavior Point Value
+              </InputLabel>
               <Input
                 id='adHocPointValue'
                 type='number'

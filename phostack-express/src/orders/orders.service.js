@@ -6,9 +6,7 @@ const saveOrderToDb = async (orderData) => {
     orderStatus = 'processing',
     orderBy,
     orderFor,
-    orderTotal,
-    itemID,
-    quantity = 1,
+    orderInfo,
     orgId,
     addressFirstName,
     addressLastName,
@@ -22,64 +20,75 @@ const saveOrderToDb = async (orderData) => {
   } = orderData;
   let connection;
   try {
+
+
+
+
     connection = await pool.getConnection();
     connection.beginTransaction();
 
-    const [addressInfoInsertResult] = await connection.execute(
-      'INSERT INTO ShippingAddress (addressFirstName, addressLastName, addressLineOne, addressLineTwo, addressCity, addressState, addressZip, addressCountry) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [
-        addressFirstName,
-        addressLastName,
-        addressLineOne,
-        addressLineTwo,
-        addressCity,
-        addressState,
-        addressZip,
-        addressCountry,
-      ]
-    );
+    for (const productId in orderInfo){
 
-    const addressId = addressInfoInsertResult.insertId;
-    const [orgInfoInsertResult] = await connection.execute(
-      'INSERT INTO OrderInfo (orderStatus, orderBy, orderFor, orderTotal, orgId, addressId, dollarPerPoint) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [
-        orderStatus,
-        orderBy,
-        orderFor,
-        orderTotal,
-        orgId,
-        addressId,
-        dollarPerPoint,
-      ]
-    );
+      const item = orderInfo[productId]
 
-    const orderID = orgInfoInsertResult.insertId;
-    await connection.execute(
-      'INSERT INTO OrderInfo_Item (orderId, itemId, quantity) VALUES (?, ?, ?)',
-      [orderID, itemID, quantity] // Change 'insertID' to 'insertId'
-    );
-
-    await connection.execute(
-      'INSERT INTO PointLog (pointGivenBy, pointGivenTo, orderID, orgId) VALUES (?, ?, ?, ?)',
-      [orderBy, orderFor, orderID, orgId] // Change 'insertID' to 'insertId'
-    );
-
-    const [rows, fields] = await connection.execute(
-      'SELECT pointValue FROM User WHERE userId = ?',
-      [orderFor]
-    );
-    const pointValue = rows[0].pointValue;
-
-    if (pointValue < orderTotal) {
-      throw new Error('Insufficient Points to complete Order. Desync?');
-    } else {
-      await connection.execute(
-        'UPDATE User Set pointValue = ? Where userId = ?',
-        [pointValue - orderTotal, orderFor]
+    
+      const [addressInfoInsertResult] = await connection.execute(
+        'INSERT INTO ShippingAddress (addressFirstName, addressLastName, addressLineOne, addressLineTwo, addressCity, addressState, addressZip, addressCountry) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          addressFirstName,
+          addressLastName,
+          addressLineOne,
+          addressLineTwo,
+          addressCity,
+          addressState,
+          addressZip,
+          addressCountry,
+        ]
       );
-    }
+
+      const addressId = addressInfoInsertResult.insertId;
+      const [orgInfoInsertResult] = await connection.execute(
+        'INSERT INTO OrderInfo (orderStatus, orderBy, orderFor, orderTotal, orgId, addressId, dollarPerPoint) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [
+          orderStatus,
+          orderBy,
+          orderFor,
+          item.price,
+          orgId,
+          addressId,
+          dollarPerPoint,
+        ]
+      );
+
+      const orderId = orgInfoInsertResult.insertId;
+      await connection.execute(
+        'INSERT INTO OrderInfo_Item (orderId, itemId, quantity) VALUES (?, ?, ?)',
+        [orderId, productId, item.quantity]
+      );
+
+      await connection.execute(
+        'INSERT INTO PointLog (pointGivenBy, pointGivenTo, orderId, orgId) VALUES (?, ?, ?, ?)',
+        [orderBy, orderFor, orderId, orgId]
+      );
+
+      const [rows, fields] = await connection.execute(
+        'SELECT pointValue FROM User_Organization WHERE userId = ? AND orgId = ?',
+        [orderFor, orgId]
+      );
+      const pointValue = rows[0].pointValue;
+
+      if (pointValue < item.price) {
+        throw new Error('Insufficient Points to complete Order. Desync?');
+      } else {
+        await connection.execute(
+          'UPDATE User_Organization Set pointValue = (pointValue - ?) Where userId = ? AND orgId = ?',
+          [item.price, orderFor, orgId]
+        );
+      }
+  }
 
     await connection.commit();
+      
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -122,7 +131,6 @@ const getOrderFromDb = async (orderId) => {
       U.email as orderByEmail,
       U.picture as orderByPicture,
       U.userStatus as orderByUserStatus,
-      U.pointValue as orderByPointValue,
       U.selectedOrgId as orderBySelectedOrgId,
       U.createdAt as orderByCreatedAt,
       U2.userId as orderForUserId,
@@ -132,7 +140,6 @@ const getOrderFromDb = async (orderId) => {
       U2.email as orderForEmail,
       U2.picture as orderForPicture,
       U2.userStatus as orderForUserStatus,
-      U2.pointValue as orderForPointValue,
       U2.selectedOrgId as orderForSelectedOrgId,
       U2.createdAt as orderForCreatedAt
       FROM OrderInfo O
@@ -180,7 +187,6 @@ const getOrderFromDb = async (orderId) => {
               email: row.orderByEmail,
               picture: row.orderByPicture,
               userStatus: row.orderByUserStatus,
-              pointValue: row.orderByPointValue,
               selectedOrgId: row.orderBySelectedOrgId,
               createdAt: row.orderByCreatedAt,
             },
@@ -192,7 +198,6 @@ const getOrderFromDb = async (orderId) => {
               email: row.orderForEmail,
               picture: row.orderForPicture,
               userStatus: row.orderForUserStatus,
-              pointValue: row.orderForPointValue,
               selectedOrgId: row.orderForSelectedOrgId,
               createdAt: row.orderForCreatedAt,
             },
@@ -329,7 +334,6 @@ const getOrdersFromDb = async (params) => {
       U.email as orderByEmail,
       U.picture as orderByPicture,
       U.userStatus as orderByUserStatus,
-      U.pointValue as orderByPointValue,
       U.selectedOrgId as orderBySelectedOrgId,
       U.createdAt as orderByCreatedAt,
       U2.userId as orderForUserId,
@@ -339,7 +343,6 @@ const getOrdersFromDb = async (params) => {
       U2.email as orderForEmail,
       U2.picture as orderForPicture,
       U2.userStatus as orderForUserStatus,
-      U2.pointValue as orderForPointValue,
       U2.selectedOrgId as orderForSelectedOrgId,
       U2.createdAt as orderForCreatedAt
       FROM OrderInfo O

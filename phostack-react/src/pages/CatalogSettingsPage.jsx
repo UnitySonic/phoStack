@@ -64,13 +64,12 @@ function CatalogSettingsPage() {
 
   useEffect(() => {
     if (data?.length > 0) {
-      console.log(data);
       setSearchInput(data[0].CatalogParamSearch || '');
       setMinPriceInput(+data[0].CatalogParamMinPrice || '');
       setMaxPriceInput(+data[0].CatalogParamMaxPrice || '');
       setSelectedCategory(data[0].CatalogParamCategories || '');
-      setPointConversionRate(+selectedOrganization?.dollarPerPoint || '');
     }
+    setPointConversionRate(+selectedOrganization?.dollarPerPoint || '');
   }, [data, selectedOrganization]);
 
   const { mutate, isPending, isSaveError, saveError } = useMutation({

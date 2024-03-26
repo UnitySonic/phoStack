@@ -11,9 +11,8 @@ const saveUserToDb = async (user) => {
     email = null,
     picture = null,
     userStatus = 'active',
-    pointValue = 0,
     organizations = null,
-    selectedOrgId = null
+    selectedOrgId = null,
   } = user;
 
   let connection;
@@ -22,8 +21,8 @@ const saveUserToDb = async (user) => {
     connection.beginTransaction();
 
     await connection.execute(
-      'INSERT INTO `User` (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs, selectedOrgId) \
-      VALUES (?,?,?,?,?,?,?,?,?,?)',
+      'INSERT INTO `User` (userId, firstName, lastName, userType, email, picture, userStatus, viewAs, selectedOrgId) \
+      VALUES (?,?,?,?,?,?,?,?,?)',
       [
         userId,
         firstName,
@@ -32,9 +31,8 @@ const saveUserToDb = async (user) => {
         email,
         picture,
         userStatus,
-        pointValue,
         userId,
-        selectedOrgId
+        selectedOrgId,
       ]
     );
 
@@ -64,7 +62,7 @@ const saveUserToDb = async (user) => {
 };
 
 const getUsersFromDb = async (params) => {
-  const { offset = 0, limit = 1000, filters = {}} = params;
+  const { offset = 0, limit = 1000, filters = {} } = params;
   const numericOffset = +offset;
   const numericLimit = +limit;
   let connection;
@@ -80,7 +78,7 @@ const getUsersFromDb = async (params) => {
       filterKeys.forEach((key, index) => {
         let sqlKey = key;
         if (key == 'orgId') {
-          sqlKey = 'O.orgId'
+          sqlKey = 'O.orgId';
         }
         whereClause += `${sqlKey} = ?`;
         if (index < filterKeys.length - 1) {
@@ -90,7 +88,15 @@ const getUsersFromDb = async (params) => {
     }
 
     const query = `
-      SELECT U.*, UO.createdAt as joinDate, O.orgId, O.orgName, O.orgDescription, O.dollarPerPoint, O.orgStatus, O.createdAt as orgCreatedAt
+      SELECT U.*, 
+      UO.createdAt as joinDate, 
+      UO.pointValue, 
+      O.orgId, 
+      O.orgName, 
+      O.orgDescription, 
+      O.dollarPerPoint, 
+      O.orgStatus,
+      O.createdAt as orgCreatedAt
       FROM User U
       LEFT JOIN User_Organization UO ON U.userId = UO.userId
       LEFT JOIN Organization O ON UO.orgId = O.orgId
@@ -98,7 +104,11 @@ const getUsersFromDb = async (params) => {
       ${whereClause ? `AND ${whereClause}` : whereClause}
       LIMIT ?, ?`;
 
-    const [results] = await connection.query(query, [...Object.values(filters), numericOffset, numericLimit]);
+    const [results] = await connection.query(query, [
+      ...Object.values(filters),
+      numericOffset,
+      numericLimit,
+    ]);
 
     const usersWithOrgs = results.reduce((acc, user) => {
       const existingUser = acc.find((u) => u.userId === user.userId);
@@ -108,7 +118,8 @@ const getUsersFromDb = async (params) => {
         orgDescription: user.orgDescription,
         dollarPerPoint: user.dollarPerPoint,
         orgStatus: user.orgStatus,
-        joinDate: user.joinDate
+        joinDate: user.joinDate,
+        pointValue: user.pointValue,
       };
 
       const userData = {
@@ -120,7 +131,6 @@ const getUsersFromDb = async (params) => {
         createdAt: user.createdAt,
         picture: user.picture,
         userStatus: user.userStatus,
-        pointValue: user.pointValue,
         selectedOrgId: user.selectedOrgId,
         viewAs: user.viewAs,
       };
@@ -150,7 +160,6 @@ const getUsersFromDb = async (params) => {
   }
 };
 
-
 const getUserFromDbById = async (userId) => {
   let connection;
   try {
@@ -158,7 +167,15 @@ const getUserFromDbById = async (userId) => {
     connection.beginTransaction();
 
     const [results] = await connection.execute(
-      `SELECT U.*, UO.createdAt as joinDate, O.orgId, O.orgName, O.orgDescription, O.dollarPerPoint, O.orgStatus, O.createdAt as orgCreatedAt
+      `SELECT U.*, 
+      UO.createdAt as joinDate, 
+      UO.pointValue,
+      O.orgId, 
+      O.orgName, 
+      O.orgDescription, 
+      O.dollarPerPoint, 
+      O.orgStatus, 
+      O.createdAt as orgCreatedAt
       FROM User U
       LEFT JOIN User_Organization UO ON U.userId = UO.userId
       LEFT JOIN Organization O ON UO.orgId = O.orgId
@@ -181,7 +198,6 @@ const getUserFromDbById = async (userId) => {
       createdAt: results[0].createdAt,
       picture: results[0].picture,
       userStatus: results[0].userStatus,
-      pointValue: results[0].pointValue,
       selectedOrgId: results[0].selectedOrgId,
       viewAs: results[0].viewAs,
       createdAt: results[0].createdAt,
@@ -195,6 +211,7 @@ const getUserFromDbById = async (userId) => {
             orgStatus: row.orgStatus,
             createdAt: row.orgCreatedAt,
             joinDate: row.joinDate,
+            pointValue: row.pointValue,
           }))
         : [],
     };
@@ -220,10 +237,10 @@ const modifyUserInDb = async (userId, user) => {
     email = null,
     picture = null,
     userStatus = null,
-    pointValue = null,
     selectedOrgId = null,
     viewAs = null,
-    addPoints = null
+    points = null,
+    organizations = null,
   } = user;
 
   let connection;
@@ -271,10 +288,6 @@ const modifyUserInDb = async (userId, user) => {
       updateFields.push('userStatus = ?');
       updateValues.push(userStatus);
     }
-    if (pointValue !== null) {
-      updateFields.push('pointValue = ?');
-      updateValues.push(pointValue);
-    }
     if (selectedOrgId !== null) {
       updateFields.push('selectedOrgId = ?');
       updateValues.push(selectedOrgId);
@@ -282,10 +295,6 @@ const modifyUserInDb = async (userId, user) => {
     if (viewAs !== null) {
       updateFields.push('viewAs = ?');
       updateValues.push(viewAs);
-    }
-    if (addPoints !== null) {
-      updateFields.push('pointValue = (pointValue + ?)');
-      updateValues.push(addPoints);
     }
 
     if (updateFields.length > 0) {
@@ -307,6 +316,30 @@ const modifyUserInDb = async (userId, user) => {
       await assignRoleInAuth0({ userId, userType });
     }
 
+    if (points !== null) {
+      const { orgId, amount, type } = points;
+      let replacementStr = '?';
+      if (type === 'add') {
+        replacementStr = '(pointValue + ?)';
+      }
+      const q = `UPDATE User_Organization
+      SET pointValue = ${replacementStr}
+      WHERE userId = ? AND orgId = ?`;
+
+      await connection.execute(q, [amount, userId, orgId]);
+    }
+
+    if (organizations && organizations.length > 0) {
+      const placeholders = organizations.map(() => '(?, ?)').join(', ');
+      const organizationValues = organizations.flatMap((orgId) => [
+        userId,
+        orgId,
+      ]);
+
+      const query = `INSERT INTO \`User_Organization\` (userId, orgId) VALUES ${placeholders}`;
+
+      await connection.execute(query, organizationValues);
+    }
     await connection.commit();
   } catch (error) {
     if (connection) {
@@ -558,7 +591,75 @@ const addOrganizationToUser = async (userId, orgId) => {
       connection.release();
     }
   }
-}
+};
+
+/****************TESTING ******************************************************/
+const {
+  getOrganizationsFromDb,
+} = require('../organizations/organizations.service');
+
+const getRandomUsers = async (params = {}) => {
+  try {
+    const baseUrl = 'https://randomuser.me/api';
+    const url = new URL(baseUrl);
+    Object.keys(params).forEach((key) =>
+      url.searchParams.append(key, params[key])
+    );
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    const data = await response.json();
+    return data?.results;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+
+const seedRandomUser = async (params = {}) => {
+  const { userType = 'DriverUser', orgId = null } = params;
+  try {
+    const results = await getRandomUsers({ results: 1 });
+    const fakeUser = results[0];
+    const organizations = await getOrganizationsFromDb({});
+    let organization =
+      organizations.length > 0
+        ? organizations[Math.floor(Math.random() * organizations.length)]
+        : {};
+    if (orgId) {
+      organization = organizations.find((org) => org.orgId == orgId) || {};
+    }
+
+    let email = `${fakeUser?.name.first}.${fakeUser?.name?.last}@phostack.com`;
+    if (userType === 'DriverUser' || userType === 'SponsorUser') {
+      email =
+        `${fakeUser?.name?.first}.${fakeUser?.name?.last}@${organization.orgName}.com`.toLowerCase();
+    }
+
+    const user = {
+      firstName: fakeUser?.name?.first,
+      lastName: fakeUser?.name.last,
+      userType,
+      email,
+      picture: fakeUser?.picture?.large,
+      password: 'Password123*',
+    };
+    if (userType === 'DriverUser' || userType === 'SponsorUser') {
+      user['organizations'] = [organization?.orgId];
+      user['selectedOrgId'] = organization?.orgId;
+    }
+    await createNewUser(user);
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
   saveUserToDb,
@@ -573,5 +674,6 @@ module.exports = {
   getAdmins,
   changePassword,
   getSponsorsByOrgId,
-  addOrganizationToUser
+  addOrganizationToUser,
+  seedRandomUser,
 };

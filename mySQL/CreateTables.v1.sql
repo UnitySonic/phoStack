@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS User (
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   picture VARCHAR(255),
   userStatus VARCHAR(50) DEFAULT 'active',
-  pointValue INT DEFAULT 0,
   selectedOrgId INT,
   viewAs VARCHAR(50) 
 );
@@ -54,6 +53,7 @@ CREATE TABLE IF NOT EXISTS User_Organization (
   orgId INT NOT NULL,
   memberStatus VARCHAR(50) DEFAULT 'active',
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  pointValue INT DEFAULT 0,
 
   PRIMARY KEY(userId, orgId),
   FOREIGN KEY (userId) REFERENCES User(userId),
@@ -143,6 +143,22 @@ CREATE TABLE IF NOT EXISTS PointLog(
   FOREIGN KEY (behaviorId) REFERENCES Behavior(behaviorId),
   FOREIGN KEY (orderId) REFERENCES OrderInfo(orderId),
   FOREIGN KEY (orgId) REFERENCES Organization(OrgId)
+);
+
+CREATE TABLE IF NOT EXISTS CarEvent(
+  carEventId INT AUTO_INCREMENT PRIMARY KEY,
+  carEventUserId VARCHAR(50),
+  carEventSpeed INT,
+  carEventSpeedLimit INT,
+  carEventCreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (carEventUserId) REFERENCES User(userId)
+);
+
+CREATE TABLE IF NOT EXISTS Util(
+  utilId INT AUTO_INCREMENT PRIMARY KEY,
+  lastCarEventChecked INT,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMIT;

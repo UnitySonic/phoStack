@@ -127,7 +127,6 @@ const AddNewDriverUserPage = () => {
       email,
       password,
       userType: 'DriverUser',
-      pointValue: 0,
       selectedOrgId: orgId
     };
     mutate({ orgId, userData, getAccessTokenSilently });

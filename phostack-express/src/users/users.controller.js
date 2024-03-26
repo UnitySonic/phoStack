@@ -9,6 +9,7 @@ const {
   getSponsors,
   getAdmins,
   changePassword,
+  seedRandomUser,
 } = require('./users.service');
 
 const saveUser = async (req, res, next) => {
@@ -36,7 +37,7 @@ const fetchUser = async (req, res) => {
   try {
     const mainUser = await getUserFromDbById(req.params.id);
     const viewAsUser = await getUserFromDbById(mainUser?.viewAs);
-    if (!mainUser || ! viewAsUser) {
+    if (!mainUser || !viewAsUser) {
       return res.status(404).json({ message: 'Not Found' });
     }
     const user = {
@@ -156,6 +157,16 @@ const changeUserPassword = async (req, res) => {
   }
 };
 
+const seedData = async (req, res) => {
+  try {
+    await seedRandomUser(req.body);
+    res.status(200).json({ message: 'success' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Error' });
+  }
+};
+
 module.exports = {
   saveUser,
   fetchUsers,
@@ -169,4 +180,5 @@ module.exports = {
   fetchAdmins,
   addNewAdminUser,
   changeUserPassword,
+  seedData,
 };

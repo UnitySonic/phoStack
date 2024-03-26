@@ -28,6 +28,9 @@ import PasswordIcon from '@mui/icons-material/Password';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ShopIcon from '@mui/icons-material/Shop';
+import Face5Icon from '@mui/icons-material/Face5';
+import ShoppingCart from '@mui/icons-material/ShoppingCart';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 
 const linksByRole = {
   AdminUser: [
@@ -54,26 +57,6 @@ const linksByRole = {
       to: '/admin/drivers-management',
     },
     {
-      text: 'Add Admin User',
-      icon: <AddModeratorIcon />,
-      to: '/admin/admins/new',
-    },
-    {
-      text: 'Add Organization',
-      icon: <AddBusinessIcon />,
-      to: '/admin/organizations/new',
-    },
-    {
-      text: 'Add Sponsor User',
-      icon: <PersonAddIcon />,
-      to: '/admin/sponsors/new',
-    },
-    {
-      text: 'Add Driver User',
-      icon: <AddReactionIcon />,
-      to: 'admin/drivers/new',
-    },
-    {
       text: 'Application Logs',
       icon: <SubscriptionsIcon />,
       to: 'logs/applications',
@@ -93,6 +76,11 @@ const linksByRole = {
       icon: <NumbersIcon />,
       to: 'logs/points',
     },
+    {
+      text: 'Random User',
+      icon: <Face5Icon />,
+      to: 'users/seed',
+    },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],
   DriverUser: [
@@ -106,6 +94,16 @@ const linksByRole = {
       text: 'New Application',
       icon: <HowToRegIcon />,
       to: '/applications/new',
+    },
+    {
+      text: 'Shopping Cart',
+      icon: <ShoppingCart></ShoppingCart>,
+      to: '/cart',
+    },
+    {
+      text: 'Car Events',
+      icon: <LocalShippingIcon />,
+      to: '/car-events',
     },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],

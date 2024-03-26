@@ -94,7 +94,6 @@ const changeApplication = async (req, res) => {
     if (isApprovedToBeDriver) {
       await changeUserType(application.userId, {
         userType: 'DriverUser',
-        pointValue: 0,
       });
       const hasNoOrganization = user?.organizations?.length == 0;
       if (hasNoOrganization) {

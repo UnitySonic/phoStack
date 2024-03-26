@@ -11,50 +11,60 @@ const products = [
     desc: 'A nice thing',
     price: '999',
   },
- 
 ];
 
+export default function Review({ reviewData, formData, userPointValue }) {
+  console.log("PointValue", userPointValue)
+  const addresses = [
+    formData.address1,
+    formData.city,
+    formData.state,
+    formData.zip,
+    formData.country,
+  ];
 
+  const totalCost = Object.values(reviewData).reduce((total, product) => {
+    return total + product.price * product.quantity;
+  }, 0);
 
-
-
-export default function Review({reviewData, formData, userPointValue} )  {
-  const addresses = [formData.address1, formData.city, formData.state, formData.zip, formData.country];
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant='h6' gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={reviewData.title}/>
-            <Typography variant="body2">{reviewData.price}</Typography>
+        {Object.entries(reviewData).map(([productId, product]) => (
+          <ListItem key={productId} sx={{ py: 1, px: 0 }}>
+            <ListItemText primary={product.title} />
+            <Typography variant='body2'>
+              {product.price * product.quantity} {/* Price * Quantity */}
+            </Typography>
           </ListItem>
         ))}
         <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="Total" />
-          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-          {reviewData.price}
+          <ListItemText primary='Total' />
+          <Typography variant='subtitle1' sx={{ fontWeight: 700 }}>
+            {totalCost}
           </Typography>
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="Points Balance After Purchase:" />
-          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {(userPointValue) - reviewData.price}
+          <ListItemText primary='Points Balance After Purchase:' />
+          <Typography variant='subtitle1' sx={{ fontWeight: 700 }}>
+            {userPointValue - totalCost}
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+          <Typography variant='h6' gutterBottom sx={{ mt: 2 }}>
             Shipping
           </Typography>
-          <Typography gutterBottom>{formData.firstName}    {formData.lastName}</Typography>
-          <Typography gutterBottom>{addresses.join(', ')}</Typography>
+          <Typography gutterBottom>
+            {formData.firstName} {formData.lastName}
+          </Typography>
+          {/* Render other shipping details */}
         </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-        </Grid>
+        {/* Additional grid items if needed */}
       </Grid>
     </React.Fragment>
   );

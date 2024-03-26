@@ -24,8 +24,7 @@ function Checkout() {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const productInfo = useLocation();
-  const { imageUrl, title, price, productId, quantity } = productInfo.state;
- 
+  const { cart } = productInfo.state;
 
   const { getAccessTokenSilently } = useAuth0();
   const { user = {}, isLoading: isUserLoading } = useUser();
@@ -39,7 +38,7 @@ function Checkout() {
   const { mutate, isPending, isSaveError, saveError } = useMutation({
     mutationFn: saveOrder,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      queryClient.invalidateQueries();
       setShowSuccessAlert(true);
     },
     onError: (error) => {
@@ -64,21 +63,16 @@ function Checkout() {
     setFormData(data);
   };
 
-
-
   const handleNext = () => {
-    
     if (isFormDataValid()) {
       setActiveStep(activeStep + 1);
-    } 
+    }
     if (activeStep === 1) {
       const orderData = {
         orderStatus: 'processing',
         orderBy: user?.userId,
         orderFor: viewAs?.userId,
-        orderTotal: productInfo.state.price,
-        itemID: productInfo.state.productId,
-        quantity: productInfo.state.quantity,
+        orderInfo: cart,
         orgId,
         addressFirstName: formData.firstName,
         addressLastName: formData.lastName,
@@ -88,11 +82,11 @@ function Checkout() {
         addressState: formData.state,
         addressZip: formData.zip,
         addressCountry: formData.country,
-        dollarPerPoint: selectedOrganization?.dollarPerPoint
+        dollarPerPoint: selectedOrganization?.dollarPerPoint,
       };
       mutate({ orderData, getAccessTokenSilently });
     }
-    console.log(activeStep)
+    console.log(activeStep);
   };
 
   const handleBack = () => {
@@ -124,7 +118,13 @@ function Checkout() {
           />
         );
       case 1:
-        return <Review reviewData={locData} formData={formData} userPointValue = {viewAs.pointValue}/>;
+        return (
+          <Review
+            reviewData={locData}
+            formData={formData}
+            userPointValue={selectedOrganization?.pointValue}
+          />
+        );
       case 2:
         console.log('Hello');
 
@@ -176,7 +176,7 @@ function Checkout() {
             </React.Fragment>
           ) : (
             <React.Fragment>
-              {getStepContent(activeStep, productInfo.state)}
+              {getStepContent(activeStep, cart)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

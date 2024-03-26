@@ -13,6 +13,7 @@ const {
   fetchAdmins,
   addNewAdminUser,
   changeUserPassword,
+  seedData
 } = require('./users.controller');
 
 usersRouter.route('/admins').get(fetchAdmins).post(addNewAdminUser);
@@ -26,5 +27,6 @@ usersRouter.route('/sponsors/:orgId').post(addNewSponsorUser);
 usersRouter.route('/:id').get(fetchUser).patch(changeUser);
 usersRouter.route('/').get(fetchUsers).post(saveUser);
 usersRouter.route('/:id/password').post(changeUserPassword);
+usersRouter.route('/seed').post(seedData);
 
 module.exports = usersRouter;

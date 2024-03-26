@@ -114,3 +114,32 @@ export async function saveOrganization({
 
   return await response.json();
 }
+
+export async function fetchAllOrganizations({ signal, getAccessTokenSilently }) {
+
+  const url = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/organizations/`;
+
+
+  const accessToken = await getAccessTokenSilently();
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${accessToken}`,
+    },
+    signal: signal,
+  });
+
+  if (!response.ok) {
+    const error = new Error('An error occurred while fetching organizations');
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
+
+  const data = await response.json();
+
+  console.log(data)
+
+  return data;
+}

@@ -16,10 +16,11 @@ const organizationsRouter = require('./organizations/organizations.router');
 const applicationsRouter = require('./applications/applications.router');
 const orderRouter = require('./orders/orders.router');
 const applicationLogsRouter = require('./audit-logs/applications/logs.applications.router');
-const LoginLogsRouter = require('./audit-logs/login/logs.login.router')
-const pictureRouter = require('./profile-picture/picture.router')
+const LoginLogsRouter = require('./audit-logs/login/logs.login.router');
+const pictureRouter = require('./profile-picture/picture.router');
 const behaviorRouter = require('./behaviors/behaviors.router');
-const pointsLogsRouter = require('./audit-logs/points/logs.points.router')
+const pointsLogsRouter = require('./audit-logs/points/logs.points.router');
+const carEventsRouter = require('./car-events/car-events.router');
 
 const { logger } = require('./logger');
 const { pool } = require('./db');
@@ -36,7 +37,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -74,13 +74,14 @@ app.use('/users', usersRouter);
 app.use('/ebay-proxy', ebayRouter);
 app.use('/catalog-param', catalogRouter);
 app.use('/organizations', organizationsRouter);
-app.use('/applications', applicationsRouter)
-app.use('/orders', orderRouter)
-app.use('/behaviors', behaviorRouter)
-app.use('/pictures', pictureRouter)
+app.use('/applications', applicationsRouter);
+app.use('/orders', orderRouter);
+app.use('/behaviors', behaviorRouter);
+app.use('/pictures', pictureRouter);
 app.use('/logs/applications', applicationLogsRouter);
 app.use('/logs/login', LoginLogsRouter);
 app.use('/logs/points', pointsLogsRouter);
+app.use('/car-events', carEventsRouter);
 
 app.get('/admin', checkRequiredPermissions(['read:test']), async (req, res) => {
   const managementClient = await getManagementClient();

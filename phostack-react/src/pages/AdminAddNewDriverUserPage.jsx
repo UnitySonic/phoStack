@@ -160,7 +160,6 @@ const AdminAddNewDriverUserPage = () => {
       email,
       password,
       userType: 'DriverUser',
-      pointValue: 0,
       selectedOrgId: orgId
     };
     if (orgId) {

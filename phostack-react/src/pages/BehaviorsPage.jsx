@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery, keepPreviousData, useMutation} from '@tanstack/react-query';
 import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import { useMemo, useState} from 'react';
 import useUser from '../hooks/useUser';
 import ListItemText from '@mui/material/ListItemText';
@@ -143,6 +144,13 @@ const BehaviorsPage = () => {
         setShowErrorAlert(true);
       }
     };
+
+    const handleBehaviorEdit = (row) => {
+      const { behaviorId, behaviorName, behaviorDescription, pointValue, behaviorStatus  } = row.original;
+
+      // Pass existing behavior information
+      navigate('/behaviors/' + behaviorId + '/edit', { state: { behaviorName, behaviorDescription, pointValue, behaviorStatus }});
+    };
   
     const table = useMaterialReactTable({
       columns,
@@ -177,6 +185,15 @@ const BehaviorsPage = () => {
           </ListItemIcon>
           <ListItemText>Deactivate</ListItemText>
         </MenuItem>,
+        <MenuItem
+        key='edit'
+        onClick={() => handleBehaviorEdit(row)}
+      >
+        <ListItemIcon>
+          <EditIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Edit</ListItemText>
+      </MenuItem>,
       ],
     });
   

@@ -53,9 +53,7 @@ const OrdersPage = () => {
   const { mutate } = useMutation({
     mutationFn: changeOrder,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['orders', { queryParams }],
-      });
+      queryClient.invalidateQueries();
       setShowSuccessAlert(true);
     },
     onError: (error) => {

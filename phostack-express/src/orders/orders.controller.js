@@ -50,7 +50,11 @@ const changeOrder = async (req, res) => {
 
     if (isCanceling) {
       await modifyUserInDb(order?.orderFor?.userId, {
-        addPoints: order.orderTotal,
+        points: {
+          orgId: order.organization?.orgId,
+          amount: order.orderTotal,
+          type: 'add',
+        },
       });
     }
 
@@ -95,7 +99,6 @@ const fetchOrders = async (req, res) => {
               email: row.orderByEmail,
               picture: row.orderByPicture,
               userStatus: row.orderByUserStatus,
-              pointValue: row.orderByPointValue,
               selectedOrgId: row.orderBySelectedOrgId,
               createdAt: row.orderByCreatedAt,
             },
@@ -107,7 +110,6 @@ const fetchOrders = async (req, res) => {
               email: row.orderForEmail,
               picture: row.orderForPicture,
               userStatus: row.orderForUserStatus,
-              pointValue: row.orderForPointValue,
               selectedOrgId: row.orderForSelectedOrgId,
               createdAt: row.orderForCreatedAt,
             },

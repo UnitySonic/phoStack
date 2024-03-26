@@ -26,8 +26,10 @@ import ApplicationManagementPage from './pages/ApplicationManagementPage.jsx';
 import DriversManagementPage from './pages/DriversManagementPage.jsx';
 import BehaviorsPage from './pages/BehaviorsPage.jsx';
 import AddNewBehaviorPage from './pages/AddNewBehaviorPage.jsx';
+import EditBehaviorPage from './pages/EditBehaviorPage.jsx';
 import AddNewSponsorUserPage from './pages/AddNewSponsorUserPage.jsx';
 import PointsPage from './pages/PointsPage.jsx';
+import CartPage from './pages/Cart.jsx';
 
 import AddNewDriverUserPage from './pages/AddNewDriverUserPage.jsx';
 import AdminOrganizationsPage from './pages/AdminOrganizationsPage.jsx';
@@ -50,6 +52,8 @@ import PasswordAuditLogsPage from './pages/PasswordAuditLogsPage.jsx';
 import PointsAuditLogsPage from './pages/PointsAuditLogsPage.jsx';
 import TestView from './pages/TestView.jsx';
 import OrdersPage from './pages/OrdersPage.jsx';
+import SeedUserData from './pages/SeedUserData.jsx';
+import DriverCarEventsPage from './pages/DriverCarEventsPage.jsx';
 
 import store from './store/index.js';
 import { alpha } from '@mui/material/styles';
@@ -169,6 +173,10 @@ const router = createBrowserRouter([
         element: <AuthenticationGuard component={AddNewBehaviorPage} />,
       },
       {
+        path: 'behaviors/:behaviorId/edit',
+        element: <AuthenticationGuard component={EditBehaviorPage} />,
+      },
+      {
         path: 'drivers-management/:id/points',
         element: <AuthenticationGuard component={PointsPage} />,
       },
@@ -231,6 +239,18 @@ const router = createBrowserRouter([
       {
         path: 'orders',
         element: <AuthenticationGuard component={OrdersPage} />,
+      },
+      {
+        path: "cart",
+        element: <AuthenticationGuard component = {CartPage}/>,
+      },
+      {
+        path: 'users/seed',
+        element: <AuthenticationGuard component={SeedUserData} />,
+      },
+      {
+        path: 'car-events',
+        element: <AuthenticationGuard component={DriverCarEventsPage} />,
       },
     ],
   },

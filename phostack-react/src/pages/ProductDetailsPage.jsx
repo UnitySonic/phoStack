@@ -20,7 +20,6 @@ import Spinner from '../components/UI/Spinner';
 import useUser from '../hooks/useUser';
 import CustomAlert from '../components/UI/CustomAlert';
 
-
 function ProductDetailsPage() {
   const { getAccessTokenSilently } = useAuth0();
   const [organization, setOrganization] = useState(null);
@@ -35,19 +34,15 @@ function ProductDetailsPage() {
   const { viewAs } = user;
   const orgId = viewAs?.selectedOrgId;
   const userOrganizations = viewAs?.organizations || [];
-  const selectedOrganization = userOrganizations.find(org => org.orgId == orgId);
+  const selectedOrganization = userOrganizations.find(
+    (org) => org.orgId == orgId
+  );
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['ebay_products', { itemId }],
     queryFn: ({ signal }) =>
       getEbayItem({ signal, itemId, getAccessTokenSilently }),
   });
-
-
-
-
-  
-
 
   //price Conversion
 
@@ -58,11 +53,8 @@ function ProductDetailsPage() {
     // Convert the cleaned price string to cents
     const priceInCents = parseFloat(cleanPriceString);
 
- 
-
-
-    return (Math.round(priceInCents / dollarPerPoint))
-  }
+    return Math.round(priceInCents / dollarPerPoint);
+  };
 
   // Settings for react-slick slider
   const settings = {
@@ -75,37 +67,67 @@ function ProductDetailsPage() {
     autoplaySpeed: 2000,
   };
 
-  
   const imageUrl = data?.image?.imageUrl;
   const title = data?.title;
-  const priceUSD = data?.price?.value
+  const priceUSD = data?.price?.value;
 
-  const productId =  data?.itemId;
-  const quantity =  data ?.estimatedAvailabilities?.[0]?.estimatedAvailableQuantity 
+  const productId = data?.itemId;
+  const quantity =
+    data?.estimatedAvailabilities?.[0]?.estimatedAvailableQuantity;
 
   const handleBuyButtonClick = () => {
     console.log('Buy button clicked');
     const price = priceConvert(priceUSD, selectedOrganization.dollarPerPoint);
 
-    if(viewAs.pointValue < price)
-    {
-      setShowErrorAlert(true)
-    }
-    else
-    {
+    if (selectedOrganization?.pointValue < price) {
+      setShowErrorAlert(true);
+    } else {
+
       navigate(`/purchase/${productId}`, {
         state: {
-          imageUrl,
-          title,
-          price,
-          productId,
-          quantity,
+         cart: {
+            [productId]: {
+              imageUrl,
+              title,
+              price,
+              quantity,
+            }
+         }
         }
       }); // Navigate to '/purchase/:productId' route with props as state
     }
   };
 
+    const handleAddToCartButtonClick = (event) => {
+    
+    setShowSuccessAlert(true)
+    const cart = JSON.parse(localStorage.getItem(`cart_${viewAs?.userId}`));
+    const price = priceConvert(priceUSD, selectedOrganization.dollarPerPoint);
 
+    // Create a new cart item object
+    const cartItem = {
+      imageUrl: imageUrl,
+      title: title,
+      price: price,
+      quantity: 1 // Initial quantity when adding to cart
+    };
+
+    // Check if the product already exists in the cart
+    if (cart[productId]) {
+      // If the product already exists, increment the quantity
+      cartItem.quantity = cart[productId].quantity + 1;
+    }
+
+    // Update cart data with the new or updated cart item
+    const updatedCart = {
+      ...cart,
+      [productId]: cartItem
+    };
+
+    // Save updated cart data back to localStorage
+    localStorage.setItem(`cart_${viewAs?.userId}`, JSON.stringify(updatedCart));
+
+  };
 
   if (isLoading) {
     return <Spinner />;
@@ -120,6 +142,15 @@ function ProductDetailsPage() {
           onClose={() => setShowErrorAlert(false)}
         />
       )}
+      {
+      showSuccessAlert && (
+        <CustomAlert
+          type = "success"
+          message = "Added to Cart"
+          onClose={() => setShowSuccessAlert(false)}
+        />
+      )
+    }
       <Grid container spacing={3} sx={{ marginBottom: '20px' }}>
         <Grid item xs={12} md={6}>
           <Card>
@@ -142,7 +173,10 @@ function ProductDetailsPage() {
                 {data?.shortDescription}
               </Typography>
               <Typography variant='body1' gutterBottom>
-                Point Cost: {!isLoading && selectedOrganization ? priceConvert(priceUSD, selectedOrganization.dollarPerPoint) : 'Loading...'}
+                Point Cost:{' '}
+                {!isLoading && selectedOrganization
+                  ? priceConvert(priceUSD, selectedOrganization.dollarPerPoint)
+                  : 'Loading...'}
               </Typography>
               <Divider />
               <Typography variant='body1' gutterBottom>
@@ -160,10 +194,14 @@ function ProductDetailsPage() {
               <Typography variant='body1' gutterBottom>
                 itemId: {data?.itemId}
               </Typography>
-              <Button variant='contained' color='primary' sx={{ mr: 1 }}>
+              <Button variant='contained' color='primary' sx={{ mr: 1 }} onClick = {handleAddToCartButtonClick}>
                 Add to Cart
               </Button>
-              <Button variant='contained' color='secondary' onClick={handleBuyButtonClick}>
+              <Button
+                variant='contained'
+                color='secondary'
+                onClick={handleBuyButtonClick}
+              >
                 Buy
               </Button>
             </CardContent>

@@ -92,9 +92,11 @@ const DriversManagementPage = () => {
         size: 150,
       },
       {
-        accessorKey: 'pointValue',
+        accessorFn: (originalRow) =>
+          originalRow?.organizations?.find((org) => org.orgId == orgId)
+            ?.pointValue,
+        id: 'points',
         header: 'Total Points',
-        size: 150,
       },
       {
         accessorFn: (originalRow) => new Date(originalRow?.createdAt),
@@ -104,7 +106,7 @@ const DriversManagementPage = () => {
         Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
       },
     ],
-    []
+    [orgId]
   );
 
   const handleAddNewDriver = () => {

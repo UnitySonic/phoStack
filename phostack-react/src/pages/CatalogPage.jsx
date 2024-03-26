@@ -18,15 +18,14 @@ function CatalogPage() {
   const { user } = useUser();
   const { viewAs } = user;
   const orgId = viewAs?.selectedOrgId;
-  const userPointValue = viewAs?.pointValue;
   const userOrganizations = viewAs?.organizations || [];
   const selectedOrganization = userOrganizations.find(org => org.orgId == orgId);
+  const userPointValue = selectedOrganization?.pointValue;
 
   let queryParams = {
     orgId,
     offset: (page - 1) * limit,
     limit,
-    // filter: 'price:[10..50],priceCurrency:USD'
   };
 
   const {
@@ -94,6 +93,7 @@ function CatalogPage() {
                   product?.estimatedAvailabilities?.[0]
                     ?.estimatedAvailableQuantity || 1
                 }
+                userId={viewAs?.userId}
               />
             </Grid>
           ))}

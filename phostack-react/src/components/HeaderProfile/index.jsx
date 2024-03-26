@@ -68,7 +68,7 @@ const ProfileHeader = () => {
   const { logout } = useAuth0();
   const { user } = useUser();
   const { viewAs = {} } = user;
-  const { firstName, lastName, picture, userType, pointValue } = viewAs;
+  const { firstName, lastName, picture, userType } = viewAs;
   const orgId = viewAs?.selectedOrgId;
   const userOrganizations = viewAs?.organizations || [];
   const selectedOrganization = userOrganizations.find(
@@ -216,7 +216,7 @@ const ProfileHeader = () => {
                                     variant='body2'
                                     color='textSecondary'
                                   >
-                                    Points: {pointValue}
+                                    Points: {selectedOrganization?.pointValue}
                                   </Typography>
                                 </>
                               )}

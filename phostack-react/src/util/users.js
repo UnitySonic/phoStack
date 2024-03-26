@@ -279,3 +279,31 @@ export async function changePassword({
 
   return await response.json();
 }
+
+export async function seedRandomUser({
+  userData,
+  getAccessTokenSilently,
+}) {
+  const url = `${
+    import.meta.env.VITE_EXPRESS_BACKEND_URL
+  }/users/seed`;
+  const accessToken = await getAccessTokenSilently();
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(userData),
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = new Error('An error occurred while saving new sponsor user');
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
+
+  return await response.json();
+}

@@ -1,0 +1,115 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: PhoStack Serverless Application
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Architectures:
+      - x86_64
+      
+Resources:
+  CheckCarEventsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: checkCarEvents
+      CodeUri: ./app
+      Handler: checkCarEvents.lambdaHandler
+      Runtime: nodejs20.x
+      Events:
+        ScheduleEvent:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 minute)
+      Policies:
+        - AWSSecretsManagerGetSecretValuePolicy:
+            SecretArn: arn:aws:secretsmanager:us-east-1:274815321855:secret:team24/prod/mysql-yDuOoa
+
+  PushCarEventFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pushCarEvent
+      CodeUri: ./app
+      Handler: pushCarEvent.lambdaHandler
+      Runtime: nodejs20.x
+      Events:
+        ScheduleEvent:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 minute)
+      Environment:
+        Variables:
+          CAR_EVENT_SNS_ARN: !GetAtt CarEventSNSTopic.TopicArn
+      Policies:
+        - AWSSecretsManagerGetSecretValuePolicy:
+            SecretArn: arn:aws:secretsmanager:us-east-1:274815321855:secret:team24/prod/mysql-yDuOoa
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt CarEventSNSTopic.TopicName
+
+  saveCarEventFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: saveCarEvent
+      CodeUri: ./app
+      Handler: saveCarEvent.lambdaHandler
+      Runtime: nodejs20.x
+      Policies:
+        - AWSSecretsManagerGetSecretValuePolicy:
+            SecretArn: arn:aws:secretsmanager:us-east-1:274815321855:secret:team24/prod/mysql-yDuOoa
+      Events:
+        SQSEvent:
+          Type: SQS
+          Properties:
+            BatchSize: 10
+            Enabled: True
+            Queue: !GetAtt CarEventSQS.Arn
+            ScalingConfig:
+              MaximumConcurrency: 1000
+
+  CarEventSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: CarEventSNSTopic.fifo
+      ContentBasedDeduplication: True
+      FifoTopic: True
+      Tags:
+        - Key: Team
+          Value: 24
+
+  CarEventSNSSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Endpoint: !GetAtt CarEventSQS.Arn
+      Protocol: sqs
+      RawMessageDelivery: True
+      TopicArn: !GetAtt CarEventSNSTopic.TopicArn
+
+  CarEventSQS:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: CarEventSQS.fifo
+      FifoQueue: True
+      ContentBasedDeduplication: True
+      DeduplicationScope: queue
+      FifoThroughputLimit: perQueue
+      Tags:
+        - Key: Team
+          Value: 24
+
+  CarEventSQSPolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !GetAtt CarEventSQS.QueueUrl
+      PolicyDocument:
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: sns.amazonaws.com
+            Action:
+              - SQS:SendMessage
+            Resource: !GetAtt CarEventSQS.Arn
+            Condition:
+              ArnEquals:
+                aws:SourceArn: !GetAtt CarEventSNSTopic.TopicArn
