@@ -19,6 +19,7 @@ import { fetchOrganizations } from '../util/organizations';
 import Spinner from '../components/UI/Spinner';
 import useUser from '../hooks/useUser';
 import CustomAlert from '../components/UI/CustomAlert';
+import priceConvert from '../util/priceConvert';
 
 function ProductDetailsPage() {
   const { getAccessTokenSilently } = useAuth0();
@@ -44,17 +45,8 @@ function ProductDetailsPage() {
       getEbayItem({ signal, itemId, getAccessTokenSilently }),
   });
 
-  //price Conversion
 
-  const priceConvert = (priceString, dollarPerPoint) => {
-    // Remove any non-digit characters from the price string
-    const cleanPriceString = priceString.replace(/[^\d.]/g, '');
 
-    // Convert the cleaned price string to cents
-    const priceInCents = parseFloat(cleanPriceString);
-
-    return Math.round(priceInCents / dollarPerPoint);
-  };
 
   // Settings for react-slick slider
   const settings = {
@@ -85,47 +77,25 @@ function ProductDetailsPage() {
 
       navigate(`/purchase/${productId}`, {
         state: {
-         cart: {
-            [productId]: {
+          cart: {
+            [productId]: [{
               imageUrl,
               title,
               price,
               quantity,
-            }
-         }
+            }]
+          },
+          clearCartFlag: false,
+          cartId: undefined
         }
       }); // Navigate to '/purchase/:productId' route with props as state
     }
   };
 
-    const handleAddToCartButtonClick = (event) => {
-    
+  const handleAddToCartButtonClick = (event) => {
+
     setShowSuccessAlert(true)
-    const cart = JSON.parse(localStorage.getItem(`cart_${viewAs?.userId}`));
-    const price = priceConvert(priceUSD, selectedOrganization.dollarPerPoint);
 
-    // Create a new cart item object
-    const cartItem = {
-      imageUrl: imageUrl,
-      title: title,
-      price: price,
-      quantity: 1 // Initial quantity when adding to cart
-    };
-
-    // Check if the product already exists in the cart
-    if (cart[productId]) {
-      // If the product already exists, increment the quantity
-      cartItem.quantity = cart[productId].quantity + 1;
-    }
-
-    // Update cart data with the new or updated cart item
-    const updatedCart = {
-      ...cart,
-      [productId]: cartItem
-    };
-
-    // Save updated cart data back to localStorage
-    localStorage.setItem(`cart_${viewAs?.userId}`, JSON.stringify(updatedCart));
 
   };
 
@@ -143,14 +113,14 @@ function ProductDetailsPage() {
         />
       )}
       {
-      showSuccessAlert && (
-        <CustomAlert
-          type = "success"
-          message = "Added to Cart"
-          onClose={() => setShowSuccessAlert(false)}
-        />
-      )
-    }
+        showSuccessAlert && (
+          <CustomAlert
+            type="success"
+            message="Added to Cart"
+            onClose={() => setShowSuccessAlert(false)}
+          />
+        )
+      }
       <Grid container spacing={3} sx={{ marginBottom: '20px' }}>
         <Grid item xs={12} md={6}>
           <Card>
@@ -194,7 +164,7 @@ function ProductDetailsPage() {
               <Typography variant='body1' gutterBottom>
                 itemId: {data?.itemId}
               </Typography>
-              <Button variant='contained' color='primary' sx={{ mr: 1 }} onClick = {handleAddToCartButtonClick}>
+              <Button variant='contained' color='primary' sx={{ mr: 1 }} onClick={handleAddToCartButtonClick}>
                 Add to Cart
               </Button>
               <Button

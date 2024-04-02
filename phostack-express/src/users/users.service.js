@@ -2,7 +2,7 @@ require('dotenv').config({ path: `.env.${process.env.NODE_ENV || 'local'}` });
 const { pool } = require('../db');
 const { getManagementClient } = require('../middleware/auth0.middleware');
 
-const saveUserToDb = async (user) => {
+const saveUserToDb = async (user = {}) => {
   const {
     userId = null,
     firstName = null,
@@ -61,8 +61,8 @@ const saveUserToDb = async (user) => {
   }
 };
 
-const getUsersFromDb = async (params) => {
-  const { offset = 0, limit = 1000, filters = {} } = params;
+const getUsersFromDb = async (params = {}) => {
+  const { offset = 0, limit = 10000, filters = {} } = params;
   const numericOffset = +offset;
   const numericLimit = +limit;
   let connection;
@@ -229,7 +229,7 @@ const getUserFromDbById = async (userId) => {
   }
 };
 
-const modifyUserInDb = async (userId, user) => {
+const modifyUserInDb = async (userId, user = {}) => {
   const {
     firstName = null,
     lastName = null,
@@ -316,6 +316,18 @@ const modifyUserInDb = async (userId, user) => {
       await assignRoleInAuth0({ userId, userType });
     }
 
+    if (organizations && organizations.length > 0) {
+      const placeholders = organizations.map(() => '(?, ?)').join(', ');
+      const organizationValues = organizations.flatMap((orgId) => [
+        userId,
+        orgId,
+      ]);
+
+      const query = `INSERT INTO \`User_Organization\` (userId, orgId) VALUES ${placeholders}`;
+
+      await connection.execute(query, organizationValues);
+    }
+
     if (points !== null) {
       const { orgId, amount, type } = points;
       let replacementStr = '?';
@@ -327,18 +339,6 @@ const modifyUserInDb = async (userId, user) => {
       WHERE userId = ? AND orgId = ?`;
 
       await connection.execute(q, [amount, userId, orgId]);
-    }
-
-    if (organizations && organizations.length > 0) {
-      const placeholders = organizations.map(() => '(?, ?)').join(', ');
-      const organizationValues = organizations.flatMap((orgId) => [
-        userId,
-        orgId,
-      ]);
-
-      const query = `INSERT INTO \`User_Organization\` (userId, orgId) VALUES ${placeholders}`;
-
-      await connection.execute(query, organizationValues);
     }
     await connection.commit();
   } catch (error) {
@@ -353,7 +353,7 @@ const modifyUserInDb = async (userId, user) => {
   }
 };
 
-const changeUserType = async (userId, user) => {
+const changeUserType = async (userId, user = {}) => {
   const { userType } = user;
   try {
     await modifyUserInDb(userId, user);
@@ -486,7 +486,7 @@ const getAdmins = async () => {
   }
 };
 
-const createNewUserInAuth0 = async (user) => {
+const createNewUserInAuth0 = async (user = {}) => {
   const { email, password } = user;
   try {
     const managementClient = await getManagementClient();
@@ -522,7 +522,7 @@ const assignRoleInAuth0 = async ({ userId, userType }) => {
   }
 };
 
-const createNewUser = async (user) => {
+const createNewUser = async (user = {}) => {
   const { email, password, userType } = user;
 
   try {

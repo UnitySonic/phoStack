@@ -81,6 +81,11 @@ const linksByRole = {
       icon: <Face5Icon />,
       to: 'users/seed',
     },
+    {
+      text: 'Car Events',
+      icon: <LocalShippingIcon />,
+      to: '/car-events',
+    },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],
   DriverUser: [
@@ -89,6 +94,11 @@ const linksByRole = {
     { text: 'Catalog', icon: <ShopIcon />, to: '/catalog' },
     { text: 'Orders', icon: <InventoryIcon />, to: '/orders' },
     { text: 'Behaviors', icon: <PsychologyIcon />, to: '/behaviors' },
+    {
+      text: 'Point Logs',
+      icon: <NumbersIcon />,
+      to: 'logs/points',
+    },
     { text: 'Applications', icon: <ListIcon />, to: '/applications' },
     {
       text: 'New Application',

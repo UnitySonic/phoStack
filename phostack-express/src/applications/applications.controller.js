@@ -16,6 +16,8 @@ const {
 
 const { modifyUserInDb, changeUserType } = require('../users/users.service');
 
+const { sendApprovalEmail, sendRevokeEmail } = require('../email/email.service');
+
 const saveApplication = async (req, res, next) => {
   const { firstName, lastName, orgId, userId} = req.body;
   try {
@@ -91,6 +93,10 @@ const changeApplication = async (req, res) => {
       application.applicationStatus != 'approved' &&
       applicationStatus == 'approved' && !userAlreadyInOrganization;
 
+    const isRejectedFromBeingDriver = 
+      application.applicationStatus != 'rejected' &&
+      applicationStatus == 'rejected' && !userAlreadyInOrganization;
+
     if (isApprovedToBeDriver) {
       await changeUserType(application.userId, {
         userType: 'DriverUser',
@@ -102,6 +108,11 @@ const changeApplication = async (req, res) => {
         });
       }
       await addOrganizationToUser(application.userId, application.orgId);
+      await sendApprovalEmail(user.firstName, user.email, application.orgId);
+    }
+    else if(isRejectedFromBeingDriver)
+    {
+      await sendRevokeEmail(user.firstName, user.email, application.orgId);
     }
 
     await modifyApplicationInDb(application.applicationId, req.body);

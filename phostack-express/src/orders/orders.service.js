@@ -1,7 +1,7 @@
 const { pool } = require('../db');
 const { getEbayItem } = require('../ebay/ebay.service');
 
-const saveOrderToDb = async (orderData) => {
+const saveOrderToDb = async (orderData = {}) => {
   const {
     orderStatus = 'processing',
     orderBy,
@@ -20,75 +20,77 @@ const saveOrderToDb = async (orderData) => {
   } = orderData;
   let connection;
   try {
-
-
-
-
     connection = await pool.getConnection();
     connection.beginTransaction();
 
-    for (const productId in orderInfo){
 
-      const item = orderInfo[productId]
 
-    
-      const [addressInfoInsertResult] = await connection.execute(
-        'INSERT INTO ShippingAddress (addressFirstName, addressLastName, addressLineOne, addressLineTwo, addressCity, addressState, addressZip, addressCountry) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        [
-          addressFirstName,
-          addressLastName,
-          addressLineOne,
-          addressLineTwo,
-          addressCity,
-          addressState,
-          addressZip,
-          addressCountry,
-        ]
-      );
 
-      const addressId = addressInfoInsertResult.insertId;
-      const [orgInfoInsertResult] = await connection.execute(
-        'INSERT INTO OrderInfo (orderStatus, orderBy, orderFor, orderTotal, orgId, addressId, dollarPerPoint) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [
-          orderStatus,
-          orderBy,
-          orderFor,
-          item.price,
-          orgId,
-          addressId,
-          dollarPerPoint,
-        ]
-      );
+    const [addressInfoInsertResult] = await connection.execute(
+      'INSERT INTO ShippingAddress (addressFirstName, addressLastName, addressLineOne, addressLineTwo, addressCity, addressState, addressZip, addressCountry) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [
+        addressFirstName,
+        addressLastName,
+        addressLineOne,
+        addressLineTwo,
+        addressCity,
+        addressState,
+        addressZip,
+        addressCountry,
+      ]
+    );
+    let orderTotal = 0
+    for (const item of Object.values(orderInfo)) {
+      orderTotal += item[0].price
 
-      const orderId = orgInfoInsertResult.insertId;
+    }
+    const addressId = addressInfoInsertResult.insertId;
+    const [orgInfoInsertResult] = await connection.execute(
+      'INSERT INTO OrderInfo (orderStatus, orderBy, orderFor, orderTotal, orgId, addressId, dollarPerPoint) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [
+        orderStatus,
+        orderBy,
+        orderFor,
+        orderTotal,
+        orgId,
+        addressId,
+        dollarPerPoint,
+      ]
+    );
+
+    const orderId = orgInfoInsertResult.insertId;
+    for (const item of Object.values(orderInfo)) {
+
       await connection.execute(
         'INSERT INTO OrderInfo_Item (orderId, itemId, quantity) VALUES (?, ?, ?)',
-        [orderId, productId, item.quantity]
+        [orderId, item[0].productId, item[0].quantity]
       );
 
+    }
+
+
+    await connection.execute(
+      'INSERT INTO PointLog (pointGivenBy, pointGivenTo, orderId, orgId) VALUES (?, ?, ?, ?)',
+      [orderBy, orderFor, orderId, orgId]
+    );
+
+    const [rows, fields] = await connection.execute(
+      'SELECT pointValue FROM User_Organization WHERE userId = ? AND orgId = ?',
+      [orderFor, orgId]
+    );
+    const pointValue = rows[0].pointValue;
+
+    if (pointValue < orderTotal) {
+      throw new Error('Insufficient Points to complete Order. Desync?');
+    } else {
       await connection.execute(
-        'INSERT INTO PointLog (pointGivenBy, pointGivenTo, orderId, orgId) VALUES (?, ?, ?, ?)',
-        [orderBy, orderFor, orderId, orgId]
+        'UPDATE User_Organization Set pointValue = (pointValue - ?) Where userId = ? AND orgId = ?',
+        [orderTotal, orderFor, orgId]
       );
+    }
 
-      const [rows, fields] = await connection.execute(
-        'SELECT pointValue FROM User_Organization WHERE userId = ? AND orgId = ?',
-        [orderFor, orgId]
-      );
-      const pointValue = rows[0].pointValue;
-
-      if (pointValue < item.price) {
-        throw new Error('Insufficient Points to complete Order. Desync?');
-      } else {
-        await connection.execute(
-          'UPDATE User_Organization Set pointValue = (pointValue - ?) Where userId = ? AND orgId = ?',
-          [item.price, orderFor, orgId]
-        );
-      }
-  }
 
     await connection.commit();
-      
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -247,10 +249,10 @@ const getOrderFromDb = async (orderId) => {
   }
 };
 
-const getOrdersFromDb = async (params) => {
+const getOrdersFromDb = async (params = {}) => {
   const {
     offset = 0,
-    limit = 1000,
+    limit = 10000,
     orderFor = null,
     orderBy = null,
     orgId = null,
@@ -379,7 +381,7 @@ const getOrdersFromDb = async (params) => {
   }
 };
 
-const modifyOrderInDb = async (orderId, order) => {
+const modifyOrderInDb = async (orderId, order = {}) => {
   const {
     orderStatus = null,
     orderBy = null,

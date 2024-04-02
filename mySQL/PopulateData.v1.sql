@@ -34,6 +34,12 @@ INSERT INTO CatalogParam (CatalogParamSearch, CatalogParamMinPrice, CatalogParam
 ('iphone', 5.00, 30.00, null, 3);
 
 -- Seed data for User
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, viewAs, selectedOrgId)
+VALUES ('auth0|65db74563cd5642ab6486fbb', 'Robert', 'Flobert', 'DriverUser', 'sarasu2@clemson.edu', 'profile_picture_url_here', 'active', 'auth0|65db74563cd5642ab6486fbb', null);
+
+INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, viewAs, selectedOrgId)
+VALUES ('auth0|65e21a8e65215f17aa508c6c', 'Joe', 'Schmo', 'DriverUser', 'sjeremysarasua@gmail.com', 'profile_picture_url_here', 'active', 'auth0|65e21a8e65215f17aa508c6c', null);
+
 INSERT INTO User (userId, firstName, lastName, userType, email, picture, userStatus, pointValue, viewAs)
 VALUES ('auth0|65b9a896724a3409a69ff940', 'Trinh', 'Tran', 'NewUser', 'trinht0517@gmail.com', 'profile_picture_url_here', 'active', 0, 'auth0|65b9a896724a3409a69ff940');
 

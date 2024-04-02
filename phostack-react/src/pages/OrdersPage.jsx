@@ -31,6 +31,7 @@ const OrdersPage = () => {
   const limit = 3;
 
   let queryParams = {
+    orgId: viewAs?.selectedOrgId,
     orderFor: viewAs?.userId,
     offset: (page - 1) * limit,
     limit,

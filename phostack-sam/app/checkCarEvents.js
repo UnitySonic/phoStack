@@ -6,10 +6,18 @@ const {
 const { modifyUserInDb } = require('./users/users.service');
 const {
   getSpeedingBehaviorsForUser,
+  getNonSpeedingBehaviorsForUser,
 } = require('./behaviors/behaviors.service');
 const { savePointLogToDb } = require('./audit-logs/points/logs.points.service');
 
-const applyPoints = async (userId, carEvent, behaviors) => {
+const getNonSpeedingBehaviorsToApply = (carEvent, behaviors) => {
+  const { carEventSpeed, carEventSpeedLimit, carEventCreatedAt } = carEvent;
+  const isSpeeding = carEventSpeed > carEventSpeedLimit;
+
+  return isSpeeding ? [] : behaviors;
+};
+
+const getSpeedingBehaviorsToApply = (carEvent, behaviors) => {
   const behaviorsByOrgId = behaviors.reduce((acc, behavior) => {
     const orgId = behavior.orgId;
     acc[orgId] = acc[orgId] || [];
@@ -58,7 +66,11 @@ const applyPoints = async (userId, carEvent, behaviors) => {
     }
   }
 
-  for (const behavior of behaviorsToApply) {
+  return behaviorsToApply;
+};
+
+const applyPoints = async (userId, behaviors) => {
+  for (const behavior of behaviors) {
     await savePointLogToDb({
       behaviorId: behavior.behaviorId,
       pointGivenBy: userId,
@@ -83,14 +95,30 @@ const lambdaHandler = async (event, context) => {
     for (const carEvent of carEvents) {
       try {
         const userId = carEvent.carEventUserId;
-        const behaviors = await getSpeedingBehaviorsForUser(userId);
-        await applyPoints(userId, carEvent, behaviors);
+        const speedingBehaviors = await getSpeedingBehaviorsForUser(userId);
+        const nonSpeedingBehaviors = await getNonSpeedingBehaviorsForUser(
+          userId
+        );
+        const speedingBehaviorsToApply = getSpeedingBehaviorsToApply(
+          carEvent,
+          speedingBehaviors
+        );
+        const nonSpeedingBehaviorsToApply = getNonSpeedingBehaviorsToApply(
+          carEvent,
+          nonSpeedingBehaviors
+        );
+
+        const behaviorsToApply = [
+          ...speedingBehaviorsToApply,
+          ...nonSpeedingBehaviorsToApply,
+        ];
+        await applyPoints(userId, behaviorsToApply);
+        await saveLastCarEventChecked(carEvent.carEventId)
       } catch (error) {
         continue;
       }
     }
-    await saveLastCarEventChecked(carEvents[carEvents.length - 1]?.carEventId || lastCarEventChecked)
-
+    
     return {
       statusCode: 200,
       body: { message: 'Success checking car events' },

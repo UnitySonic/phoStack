@@ -2,10 +2,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery } from '@tanstack/react-query';
 import { getUser } from '../util/users';
 
-const useUser = () => {
+const useUser = (userToGet = null) => {
   const { getAccessTokenSilently, user: auth0User } = useAuth0();
-  const userId = auth0User?.sub;
-  
+  const userId = userToGet ?? auth0User?.sub;
+
   const {
     data: user = {},
     isLoading: isUserLoading,

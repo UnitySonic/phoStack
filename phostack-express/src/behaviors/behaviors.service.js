@@ -1,7 +1,7 @@
 const { pool } = require('../db');
 
-const getBehaviorsFromDb = async (params) => {
-    const { offset = 0, limit = 1000 } = params;
+const getBehaviorsFromDb = async (params = {}) => {
+    const { offset = 0, limit = 10000 } = params;
     const numericOffset = +offset;
     const numericLimit = +limit;
   

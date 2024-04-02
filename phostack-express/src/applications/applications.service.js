@@ -1,9 +1,9 @@
 const { pool } = require('../db');
 
-const getApplicationsFromDb = async (params) => {
+const getApplicationsFromDb = async (params = {}) => {
   const {
     offset = 0,
-    limit = 1000,
+    limit = 10000,
     userId = null,
     orgId = null,
     applicationStatus = null,

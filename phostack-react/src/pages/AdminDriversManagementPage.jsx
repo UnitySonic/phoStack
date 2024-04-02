@@ -7,13 +7,13 @@ import useUser from '../hooks/useUser';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import MenuItem from '@mui/material/MenuItem';
-import PlusOneIcon from '@mui/icons-material/PlusOne';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import { queryClient } from '../util/http';
 import { changeUser } from '../util/users';
 import CustomAlert from '../components/UI/CustomAlert';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import { Button, Box, Typography, Grid } from '@mui/material';
 
@@ -47,8 +47,6 @@ const AdminDriversManagementPage = () => {
       }),
     placeholderData: keepPreviousData,
   });
-
-  console.log(data);
 
   const { mutate, isPending, isSaveError, saveError, isSuccess } = useMutation({
     mutationFn: changeUser,
@@ -110,9 +108,9 @@ const AdminDriversManagementPage = () => {
     navigate('/admin/drivers/new');
   };
 
-  const handlePoints = (row) => {
-    console.log(row.original);
-    console.log('add point action clicked');
+  const handleAddOrganization = (row) => {
+    const userId = row?.original?.userId;
+    navigate(`/admin/drivers/${userId}/organizations`);
   };
 
   const handleDriverActivate = (row) => {
@@ -166,11 +164,11 @@ const AdminDriversManagementPage = () => {
     initialState: { density: 'compact' },
     enableRowActions: true,
     renderRowActionMenuItems: ({ row }) => [
-      <MenuItem key='points' onClick={() => handlePoints(row)}>
+      <MenuItem key='add-organization' onClick={() => handleAddOrganization(row)}>
         <ListItemIcon>
-          <PlusOneIcon fontSize='small' />
+          <PersonAddIcon fontSize='small' />
         </ListItemIcon>
-        <ListItemText>Manage Points</ListItemText>
+        <ListItemText>Add Organization</ListItemText>
       </MenuItem>,
       <MenuItem
         key='activate'

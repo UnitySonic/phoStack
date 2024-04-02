@@ -18,13 +18,17 @@ import useUser from '../hooks/useUser';
 import { saveOrder } from '../util/orders';
 import { queryClient } from '../util/http';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { modifyCart } from '../util/cart';
+import { clearCart } from '../util/cart';
 
 function Checkout() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const productInfo = useLocation();
-  const { cart } = productInfo.state;
+  const { cart, clearCartFlag, cartId } = productInfo.state;
+
+
 
   const { getAccessTokenSilently } = useAuth0();
   const { user = {}, isLoading: isUserLoading } = useUser();
@@ -34,6 +38,7 @@ function Checkout() {
   const selectedOrganization = userOrganizations.find(
     (org) => org.orgId == orgId
   );
+  const dollarPerPoint = selectedOrganization?.dollarPerPoint
 
   const { mutate, isPending, isSaveError, saveError } = useMutation({
     mutationFn: saveOrder,
@@ -45,6 +50,18 @@ function Checkout() {
       setShowErrorAlert(true);
     },
   });
+
+  const { mutate: clearMutate, isPending: clearIsPending, isSaveError: clearIsSaveError, saveError: clearSaveError, isSuccess: clearIsSuccess } = useMutation({
+    mutationFn: clearCart,
+    onSuccess: () => {
+      setShowSuccessAlert(true);
+    },
+    onError: (error) => {
+      setShowErrorAlert(true);
+    },
+  });
+
+
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -58,8 +75,7 @@ function Checkout() {
   });
 
   const handleAddressFormSubmit = (data) => {
-    console.log('We have been submitted');
-    console.log(data);
+
     setFormData(data);
   };
 
@@ -67,12 +83,14 @@ function Checkout() {
     if (isFormDataValid()) {
       setActiveStep(activeStep + 1);
     }
+
     if (activeStep === 1) {
+      const copyOfCart = { ...cart }
       const orderData = {
         orderStatus: 'processing',
         orderBy: user?.userId,
         orderFor: viewAs?.userId,
-        orderInfo: cart,
+        orderInfo: copyOfCart,
         orgId,
         addressFirstName: formData.firstName,
         addressLastName: formData.lastName,
@@ -85,9 +103,36 @@ function Checkout() {
         dollarPerPoint: selectedOrganization?.dollarPerPoint,
       };
       mutate({ orderData, getAccessTokenSilently });
+
+      if (clearCartFlag === true) {
+        clearMutate({ cartId, getAccessTokenSilently })
+      }
     }
-    console.log(activeStep);
   };
+
+  function getStepContent(step, locData) {
+    switch (step) {
+      case 0:
+        return (
+          <AddressForm
+            onNext={handleAddressFormSubmit}
+            formData={formData}
+            setFormData={setFormData}
+          />
+        );
+      case 1:
+        return (
+          <Review
+            reviewData={locData}
+            formData={formData}
+            userPointValue={selectedOrganization?.pointValue}
+            dollarPerPoint={dollarPerPoint}
+          />
+        );
+      default:
+        return null;
+    }
+  }
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
@@ -107,32 +152,7 @@ function Checkout() {
     );
   };
 
-  function getStepContent(step, locData) {
-    switch (step) {
-      case 0:
-        return (
-          <AddressForm
-            onNext={handleAddressFormSubmit}
-            formData={formData}
-            setFormData={setFormData}
-          />
-        );
-      case 1:
-        return (
-          <Review
-            reviewData={locData}
-            formData={formData}
-            userPointValue={selectedOrganization?.pointValue}
-          />
-        );
-      case 2:
-        console.log('Hello');
 
-        break;
-      default:
-        throw new Error('Unknown step');
-    }
-  }
 
   if (isUserLoading) {
     return <div>Loading...</div>; // Display loading indicator while user data is being fetched

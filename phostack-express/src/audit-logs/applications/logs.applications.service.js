@@ -1,6 +1,6 @@
 const { pool } = require('../../db');
 
-const saveApplicationLogToDb = async (applicationLog) => {
+const saveApplicationLogToDb = async (applicationLog = {}) => {
   const { applicationId, applicationStatus, reason } = applicationLog;
   let connection;
   try {
@@ -25,10 +25,10 @@ const saveApplicationLogToDb = async (applicationLog) => {
   }
 };
 
-const getApplicationLogsFromDb = async (params) => {
+const getApplicationLogsFromDb = async (params = {}) => {
   const {
     offset = 0,
-    limit = 1000,
+    limit = 10000,
     userId = null,
     orgId = null,
     applicationStatus = null,

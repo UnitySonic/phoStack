@@ -4,7 +4,7 @@ Description: PhoStack Serverless Application
 
 Globals:
   Function:
-    Timeout: 30
+    Timeout: 55
     MemorySize: 512
     Architectures:
       - x86_64

@@ -6,10 +6,9 @@ const pictureController = require('./picture.controller');
 const pictureRouter = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 }
+  storage: storage,
+  limits: { fileSize: 100000000 },
 });
-
 
 // Route for handling file upload
 pictureRouter.post('/', upload.single('file'), pictureController.savePicture);

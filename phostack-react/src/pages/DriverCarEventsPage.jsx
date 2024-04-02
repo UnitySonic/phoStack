@@ -14,9 +14,13 @@ const DriverCarEventsPage = () => {
   const { user } = useUser();
   const { viewAs } = user;
 
-  const params = {
-    userId: viewAs?.userId,
-  };
+  let params = {};
+
+  if (viewAs?.userType === 'DriverUser') {
+    params = {
+      userId: viewAs?.userId,
+    };
+  }
 
   const { data = [] } = useQuery({
     queryKey: ['car-events', { params }],
@@ -38,8 +42,8 @@ const DriverCarEventsPage = () => {
         size: 150,
       },
       {
-        accessorKey: 'carEventUserId',
-        header: 'userId',
+        accessorKey: 'email',
+        header: 'User',
         size: 150,
       },
       {
@@ -53,11 +57,17 @@ const DriverCarEventsPage = () => {
         size: 150,
       },
       {
-        accessorFn: (originalRow) => new Date(originalRow?.carEventCreatedAt),
+        accessorFn: (originalRow) =>
+          new Date(
+            originalRow?.carEventCreatedAt?.slice(0, 19).replace(' ', 'T') + 'Z'
+          ),
         id: 'createdAt',
         header: 'Date',
         filterVariant: 'date-range',
-        Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
+        Cell: ({ cell }) =>
+          cell.getValue()
+            ? cell.getValue().toISOString().slice(0, 19).replace('T', ' ')
+            : '',
       },
     ],
     []

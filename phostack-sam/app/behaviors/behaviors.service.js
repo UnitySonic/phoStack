@@ -63,6 +63,44 @@ const getSpeedingBehaviorsForUser = async (userId) => {
   }
 };
 
+const getNonSpeedingBehaviorsForUser = async (userId) => {
+  let connection;
+  try {
+    const pool = await getPool();
+    connection = await pool.getConnection();
+    connection.beginTransaction();
+
+    const [rows] = await connection.query(
+      `select * from User_Organization 
+      WHERE UserId = ?
+      AND memberStatus = 'active'`,
+      [userId]
+    );
+
+    const organizationIds = rows.map((row) => row.orgId);
+    const orgIdsQueryString = organizationIds.join(',');
+
+    const [results] = await connection.query(
+      `SELECT * FROM Behavior 
+      WHERE behaviorStatus = 'active' 
+      AND LOWER(behaviorName) LIKE '%not speeding%'
+      AND (orgId in (${orgIdsQueryString}) OR userId = ?);`,
+      [userId]
+    );
+    await connection.commit();
+    return results;
+  } catch (error) {
+    if (connection) {
+      await connection.rollback();
+    }
+    throw error;
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+};
+
 const getSpeedingBehaviors = async (params = {}) => {
   let connection;
   try {
@@ -146,5 +184,6 @@ module.exports = {
   getBehaviorsByUserId,
   getBehaviors,
   getSpeedingBehaviorsForUser,
-  getSpeedingBehaviors
+  getSpeedingBehaviors,
+  getNonSpeedingBehaviorsForUser
 };

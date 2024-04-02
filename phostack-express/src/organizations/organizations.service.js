@@ -1,7 +1,7 @@
 const { pool } = require('../db');
 
-const getOrganizationsFromDb = async (params) => {
-  const { offset = 0, limit = 1000 } = params;
+const getOrganizationsFromDb = async (params = {}) => {
+  const { offset = 0, limit = 10000 } = params;
   const numericOffset = +offset;
   const numericLimit = +limit;
 
@@ -83,7 +83,7 @@ const saveOrganization = async (organization) => {
   }
 };
 
-const modifyOrganization = async (orgId, organization) => {
+const modifyOrganization = async (orgId, organization = {}) => {
   const {
     orgName = null,
     orgDescription = null,

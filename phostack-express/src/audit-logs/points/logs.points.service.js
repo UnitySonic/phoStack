@@ -107,7 +107,7 @@ const getPointsLogsFromDb = async (params) => {
         User U ON U.userId = P.pointGivenTo
       LEFT JOIN
         User UR on UR.userId = P.pointGivenBy
-      ${whereClause} LIMIT ? OFFSET ?`,
+      ${whereClause} ORDER BY logId DESC LIMIT ? OFFSET ?`,
       [...values, numericLimit, numericOffset]
     );
 

@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { fetchPointLogs } from '../util/logs.points';
 import { useMemo } from 'react';
 import useUser from '../hooks/useUser';
@@ -28,6 +28,12 @@ const PointsAuditLogsPage = () => {
     };
   }
 
+  if (userType && userType == 'DriverUser') {
+    params = {
+      pointGivenTo: userId,
+    };
+  }
+
   const { data = [] } = useQuery({
     queryKey: ['logs', 'points', { params }],
     queryFn: ({ signal }) =>
@@ -36,6 +42,8 @@ const PointsAuditLogsPage = () => {
         signal,
         getAccessTokenSilently,
       }),
+    placeholderData: keepPreviousData,
+    refetchInterval: 5000,
   });
   
   const newData = useMemo(() => {
@@ -45,8 +53,8 @@ const PointsAuditLogsPage = () => {
           organization: d.orgName,
           driver: d.pointGivenToEmail,
           pointValue: d.orderTotal,
-          reason: `Order: ${d.orderId}`,
-          date: d.createdAt,
+          reason: `Order Placed | orderId: ${d.orderId}`,
+          date: d.createdAt.slice(0, 19).replace(' ', 'T') + 'Z',
         };
       } else if (d.behaviorId) {
         return {
@@ -54,7 +62,7 @@ const PointsAuditLogsPage = () => {
           driver: d.pointGivenToEmail,
           pointValue: d.pointValue,
           reason: `${d.behaviorName} : ${d.behaviorDescription}`,
-          date: d.createdAt,
+          date: d.createdAt.slice(0, 19).replace(' ', 'T') + 'Z',
         };
       }
     });
@@ -87,7 +95,10 @@ const PointsAuditLogsPage = () => {
         id: 'date',
         header: 'Date',
         filterVariant: 'date-range',
-        Cell: ({ cell }) => cell.getValue().toLocaleDateString(),
+        Cell: ({ cell }) =>
+          cell.getValue()
+            ? cell.getValue().toISOString().slice(0, 19).replace('T', ' ')
+            : '',
       },
     ],
     []

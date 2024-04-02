@@ -3,7 +3,7 @@ const { pool } = require('../db');
 const getCarEvents = async (params = {}) => {
   const {
     offset = 0,
-    limit = 1000000,
+    limit = 10000,
     userId = null,
     startDate = '1970-01-01',
     endDate = new Date().toISOString().slice(0, 10),
@@ -35,7 +35,10 @@ const getCarEvents = async (params = {}) => {
     connection.beginTransaction();
 
     const [results] = await connection.query(
-      `SELECT * FROM CarEvent
+      `SELECT * 
+      FROM CarEvent C
+      JOIN User U
+      ON C.carEventUserId = U.userId
       ${whereClause} ORDER BY carEventId DESC LIMIT ? OFFSET ?`,
       [...values, numericLimit, numericOffset]
     );

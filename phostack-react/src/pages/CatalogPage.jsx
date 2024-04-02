@@ -8,7 +8,9 @@ import Pagination from '@mui/material/Pagination';
 import { Grid, Box } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getEbayItems } from '../util/ebay';
+import { getCartId } from '../util/cart';
 import useUser from '../hooks/useUser';
+import priceConvert from '../util/priceConvert';
 
 function CatalogPage() {
   const { getAccessTokenSilently } = useAuth0();
@@ -18,6 +20,7 @@ function CatalogPage() {
   const { user } = useUser();
   const { viewAs } = user;
   const orgId = viewAs?.selectedOrgId;
+  const userId = viewAs?.userId;
   const userOrganizations = viewAs?.organizations || [];
   const selectedOrganization = userOrganizations.find(org => org.orgId == orgId);
   const userPointValue = selectedOrganization?.pointValue;
@@ -39,17 +42,29 @@ function CatalogPage() {
       getEbayItems({ signal, params: queryParams, getAccessTokenSilently }),
   });
 
+  let cartIdQueryParams = {
+    orgId,
+    userId,
+  }
+
+  const {
+    data: cartId,
+    isLoading: cartIdIsLoading,
+    isError: cartIsIdError,
+    error: cartIdError,
+  } = useQuery({
+    queryKey: ['cartId', cartIdQueryParams],
+    queryFn: ({ signal }) =>
+      getCartId({ signal, params: cartIdQueryParams, getAccessTokenSilently }),
+  });
+
+
+
+
+
   //price Conversion
 
-  const priceConvert = (priceString, dollarPerPoint) => {
-    // Remove any non-digit characters from the price string
-    const cleanPriceString = priceString.replace(/[^\d.]/g, '');
 
-    // Convert the cleaned price string to cents
-    const priceInCents = parseFloat(cleanPriceString);
-
-    return Math.round(priceInCents / dollarPerPoint);
-  };
   //end price conversion
 
   const handlePageChange = (event, value) => {
@@ -58,9 +73,10 @@ function CatalogPage() {
 
   let content;
 
-  if (ebayIsLoading) {
+  if (ebayIsLoading || cartIdIsLoading) {
     return <Spinner />;
   }
+
 
   if (ebayIsError) {
     content = (
@@ -93,7 +109,7 @@ function CatalogPage() {
                   product?.estimatedAvailabilities?.[0]
                     ?.estimatedAvailableQuantity || 1
                 }
-                userId={viewAs?.userId}
+                cartId={cartId}
               />
             </Grid>
           ))}

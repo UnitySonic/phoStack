@@ -72,7 +72,7 @@ async function getEbayItem(itemId) {
   }
 }
 
-async function getEbayItems(params) {
+async function getEbayItems(params = {}) {
   try {
     const baseUrl = `${
       process.env.EBAY_API_BASE_URL

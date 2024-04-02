@@ -161,4 +161,21 @@ CREATE TABLE IF NOT EXISTS Util(
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS Cart (
+    cartId INT auto_increment PRIMARY KEY,
+    userId varchar(50),
+    orgId INT,
+    FOREIGN KEY (userId) REFERENCES User(userId),
+    FOREIGN KEY (orgId) REFERENCES Organization(orgId)
+);
+
+
+CREATE TABLE IF NOT EXISTS CartItem (
+    cartId INT,
+    itemId varchar(50) ,
+    quantity INT,
+    PRIMARY KEY (cartId, itemId),
+    FOREIGN KEY (cartId) REFERENCES Cart(cartId)
+);
+
 COMMIT;

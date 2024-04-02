@@ -54,6 +54,7 @@ import TestView from './pages/TestView.jsx';
 import OrdersPage from './pages/OrdersPage.jsx';
 import SeedUserData from './pages/SeedUserData.jsx';
 import DriverCarEventsPage from './pages/DriverCarEventsPage.jsx';
+import AdminDriverAddOrganizationsPage from './pages/AdminDriverAddOrganizationsPage.jsx'
 
 import store from './store/index.js';
 import { alpha } from '@mui/material/styles';
@@ -251,6 +252,10 @@ const router = createBrowserRouter([
       {
         path: 'car-events',
         element: <AuthenticationGuard component={DriverCarEventsPage} />,
+      },
+      {
+        path: 'admin/drivers/:userId/organizations',
+        element: <AuthenticationGuard component={AdminDriverAddOrganizationsPage} />,
       },
     ],
   },

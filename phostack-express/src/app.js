@@ -21,6 +21,7 @@ const pictureRouter = require('./profile-picture/picture.router');
 const behaviorRouter = require('./behaviors/behaviors.router');
 const pointsLogsRouter = require('./audit-logs/points/logs.points.router');
 const carEventsRouter = require('./car-events/car-events.router');
+const cartRouter = require('./carts/carts.router');
 
 const { logger } = require('./logger');
 const { pool } = require('./db');
@@ -82,6 +83,7 @@ app.use('/logs/applications', applicationLogsRouter);
 app.use('/logs/login', LoginLogsRouter);
 app.use('/logs/points', pointsLogsRouter);
 app.use('/car-events', carEventsRouter);
+app.use('/carts', cartRouter)
 
 app.get('/admin', checkRequiredPermissions(['read:test']), async (req, res) => {
   const managementClient = await getManagementClient();
