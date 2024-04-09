@@ -55,6 +55,8 @@ import OrdersPage from './pages/OrdersPage.jsx';
 import SeedUserData from './pages/SeedUserData.jsx';
 import DriverCarEventsPage from './pages/DriverCarEventsPage.jsx';
 import AdminDriverAddOrganizationsPage from './pages/AdminDriverAddOrganizationsPage.jsx'
+import SalesBySponsorReportPgae from './pages/SalesBySponsorReportPage.jsx';
+import SalesByDriverReportPage from './pages/SalesByDriverReportPage.jsx';
 
 import store from './store/index.js';
 import { alpha } from '@mui/material/styles';
@@ -256,6 +258,14 @@ const router = createBrowserRouter([
       {
         path: 'admin/drivers/:userId/organizations',
         element: <AuthenticationGuard component={AdminDriverAddOrganizationsPage} />,
+      },
+      {
+        path: 'admin/reporting/sales',
+        element: <AuthenticationGuard component={SalesBySponsorReportPgae} />,
+      },
+      {
+        path: 'admin/reporting/sales-driver',
+        element: <AuthenticationGuard component={SalesByDriverReportPage} />,
       },
     ],
   },

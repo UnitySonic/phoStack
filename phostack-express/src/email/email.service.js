@@ -1,5 +1,7 @@
 const AWS = require('aws-sdk');
 const { getOrganizationFromDb } = require('../organizations/organizations.service');
+const {getOrderFromDb} = require("../orders/orders.service")
+
 
 const ses = new AWS.SES({
     accessKeyId: process.env.AWS_SES_KEY_ID,
@@ -67,7 +69,32 @@ const sendRevokeEmail = async (driverName, driverEmail, orgId) => {
   }
 }
 
+
+const sendOrderStatusChangeEmail = async (driverName, driverEmail, orderId, orderStatus) => {
+
+    const params = {
+      Destination: {
+        ToAddresses: [driverEmail]
+      },
+      Message: {
+        Body: {
+          Text: {
+            Data: `Hello ${driverName}! This is a notification to let you know the status of order #${orderId} has changed to ${orderStatus}.`
+          }
+        },
+        Subject: {
+          Data: 'Order Status Update'
+        }
+      },
+      Source: senderEmail
+    };
+
+    return ses.sendEmail(params).promise();
+  
+}
+
 module.exports = {
     sendApprovalEmail,
-    sendRevokeEmail
+    sendRevokeEmail,
+    sendOrderStatusChangeEmail,
 }

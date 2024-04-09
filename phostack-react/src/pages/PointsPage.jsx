@@ -9,6 +9,8 @@ import { getUser } from '../util/users';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import { changeUser } from '../util/users';
+import { savePointLog } from '../util/logs.points';
+import { saveBehavior } from '../util/behavior';
 import FormControl from '@mui/material/FormControl';
 import { queryClient } from '../util/http';
 import InputLabel from '@mui/material/InputLabel';
@@ -17,7 +19,7 @@ import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import MenuItem from '@mui/material/MenuItem';
-import { fetchBehaviorsByOrgId } from '../util/behavior';
+import { fetchActiveBehaviorsByOrgId } from '../util/behavior';
 import { useNavigate } from 'react-router-dom';
 
 function PointsPage() {
@@ -26,6 +28,7 @@ function PointsPage() {
   const navigate = useNavigate();
   const [pointAdjustment, setPointAdjustment] = useState('');
   const [selectedBehavior, setSelectedBehavior] = useState('');
+  const [selectedBehaviorId, setSelectedBehaviorId] = useState('');
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
@@ -38,14 +41,16 @@ function PointsPage() {
   const driverUserId = id;
   var isLoading;
   var isError;
-  const { mutate, isPending, isSaveError, saveError } = useMutation({
+  const { mutate, signal, isPending, isSaveError, saveError } = useMutation({
     mutationFn: changeUser,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['pointAdjustment'],
       });
-      setSelectedBehavior('');
       setShowSuccessAlert(true);
+      logPointChange(signal);
+      setSelectedBehavior('');
+      setSelectedBehaviorId('');
       // Go back to driver management page
       navigate('/drivers-management/');
     },
@@ -74,7 +79,7 @@ function PointsPage() {
   } = useQuery({
     queryKey: ['behaviors', { orgId }],
     queryFn: ({ signal }) =>
-      fetchBehaviorsByOrgId({
+    fetchActiveBehaviorsByOrgId({
         orgId,
         signal,
         getAccessTokenSilently,
@@ -92,6 +97,25 @@ function PointsPage() {
     return <CustomAlert severity='error' message={isError.message} />;
   }
 
+  // Logs point log change when a behavior is applied to a driver
+  async function logPointChange(signal) {
+    const pointLogData = 
+    { 
+      behaviorId: selectedBehaviorId,
+      orgId: orgId,
+      pointGivenBy: user.userId,
+      pointGivenTo: driverUserId,
+      orderId: null
+    };
+
+    try {
+      await savePointLog({ signal, pointLogData, getAccessTokenSilently });
+      console.log('Point log saved successfully');
+    } catch (error) {
+      console.error('Error occurred while saving point log:', error);
+    }
+  }
+
   const handleBehaviorChange = (event) => {
     const selectedBehaviorName = event.target.value;
     const selectedBehavior = behaviors.find(
@@ -100,9 +124,28 @@ function PointsPage() {
 
     if (selectedBehavior) {
       setPointAdjustment(selectedBehavior.pointValue);
+      setSelectedBehaviorId(selectedBehavior.behaviorId);
     }
     setSelectedBehavior(selectedBehaviorName);
   };
+
+  async function createAdHocBehavior() {
+    // Create a new behavior in behavior table and set to inactive
+    const behaviorData = {
+      orgId: viewAsUser?.selectedOrgId,
+      pointValue: adHocPointValue,
+      behaviorName: adHocName,
+      behaviorDescription: adHocDescription,
+      behaviorStatus: "inactive"
+    };  
+    try {
+      const behaviorInfo = await saveBehavior({ behaviorData, getAccessTokenSilently });
+      setSelectedBehaviorId(behaviorInfo.behaviorId);
+      console.log('Point log saved successfully', selectedBehaviorId);
+    } catch (error) {
+      console.error('Error occurred while saving point log:', error);
+    }
+  }
 
   const HandleSubmit = (e) => {
     e.preventDefault();
@@ -115,6 +158,7 @@ function PointsPage() {
 
   const HandleAdHocSubmit = (e) => {
     e.preventDefault();
+    createAdHocBehavior();
     mutate({
       userId: driverUserId,
       userData: {

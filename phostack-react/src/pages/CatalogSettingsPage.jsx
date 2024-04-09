@@ -28,6 +28,7 @@ function CatalogSettingsPage() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSmallRateAlert, setShowSmallRateAlert] = useState(false)
 
   const { user } = useUser();
   const { viewAs } = user;
@@ -69,7 +70,8 @@ function CatalogSettingsPage() {
       setMaxPriceInput(+data[0].CatalogParamMaxPrice || '');
       setSelectedCategory(data[0].CatalogParamCategories || '');
     }
-    setPointConversionRate(+selectedOrganization?.dollarPerPoint || '');
+    console.log(userOrganizations)
+    setPointConversionRate(selectedOrganization?.dollarPerPoint || '');
   }, [data, selectedOrganization]);
 
   const { mutate, isPending, isSaveError, saveError } = useMutation({
@@ -112,12 +114,18 @@ function CatalogSettingsPage() {
       CatalogParamCategories: selectedCategory || null,
     };
 
-    mutate({ orgId, queryParams, getAccessTokenSilently });
-    orgmutate({
-      orgId,
-      orgData: { dollarPerPoint: pointConversionRate },
-      getAccessTokenSilently,
-    });
+    if ((pointConversionRate.toString().split('.')[1] || '').length > 2) {
+      setShowSmallRateAlert(true)
+    }
+    else {
+      mutate({ orgId, queryParams, getAccessTokenSilently });
+      orgmutate({
+        orgId,
+        orgData: { dollarPerPoint: pointConversionRate },
+        getAccessTokenSilently,
+      });
+    }
+
   };
 
   return (
@@ -134,6 +142,13 @@ function CatalogSettingsPage() {
           type='success'
           message='Settings saved successfully!'
           onClose={() => setShowSuccessAlert(false)}
+        />
+      )}
+      {showSmallRateAlert && (
+        <CustomAlert
+          type='error'
+          message='Point Conversion Rate can not have more than 2 decimal places!'
+          onClose={() => setShowErrorAlert(false)}
         />
       )}
       <form onSubmit={handleSubmit}>

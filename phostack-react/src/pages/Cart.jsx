@@ -15,15 +15,18 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Remove from '@mui/icons-material/Remove';
 import priceConvert from '../util/priceConvert';
+import { queryClient } from '../util/http';
 
 
 const CartPage = () => {
 
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
     const [totalPointCost, setTotalPointCost] = useState(0);
     const [cartData, setCartData] = useState({}); // Initialize cartData as an empty object
     const [refetchFlag, setRefetchFlag] = useState(true)
+
 
     const { getAccessTokenSilently } = useAuth0();
     const { user } = useUser();
@@ -66,7 +69,7 @@ const CartPage = () => {
         error: cartError,
         refetch: refetchCartData, // Extract the refetch function
     } = useQuery({
-        queryKey: ['cart', cartParams],
+        queryKey: ['cart'],
         queryFn: ({ signal }) =>
             getCartItems({ signal, params: cartParams, getAccessTokenSilently }),
         cacheTime: 0
@@ -79,67 +82,62 @@ const CartPage = () => {
         mutationFn: modifyCart,
         onSuccess: () => {
             setShowSuccessAlert(true);
+
+
         },
         onError: (error) => {
             //setShowErrorAlert(true);
-
         },
     });
 
 
-
-
     useEffect(() => {
-        console.log("UserEffect Printing")
-        console.log(queryCartData)
-        console.log(cartData)
-        console.log("Done in Effect Prints")
-
-        if (queryCartData && Object.keys(cartData)?.length === 0 && Object.keys(queryCartData)?.length > 0) {
-            setRefetchFlag(true)
-        }
-        else {
-            setRefetchFlag(false)
-        }
-
-
         if (!cartIsLoading && !cartIsError) {
             // Update cartData state when queryCartData changes
             Object.values(queryCartData).forEach(item => {
                 item[0].price = priceConvert(item[0].price, selectedOrganization?.dollarPerPoint);
             });
-
-            // Check if queryCartData is empty and trigger a refetch if needed
-            if (refetchFlag === true) {
-                refetchCartData();
-            }
             // Set cartData state
             setCartData(queryCartData);
 
             // Calculate total cost whenever cartData or pointValue changes
-            if (pointValue) {
-                let cost = 0;
-                Object.values(queryCartData).forEach(item => {
-                    const price = item[0].price;
-                    const quantity = item[0].quantity;
-                    cost += price * quantity;
-                });
 
-                // Set totalPointCost state
-                setTotalPointCost(cost);
-
-                // Prepare cartInfo for mutation
-                const cartInfo = {
-                    cartId,
-                    cartData: queryCartData
-                };
-
-                // Perform mutation
-                mutate({ cartInfo, getAccessTokenSilently });
-
-            }
         }
-    }, [queryCartData, cartData]);
+    }, [queryCartData]);
+
+
+
+
+    useEffect(() => {
+        console.log("greetings from inside cartData Effect")
+        // Update cartData state when queryCartData changes
+        Object.values(cartData).forEach(item => {
+            item[0].price = priceConvert(item[0].price, selectedOrganization?.dollarPerPoint);
+        });
+
+
+
+        // Calculate total cost whenever cartData or pointValue changes
+        if (pointValue) {
+            let cost = 0;
+            Object.values(cartData).forEach(item => {
+                const price = item[0].price;
+                const quantity = item[0].quantity;
+                cost += price * quantity;
+            });
+
+            // Set totalPointCost state
+            setTotalPointCost(cost);
+        }
+        const cartInfo = {
+            cartId,
+            cartData: cartData
+        }
+
+        console.log(cartData)
+        console.log(queryCartData)
+        mutate({ cartInfo, getAccessTokenSilently });
+    }, [cartData]);
 
 
 
@@ -149,7 +147,11 @@ const CartPage = () => {
     const handleBuyButtonClick = () => {
         if (pointValue < totalPointCost) {
             setShowErrorAlert(true);
-        } else {
+        }
+        else if (Object.keys(cartData).length === 0) {
+            setShowEmptyCartAlert(true);
+        }
+        else {
             console.log('Buy button clicked');
             const cart = { ...cartData }
 
@@ -161,6 +163,7 @@ const CartPage = () => {
                     cartId: cartId
                 }
             });
+
             console.log("we navigated")
 
         }
@@ -169,7 +172,7 @@ const CartPage = () => {
     const increaseQuantity = (productId) => {
         const updatedCartData = { ...cartData };
         updatedCartData[productId][0].quantity = updatedCartData[productId][0].quantity + 1;
-        setCartData(updatedCartData);
+        setCartData(updatedCartData)
     }
 
     const decreaseQuantity = (productId) => {
@@ -179,17 +182,14 @@ const CartPage = () => {
         if (updatedCartData[productId][0].quantity <= 0) {
             updatedCartData[productId][0].quantity = 1
         }
-
-        setCartData(updatedCartData);
+        setCartData(updatedCartData)
     }
 
     const removeFromCart = (productId) => {
 
         const updatedCartData = { ...cartData };
         updatedCartData[productId][0].quantity = 0;
-        setCartData(updatedCartData);
-
-
+        setCartData(updatedCartData)
     };
 
     if (cartIdIsLoading || cartIsLoading) {
@@ -201,7 +201,14 @@ const CartPage = () => {
             {showErrorAlert && (
                 <CustomAlert
                     type='error'
-                    message='You do not have enough points to purchase this item'
+                    message='You do not have enough points to purchase the item(s) in your cart'
+                    onClose={() => setShowErrorAlert(false)}
+                />
+            )}
+            {showEmptyCartAlert && (
+                <CustomAlert
+                    type='error'
+                    message='Your Cart is empty!'
                     onClose={() => setShowErrorAlert(false)}
                 />
             )}

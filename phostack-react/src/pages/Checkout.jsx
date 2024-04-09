@@ -27,6 +27,7 @@ function Checkout() {
   const [activeStep, setActiveStep] = useState(0);
   const productInfo = useLocation();
   const { cart, clearCartFlag, cartId } = productInfo.state;
+  console.log(cart)
 
 
 
@@ -55,6 +56,7 @@ function Checkout() {
     mutationFn: clearCart,
     onSuccess: () => {
       setShowSuccessAlert(true);
+      queryClient.removeQueries(['cart'])
     },
     onError: (error) => {
       setShowErrorAlert(true);
@@ -105,6 +107,7 @@ function Checkout() {
       mutate({ orderData, getAccessTokenSilently });
 
       if (clearCartFlag === true) {
+        console.log("Hi I'm running")
         clearMutate({ cartId, getAccessTokenSilently })
       }
     }

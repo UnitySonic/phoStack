@@ -44,9 +44,10 @@ const savePictureToDb = async (pictureData) => {
   const userId = pictureData.body.userId;
   const file = pictureData.file;
 
+
   console.log("let's try printing to the console");
 
-  console.log(file.path);
+
   let connection;
 
   try {

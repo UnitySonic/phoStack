@@ -7,7 +7,7 @@ import { fetchBehaviorsByOrgId } from '../../util/behavior';
 import { useNavigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import { Line, Pie } from "react-chartjs-2";
-
+import {dashBoardStyle, HorizontalRow} from "./dashStyles";
 const AdminDashboard = () =>{
     var randomColor = () => {
         var r = Math.floor(Math.random() * 255);
@@ -15,26 +15,9 @@ const AdminDashboard = () =>{
         var b = Math.floor(Math.random() * 255);
         return "rgb(" + r + "," + g + "," + b + ")";
      };
-    const dashBoardStyle = {
-        //dimension
-        width: '75%',
-        maxWidth: '260px',
-        height: 'auto',
-        maxHeight: '350px',
-        //border
-        border: '2px solid #000',
-        borderRadius: '5px',
-        //alignment
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-    }
-    const HorizontalRow = {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'left',
-    }
+
     const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const blankData = {labels:[], datasets:[]};
     const { getAccessTokenSilently } = useAuth0();
     const { user } = useUser();
     const viewAs = user?.viewAs;
@@ -42,10 +25,11 @@ const AdminDashboard = () =>{
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [selectedDrivers, setSelectedDrivers] = useState([]);
-    const [selectedOrg, setselectedOrg] = useState(-1);
+    const [selectedOrg, setselectedOrg] = useState(1);
     const [pointValues, setPointValues] = useState([]);
-    const [pieData, setPieData] = useState({labels:[], datasets:[]});
-    const [lineData, setLineData] = useState({labels:[], datasets:[]});
+    const [pieData, setPieData] = useState(null);
+    const [lineData, setLineData] = useState(null);
+    const [firstLoad, setFirstLoad] = useState(false);
     var{ data = [], isLoading, isError, error, isRefetching, } = useQuery({
         queryKey: [],
         queryFn: ({ signal }) =>
@@ -57,9 +41,6 @@ const AdminDashboard = () =>{
     });
     const orgs = data
     let colors = [];
-    orgs.map((e)=>{
-        
-    })
     var{data = [], isLoading, isError, error, refetch, isRefetching,} = useQuery({
         queryKey: ['users', 'drivers'],
         queryFn: ({ signal }) =>
@@ -82,33 +63,34 @@ const AdminDashboard = () =>{
         placeholderData: keepPreviousData,
     });
     const behaviors = data;
-    let monthlyData = Array(12).fill(0)
-    //add up all points from that month
-    behaviors.map((e)=>{
-        //get month from createdAt, but start from 0
-        const month = parseInt(e.createdAt.substring(5, 7)) - 1;
-        monthlyData[month] += e.pointValue
-    })
+
     //when clicking on the first list the second list will show every driver with that org
     let allSponsorPoints = 0;
     let pointsPerSponsor = 0;
     let driverNames = [];
-    let driverPoints = [];
+    
     function chooseOrg(val){
-        if(val == selectedOrg)
+        if(selectedOrg == val && selectedOrg != 1){
             return;
+        }
         setselectedOrg(val);
         let filteredDrivers = drivers.filter((e) => e.selectedOrgId == val);
         filteredDrivers = filteredDrivers.slice(0,5)
         setSelectedDrivers(filteredDrivers)
-
+        
         const newPointValues = filteredDrivers.map((e)=>{
             colors.push(randomColor());
-            driverNames.push(e.firstName + e.lastName)
+            driverNames.push(String(e.firstName) + " " + String(e.lastName))
             const org = e.organizations.find(i=>i.orgId==val);
             return org ? org.pointValue : 0
         })
-        setPointValues(driverPoints)
+        setPointValues(newPointValues)
+        let monthlyData = Array(12).fill(0)
+        behaviors.map((e)=>{
+            //get month from createdAt, but start from 0
+            const month = parseInt(e.createdAt.substring(5, 7)) - 1;
+            monthlyData[month] += e.pointValue
+        })
         const newPieData = {
             labels: driverNames,
             datasets: [
@@ -125,8 +107,11 @@ const AdminDashboard = () =>{
               { label: "Points", data: monthlyData },
             ],
         }
+
         setPieData(newPieData)
         setLineData(newLineData)
+        //set flag to display colors after first selection
+        setFirstLoad(true)
     }
     return(
     <>
@@ -137,18 +122,15 @@ const AdminDashboard = () =>{
                         <li 
                             key={item.orgId} 
                             onClick={()=>{chooseOrg(item.orgId)}}
-                            style={{backgroundColor: selectedOrg == item.orgId ? 'lightblue' : 'white'}}
+                            style={{backgroundColor: (selectedOrg == item.orgId) && firstLoad ? 'lightblue' : 'white'}}
                         >
                             {item.orgName}
                         </li>
                     ))}
                 </ol>}
-                <div><Pie data={{labels:orgs, datasets:[]}}/></div>
-                
             </div>
-            {/*driver charts*/}
-            <div style={dashBoardStyle}>Top 5 Drivers<Pie data={pieData}/></div>
-            <div style={dashBoardStyle}>Points over time<Line data={lineData}/></div>
+            <div style={dashBoardStyle}>Top 5 Drivers<Pie data={!behaviorsIsRefetching ? pieData || blankData : blankData}/></div>
+            <div style={dashBoardStyle}>Points over time<Line data={!behaviorsIsRefetching ? lineData || blankData : blankData}/></div>
         </div>
     </>
     )

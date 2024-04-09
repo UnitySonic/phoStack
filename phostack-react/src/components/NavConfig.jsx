@@ -31,6 +31,7 @@ import ShopIcon from '@mui/icons-material/Shop';
 import Face5Icon from '@mui/icons-material/Face5';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const linksByRole = {
   AdminUser: [
@@ -75,6 +76,11 @@ const linksByRole = {
       text: 'Point Logs',
       icon: <NumbersIcon />,
       to: 'logs/points',
+    },
+    {
+      text: 'Sales Report',
+      icon: <AttachMoneyIcon />,
+      to: 'admin/reporting/sales',
     },
     {
       text: 'Random User',

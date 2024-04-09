@@ -14,7 +14,7 @@ import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query';
 import { addToCart } from '../util/cart';
 import { useAuth0 } from '@auth0/auth0-react';
-
+import { queryClient } from '../util/http';
 
 
 const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quantity, cartId }) => {
@@ -22,6 +22,7 @@ const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quanti
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
+
 
 
 
@@ -35,6 +36,8 @@ const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quanti
     else {
       console.log('Buy button clicked');
 
+
+
       navigate(`/purchase/${productId}`, {
         state: {
           cart: {
@@ -43,6 +46,7 @@ const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quanti
               title,
               price,
               quantity,
+              productId,
             }]
           },
           clearCartFlag: false,
@@ -63,18 +67,19 @@ const ProductCard = ({ imageUrl, title, price, userPointValue, productId, quanti
       setShowSuccessAlert(true);
     },
     onError: (error) => {
-      //setShowErrorAlert(true);
+      console.error('Mutation Error:', error);
+      setShowErrorAlert(true);
     },
   });
 
 
   const handleAddToCartButtonClick = (event) => {
     // Create a new cart item object
+
     const itemData = {
       productId: productId,
       quantity: 1 // Initial quantity when adding to cart
     };
-
 
     mutate({ cartId, itemData, getAccessTokenSilently })
 

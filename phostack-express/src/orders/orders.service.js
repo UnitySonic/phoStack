@@ -1,5 +1,7 @@
 const { pool } = require('../db');
-const { getEbayItem } = require('../ebay/ebay.service');
+const { getEbayItem, getEbayItems } = require('../ebay/ebay.service');
+const { getRandomTimestamp, getRandomElement } = require('../utils');
+const { getUsersFromDb } = require('../users/users.service');
 
 const saveOrderToDb = async (orderData = {}) => {
   const {
@@ -17,14 +19,12 @@ const saveOrderToDb = async (orderData = {}) => {
     addressZip,
     addressCountry,
     dollarPerPoint,
+    createdAt = new Date().toISOString().slice(0, 19).replace('T', ' '),
   } = orderData;
   let connection;
   try {
     connection = await pool.getConnection();
     connection.beginTransaction();
-
-
-
 
     const [addressInfoInsertResult] = await connection.execute(
       'INSERT INTO ShippingAddress (addressFirstName, addressLastName, addressLineOne, addressLineTwo, addressCity, addressState, addressZip, addressCountry) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
@@ -39,14 +39,13 @@ const saveOrderToDb = async (orderData = {}) => {
         addressCountry,
       ]
     );
-    let orderTotal = 0
+    let orderTotal = 0;
     for (const item of Object.values(orderInfo)) {
-      orderTotal += item[0].price
-
+      orderTotal += item[0].price;
     }
     const addressId = addressInfoInsertResult.insertId;
     const [orgInfoInsertResult] = await connection.execute(
-      'INSERT INTO OrderInfo (orderStatus, orderBy, orderFor, orderTotal, orgId, addressId, dollarPerPoint) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO OrderInfo (orderStatus, orderBy, orderFor, orderTotal, orgId, addressId, dollarPerPoint, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
       [
         orderStatus,
         orderBy,
@@ -55,19 +54,17 @@ const saveOrderToDb = async (orderData = {}) => {
         orgId,
         addressId,
         dollarPerPoint,
+        createdAt,
       ]
     );
 
     const orderId = orgInfoInsertResult.insertId;
     for (const item of Object.values(orderInfo)) {
-
       await connection.execute(
         'INSERT INTO OrderInfo_Item (orderId, itemId, quantity) VALUES (?, ?, ?)',
         [orderId, item[0].productId, item[0].quantity]
       );
-
     }
-
 
     await connection.execute(
       'INSERT INTO PointLog (pointGivenBy, pointGivenTo, orderId, orgId) VALUES (?, ?, ?, ?)',
@@ -89,8 +86,8 @@ const saveOrderToDb = async (orderData = {}) => {
       );
     }
 
-
     await connection.commit();
+    return orderId
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -164,75 +161,77 @@ const getOrderFromDb = async (orderId) => {
 
     await Promise.all(
       rows.map(async (row) => {
-        const ebayItem = await getEbayItem(row.itemId);
-        const orderExists = orders[row.orderId];
-        if (orderExists) {
-          orders[row.orderId]?.items.push({
-            quantity: row.quantity,
-            itemId: row.itemId,
-            title: ebayItem?.title,
-            price: ebayItem?.price?.value,
-            image: ebayItem?.image,
-            description: ebayItem?.shortDescription,
-          });
-        } else {
-          orders[row.orderId] = {
-            orderId: row.orderId,
-            orderTotal: row.orderTotal,
-            orderStatus: row.orderStatus,
-            dollarPerPoint: row.orderDollarPerPoint,
-            orderBy: {
-              userId: row.orderByUserId,
-              firstName: row.orderByFirstName,
-              lastName: row.orderByLastName,
-              userType: row.orderByUserType,
-              email: row.orderByEmail,
-              picture: row.orderByPicture,
-              userStatus: row.orderByUserStatus,
-              selectedOrgId: row.orderBySelectedOrgId,
-              createdAt: row.orderByCreatedAt,
-            },
-            orderFor: {
-              userId: row.orderForUserId,
-              firstName: row.orderForFirstName,
-              lastName: row.orderForLastName,
-              userType: row.orderForUserType,
-              email: row.orderForEmail,
-              picture: row.orderForPicture,
-              userStatus: row.orderForUserStatus,
-              selectedOrgId: row.orderForSelectedOrgId,
-              createdAt: row.orderForCreatedAt,
-            },
-            organization: {
-              orgId: row.orgId,
-              orgName: row.orgName,
-              orgDescription: row.orgDescription,
-              orgStatus: row.orgStatus,
-              dollarPerPoint: row.orgDollarPerPoint,
-            },
-            createdAt: row.createdAt,
-            shipping: {
-              addressFirstName: row.addressFirstName,
-              addressLastName: row.addressLastName,
-              addressLineOne: row.addressLineOne,
-              addressLineTwo: row.addressLineTwo,
-              addressCity: row.addressCity,
-              addressState: row.addressState,
-              addressZip: row.addressZip,
-              addressCountry: row.addressCountry,
-            },
-            items: [
-              {
-                quantity: row.quantity,
-                itemId: row.itemId,
-                title: ebayItem?.title,
-                price: ebayItem?.price?.value,
-                image: ebayItem?.image,
-                description: ebayItem?.shortDescription,
+        try {
+          const ebayItem = await getEbayItem(row.itemId);
+          const orderExists = orders[row.orderId];
+          if (orderExists) {
+            orders[row.orderId]?.items.push({
+              quantity: row.quantity,
+              itemId: row.itemId,
+              title: ebayItem?.title,
+              price: ebayItem?.price?.value,
+              image: ebayItem?.image,
+              description: ebayItem?.shortDescription,
+            });
+          } else {
+            orders[row.orderId] = {
+              orderId: row.orderId,
+              orderTotal: row.orderTotal,
+              orderStatus: row.orderStatus,
+              dollarPerPoint: row.orderDollarPerPoint,
+              orderBy: {
+                userId: row.orderByUserId,
+                firstName: row.orderByFirstName,
+                lastName: row.orderByLastName,
+                userType: row.orderByUserType,
+                email: row.orderByEmail,
+                picture: row.orderByPicture,
+                userStatus: row.orderByUserStatus,
+                selectedOrgId: row.orderBySelectedOrgId,
+                createdAt: row.orderByCreatedAt,
               },
-            ],
-          };
-        }
+              orderFor: {
+                userId: row.orderForUserId,
+                firstName: row.orderForFirstName,
+                lastName: row.orderForLastName,
+                userType: row.orderForUserType,
+                email: row.orderForEmail,
+                picture: row.orderForPicture,
+                userStatus: row.orderForUserStatus,
+                selectedOrgId: row.orderForSelectedOrgId,
+                createdAt: row.orderForCreatedAt,
+              },
+              organization: {
+                orgId: row.orgId,
+                orgName: row.orgName,
+                orgDescription: row.orgDescription,
+                orgStatus: row.orgStatus,
+                dollarPerPoint: row.orgDollarPerPoint,
+              },
+              createdAt: row.createdAt,
+              shipping: {
+                addressFirstName: row.addressFirstName,
+                addressLastName: row.addressLastName,
+                addressLineOne: row.addressLineOne,
+                addressLineTwo: row.addressLineTwo,
+                addressCity: row.addressCity,
+                addressState: row.addressState,
+                addressZip: row.addressZip,
+                addressCountry: row.addressCountry,
+              },
+              items: [
+                {
+                  quantity: row.quantity,
+                  itemId: row.itemId,
+                  title: ebayItem?.title,
+                  price: ebayItem?.price?.value,
+                  image: ebayItem?.image,
+                  description: ebayItem?.shortDescription,
+                },
+              ],
+            };
+          }
+        } catch (error) {}
       })
     );
 
@@ -358,7 +357,7 @@ const getOrdersFromDb = async (params = {}) => {
       ON U.userId = O.orderBy
       LEFT JOIN User U2 
       ON U2.userId = O.orderFor
-      ${whereClause} ORDER BY O.createdAt DESC LIMIT ? OFFSET ?`,
+      ${whereClause} ORDER BY O.orderId DESC LIMIT ? OFFSET ?`,
       [...values, numericLimit, numericOffset]
     );
     await connection.commit();
@@ -440,7 +439,80 @@ const modifyOrderInDb = async (orderId, order = {}) => {
   }
 };
 
+const createRandomOrders = async () => {
+  try {
+    const ebayItems = await getEbayItems({
+      q: 'iphone',
+      limit: 100,
+      offset: 0,
+    });
+
+    const startDate = new Date('2023-01-01');
+    const endDate = new Date();
+
+    const drivers = await getUsersFromDb({
+      filters: { userType: 'DriverUser' },
+    });
+
+    // Loop through each driver
+    for (const driver of drivers) {
+      const org = getRandomElement(driver.organizations);
+
+      // Loop through each month
+      for (let month = 0; month < 12; month++) {
+        // Set start and end date for the current month
+        const monthStart = new Date(startDate);
+        monthStart.setMonth(startDate.getMonth() + month);
+        monthStart.setDate(1);
+        const monthEnd = new Date(monthStart);
+        monthEnd.setMonth(monthStart.getMonth() + 1);
+        monthEnd.setDate(0);
+
+        for (let i = 0; i < 2; i++) {
+          const randomTimestamp = getRandomTimestamp(monthStart, monthEnd);
+          const randomItem = getRandomElement(ebayItems.itemSummaries);
+
+          const order = {
+            orderStatus: 'completed',
+            orderBy: driver.userId,
+            orderFor: driver.userId,
+            orderInfo: {
+              0: [
+                {
+                  productId: randomItem['itemId'],
+                  quantity: 1,
+                  price: randomItem['price']['value'] / org.dollarPerPoint 
+                },
+              ],
+            },
+            createdAt: randomTimestamp,
+            orgId: org.orgId,
+            addressFirstName: driver.firstName,
+            addressLastName: driver.lastName,
+            addressLineOne: '101 test lane',
+            addressLineTwo: null,
+            addressCity: 'Clemson',
+            addressState: 'SC',
+            addressZip: '29603',
+            addressCountry: 'USA',
+            dollarPerPoint: org.dollarPerPoint,
+          };
+          await saveOrderToDb(order);
+        }
+      }
+    }
+
+    return {
+      message: "created"
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 module.exports = {
+  createRandomOrders,
   saveOrderToDb,
   getOrdersFromDb,
   modifyOrderInDb,

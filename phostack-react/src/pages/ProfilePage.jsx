@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Container,
   TextField,
@@ -16,7 +15,13 @@ import { changeUser } from '../util/users';
 import { useMutation } from '@tanstack/react-query';
 import CustomAlert from '../components/UI/CustomAlert';
 import CancelIcon from '@mui/icons-material/Cancel';
-import UploadButton from '../components/buttons/UploadButton';
+import { savePicture } from '../util/picture';
+import { queryClient } from '../util/http';
+
+import AvatarWithUpload from '../components/UploadAvatar';
+import { lightBlue } from '@mui/material/colors';
+import { useNavigate } from 'react-router-dom';
+import LockResetIcon from '@mui/icons-material/LockReset';
 
 const ProfilePage = () => {
   const { user, isLoading: isUserLoading } = useUser();
@@ -27,6 +32,31 @@ const ProfilePage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
+  const [currentPictureData, setCurrentPictureData] = useState(new FormData());
+
+  const [saveNewPicture, setSaveNewPicture] = useState(false);
+
+
+
+
+
+  const handlePictureDrop = (pictureData) => {
+    // Set the profile picture state with the dropped picture data
+    const newData = new FormData();
+    newData.append('file', pictureData.get("file"));
+    newData.append('userId', pictureData.get("userId"));
+    setCurrentPictureData(newData);
+    setSaveNewPicture(true);
+  };
+
+
+
+
+
+
+
+  const navigate = useNavigate();
 
   const {
     firstName = '',
@@ -52,6 +82,16 @@ const ProfilePage = () => {
     },
   });
 
+  const { mutate: savePictureMutate } = useMutation({
+    mutationFn: savePicture,
+    onSuccess: () => {
+      queryClient.removeQueries(['users', { userId }]);
+    },
+    onError: (error) => {
+      console.log('Failed to upload picture:', error);
+    },
+  });
+
   const handleSaveChanges = () => {
     if (userId) {
       mutate({
@@ -59,6 +99,15 @@ const ProfilePage = () => {
         userData: { firstName: firstNameField, lastName: lastNameField },
         getAccessTokenSilently,
       });
+
+      if (saveNewPicture) {
+        console.log(currentPictureData.get("file"))
+        savePictureMutate({ currentPictureData, getAccessTokenSilently })
+        setSaveNewPicture(false)
+
+      }
+
+
     } else {
       setShowErrorAlert(true);
     }
@@ -70,6 +119,7 @@ const ProfilePage = () => {
   };
   const handleCancelChanges = () => {
     setEditMode(false);
+
   };
 
   const handleFirstNameChange = (event) => {
@@ -102,12 +152,21 @@ const ProfilePage = () => {
       )}
       <Container maxWidth='sm'>
         <Box sx={{ mt: 4 }}>
-          <Avatar
+          <AvatarWithUpload
             alt='Profile Picture'
-            src={picture}
-            sx={{ width: 150, height: 150, mx: 'auto' }}
+            picture={picture}
+
+            sx={{
+              width: 150, height: 150, mx: 'auto',
+
+            }}
+            editMode={editMode}
+            onPicture={handlePictureDrop}
           />
-          {editMode && <UploadButton />} {/* Render UploadButton only when in edit mode */}
+          {editMode && (
+            <div style={{ textAlign: 'center' }}>Click Avatar to Change Profile Picture</div>
+          )}
+
           <Typography variant='h5' align='center' gutterBottom>
             {firstNameField} {lastNameField}
           </Typography>
@@ -162,7 +221,7 @@ const ProfilePage = () => {
             />
             {editMode ? (
               <>
-              
+
                 <Button
                   color='error'
                   variant='contained'
@@ -182,14 +241,25 @@ const ProfilePage = () => {
                 </Button>
               </>
             ) : (
-              <Button
-                variant='contained'
-                onClick={handleEditClick}
-                startIcon={<EditIcon />}
-                sx={{ mt: '1rem' }}
-              >
-                Edit
-              </Button>
+              <>
+                <Button
+                  variant='contained'
+                  color='error'
+                  onClick={() => navigate('/password-reset')}
+                  startIcon={<LockResetIcon />}
+                  sx={{ mt: '1rem', mr: '1rem' }}
+                >
+                  Reset Your Password
+                </Button>
+                <Button
+                  variant='contained'
+                  onClick={handleEditClick}
+                  startIcon={<EditIcon />}
+                  sx={{ mt: '1rem', mr: '1rem' }}
+                >
+                  Edit
+                </Button>
+              </>
             )}
           </Box>
         </Box>

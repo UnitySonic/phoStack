@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getEbayItem } from '../util/ebay';
 import { useMemo, useEffect, useState } from 'react';
@@ -20,6 +20,9 @@ import Spinner from '../components/UI/Spinner';
 import useUser from '../hooks/useUser';
 import CustomAlert from '../components/UI/CustomAlert';
 import priceConvert from '../util/priceConvert';
+import { addToCart } from '../util/cart';
+import { queryClient } from '../util/http';
+import { getCartId } from '../util/cart';
 
 function ProductDetailsPage() {
   const { getAccessTokenSilently } = useAuth0();
@@ -38,6 +41,24 @@ function ProductDetailsPage() {
   const selectedOrganization = userOrganizations.find(
     (org) => org.orgId == orgId
   );
+  const userId = viewAs?.userId
+
+
+  let cartIdQueryParams = {
+    orgId,
+    userId,
+  }
+
+  const {
+    data: cartId,
+    isLoading: cartIdIsLoading,
+    isError: cartIsIdError,
+    error: cartIdError,
+  } = useQuery({
+    queryKey: ['cartId', cartIdQueryParams],
+    queryFn: ({ signal }) =>
+      getCartId({ signal, params: cartIdQueryParams, getAccessTokenSilently }),
+  });
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['ebay_products', { itemId }],
@@ -45,6 +66,19 @@ function ProductDetailsPage() {
       getEbayItem({ signal, itemId, getAccessTokenSilently }),
   });
 
+  const { mutate, isPending, isSaveError, saveError, isSuccess } = useMutation({
+    mutationFn: addToCart,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['users', 'drivers'],
+      });
+      setShowSuccessAlert(true);
+    },
+    onError: (error) => {
+      console.error('Mutation Error:', error);
+      setShowErrorAlert(true);
+    },
+  });
 
 
 
@@ -83,6 +117,7 @@ function ProductDetailsPage() {
               title,
               price,
               quantity,
+              productId,
             }]
           },
           clearCartFlag: false,
@@ -94,7 +129,13 @@ function ProductDetailsPage() {
 
   const handleAddToCartButtonClick = (event) => {
 
-    setShowSuccessAlert(true)
+    const itemData = {
+      productId: productId,
+      quantity: 1 // Initial quantity when adding to cart
+    };
+
+
+    mutate({ cartId, itemData, getAccessTokenSilently })
 
 
   };

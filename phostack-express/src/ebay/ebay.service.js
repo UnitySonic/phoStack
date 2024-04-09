@@ -49,34 +49,30 @@ async function getEbayAccessToken() {
 }
 
 async function getEbayItem(itemId) {
-  try { 
-    const url = `${
-      process.env.EBAY_API_BASE_URL
-    }/buy/browse/v1/item/${itemId}`;
-    const ebayAccessToken = await getEbayAccessToken()
+  try {
+    const url = `${process.env.EBAY_API_BASE_URL}/buy/browse/v1/item/${itemId}`;
+    const ebayAccessToken = await getEbayAccessToken();
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${ebayAccessToken}`,
-      }
+      },
     });
     if (!response.ok) {
       throw new Error('Failed to fetch ebay item');
     }
     const data = await response.json();
     return data;
-  } catch (errpr) {
-    console.error(error)
+  } catch (error) {
+    console.error(error);
     throw error;
   }
 }
 
 async function getEbayItems(params = {}) {
   try {
-    const baseUrl = `${
-      process.env.EBAY_API_BASE_URL
-    }/buy/browse/v1/item_summary/search`;
+    const baseUrl = `${process.env.EBAY_API_BASE_URL}/buy/browse/v1/item_summary/search`;
     const url = new URL(baseUrl);
 
     // Set query parameters
@@ -84,14 +80,14 @@ async function getEbayItems(params = {}) {
       url.searchParams.append(key, params[key])
     );
 
-    const ebayAccessToken = await getEbayAccessToken()
+    const ebayAccessToken = await getEbayAccessToken();
 
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${ebayAccessToken}`,
-      }
+      },
     });
 
     if (!response.ok) {
@@ -109,5 +105,5 @@ async function getEbayItems(params = {}) {
 module.exports = {
   getEbayAccessToken,
   getEbayItems,
-  getEbayItem
+  getEbayItem,
 };

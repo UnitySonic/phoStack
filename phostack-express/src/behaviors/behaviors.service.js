@@ -69,12 +69,16 @@ const getBehaviorsFromDb = async (params = {}) => {
       connection = await pool.getConnection();
       connection.beginTransaction();
   
-      await connection.execute(
+      const [insertResult] = await connection.query(
         'INSERT INTO `Behavior` (orgId, pointValue, behaviorName, behaviorDescription, behaviorStatus) \
         VALUES (?,?,?,?,?)',
         [orgId, pointValue, behaviorName, behaviorDescription, behaviorStatus]
       );
+      // Record the behavior ID and send to front-end
+      const behaviorId = insertResult.insertId;
       await connection.commit();
+      
+      return behaviorId;
     } catch (error) {
       if (connection) {
         await connection.rollback();

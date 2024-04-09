@@ -1,16 +1,17 @@
 export async function savePicture({
-    pictureData,
+    currentPictureData,
     getAccessTokenSilently,
 }) {  
     const url = `${import.meta.env.VITE_EXPRESS_BACKEND_URL
         }/pictures`;
     const accessToken = await getAccessTokenSilently();
-        
+        console.log(currentPictureData.get("file"))
+        console.log(currentPictureData.get("userId"))
  
 
     const response = await fetch(url, {
         method: 'POST',
-        body: pictureData,
+        body: currentPictureData,
         headers: {
             'Authorization': `Bearer ${accessToken}`
         },
