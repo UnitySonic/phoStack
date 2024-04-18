@@ -1,16 +1,32 @@
 const { pool } = require('../../db');
 
 const savePointLogToDb = async (pointLog = {}) => {
-  const { behaviorId, pointGivenBy, pointGivenTo, orderId, orgId } = pointLog;
+  const {
+    behaviorId,
+    pointGivenBy,
+    pointGivenTo,
+    orderId,
+    orgId,
+    pointChange,
+  } = pointLog;
   let connection;
   try {
     connection = await pool.getConnection();
     connection.beginTransaction();
 
     await connection.execute(
-      'INSERT INTO `PointLog` (behaviorId, pointGivenBy, pointGivenTo, orderId, orgId) \
-      VALUES (?,?,?,?,?)',
-      [behaviorId, pointGivenBy, pointGivenTo, orderId, orgId]
+      'INSERT INTO `PointLog` (behaviorId, pointGivenBy, pointGivenTo, orderId, orgId, pointChange, pointBalance) \
+      VALUES (?,?,?,?,?,?, (SELECT pointValue from User_Organization WHERE orgId = ? and userId = ?))',
+      [
+        behaviorId,
+        pointGivenBy,
+        pointGivenTo,
+        orderId,
+        orgId,
+        pointChange,
+        orgId,
+        pointGivenTo,
+      ]
     );
     await connection.commit();
   } catch (error) {
@@ -28,12 +44,14 @@ const savePointLogToDb = async (pointLog = {}) => {
 const getPointsLogsFromDb = async (params) => {
   const {
     offset = 0,
-    limit = 1000,
+    limit = 100000,
     behaviorId = null,
     orgId = null,
     orderId = null,
     pointGivenBy = null,
     pointGivenTo = null,
+    startDate = '1970-01-01',
+    endDate = new Date().toISOString().slice(0, 10),
   } = params;
 
   const numericOffset = +offset;
@@ -62,6 +80,9 @@ const getPointsLogsFromDb = async (params) => {
     values.push(pointGivenTo);
   }
 
+  conditions.push('DATE(P.createdAt) >= ? AND DATE(P.createdAt) <= ?');
+  values.push(startDate, endDate);
+
   let whereClause = '';
   if (conditions.length > 0) {
     whereClause = 'WHERE ' + conditions.join(' AND ');
@@ -81,6 +102,7 @@ const getPointsLogsFromDb = async (params) => {
         P.pointGivenBy,
         P.pointGivenTo,
         P.createdAt,
+        P.pointBalance,
         U.firstName as pointGivenToFirstName,
         U.lastName as pointGivenToLastName,
         U.email as pointGivenToEmail,

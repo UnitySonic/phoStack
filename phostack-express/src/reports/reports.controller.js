@@ -4,6 +4,7 @@ const {
   getSalesReportData,
   getSalesReportPerDriverPerYearPerMonth,
   getSalesSummaryReportByDriver,
+  getPointBalanceForMonthYear,
 } = require('./reports.service');
 const { getEbayItem } = require('../ebay/ebay.service');
 const { getMonthAbbreviation } = require('../utils');
@@ -91,7 +92,49 @@ const fetchSalesReport = async (req, res) => {
   }
 };
 
+const fetchPointsReport = async (req, res) => {
+  try {
+    const rows = await getPointBalanceForMonthYear(req.query);
+    const data = {};
+    for (const row of rows) {
+      if (row.userId in data) {
+        if (row.orgName in data[row.userId]['organizations']) {
+          data[row.userId]['organizations'][row.orgName].push({
+            date: `${getMonthAbbreviation(row.month)} ${row.year}`,
+            pointBalance: row.pointBalance,
+          });
+        } else {
+          data[row.userId]['organizations'][row.orgName] = [
+            {
+              date: `${getMonthAbbreviation(row.month)} ${row.year}`,
+              pointBalance: row.pointBalance,
+            },
+          ];
+        }
+      } else {
+        data[row.userId] = {
+          firstName: row.firstName,
+          lastName: row.lastName,
+          email: row.email,
+          organizations: {}
+        }
+        data[row.userId]['organizations'][row.orgName] = [
+          {
+            date: `${getMonthAbbreviation(row.month)} ${row.year}`,
+            pointBalance: row.pointBalance,
+          }
+        ]
+      }
+    }
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Error' });
+  }
+};
+
 module.exports = {
   fetchSalesReport,
   fetchSalesReportData,
+  fetchPointsReport,
 };

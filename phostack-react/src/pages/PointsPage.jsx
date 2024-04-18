@@ -105,7 +105,8 @@ function PointsPage() {
       orgId: orgId,
       pointGivenBy: user.userId,
       pointGivenTo: driverUserId,
-      orderId: null
+      orderId: null,
+      pointChange: pointAdjustment
     };
 
     try {

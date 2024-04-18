@@ -4,9 +4,11 @@ export async function fetchLoginLogs({ signal, params, getAccessTokenSilently })
   }/logs/login`;
   const url = new URL(baseUrl);
 
-  Object.keys(params).forEach((key) =>
-    url.searchParams.append(key, params[key])
-  );
+  Object.keys(params).forEach((key) => {
+    if (params[key] !== null) {
+      url.searchParams.append(key, params[key]);
+    }
+  });
 
   const accessToken = await getAccessTokenSilently();
   const response = await fetch(url, {

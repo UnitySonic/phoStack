@@ -66,11 +66,6 @@ const saveOrderToDb = async (orderData = {}) => {
       );
     }
 
-    await connection.execute(
-      'INSERT INTO PointLog (pointGivenBy, pointGivenTo, orderId, orgId) VALUES (?, ?, ?, ?)',
-      [orderBy, orderFor, orderId, orgId]
-    );
-
     const [rows, fields] = await connection.execute(
       'SELECT pointValue FROM User_Organization WHERE userId = ? AND orgId = ?',
       [orderFor, orgId]
@@ -84,10 +79,24 @@ const saveOrderToDb = async (orderData = {}) => {
         'UPDATE User_Organization Set pointValue = (pointValue - ?) Where userId = ? AND orgId = ?',
         [orderTotal, orderFor, orgId]
       );
+
+      await connection.execute(
+        `INSERT INTO PointLog (pointGivenBy, pointGivenTo, orderId, orgId, pointBalance, pointChange, createdAt) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          orderBy,
+          orderFor,
+          orderId,
+          orgId,
+          pointValue - orderTotal,
+          -orderTotal,
+          createdAt
+        ]
+      );
     }
 
     await connection.commit();
-    return orderId
+    return orderId;
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -439,7 +448,7 @@ const modifyOrderInDb = async (orderId, order = {}) => {
   }
 };
 
-const createRandomOrders = async () => {
+const createRandomOrders = async (params = {}) => {
   try {
     const ebayItems = await getEbayItems({
       q: 'iphone',
@@ -448,7 +457,6 @@ const createRandomOrders = async () => {
     });
 
     const startDate = new Date('2023-01-01');
-    const endDate = new Date();
 
     const drivers = await getUsersFromDb({
       filters: { userType: 'DriverUser' },
@@ -481,7 +489,7 @@ const createRandomOrders = async () => {
                 {
                   productId: randomItem['itemId'],
                   quantity: 1,
-                  price: randomItem['price']['value'] / org.dollarPerPoint 
+                  price: randomItem['price']['value'] / org.dollarPerPoint,
                 },
               ],
             },
@@ -503,8 +511,8 @@ const createRandomOrders = async () => {
     }
 
     return {
-      message: "created"
-    }
+      message: 'created',
+    };
   } catch (error) {
     console.error(error);
     throw error;

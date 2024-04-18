@@ -10,24 +10,27 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { dashBoardStyle, HorizontalRow } from './dashStyles';
 import { fetchPointLogs } from '../../util/logs.points';
+import { fetchSalesReport } from '../../util/reports';
 const SponsorDashboard = ()  =>{
   const { getAccessTokenSilently } = useAuth0();
   const {user} = useUser();
   const viewAs = user?.viewAs;
   const orgId = viewAs?.selectedOrgId;
   const navigate = useNavigate();
+  const blankData = {labels:[], datasets:[]};
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
-  const [drivers, setDrivers] = useState(false)
+  // const [drivers, setDrivers] = useState(false)
   const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-  var {
-    data = [],
-    isLoading,
-    isError,
-    error,
-    refetch,
-    isRefetching,
+  var randomColor = () => {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + ")";
+  };
+  //get people making most points
+  const {
+    data: drivers, isLoading: PDisLoading,
   } = useQuery({
     queryKey: ['users', 'drivers', {orgId} ],
     queryFn: ({signal}) =>
@@ -36,103 +39,125 @@ const SponsorDashboard = ()  =>{
         orgId,
         getAccessTokenSilently,
       }),
-      placeholderData: keepPreviousData
   });
   let points = [];
   let driverList = [];
   let names = [];
   let colors = [];
-  let drivers_arr = data
-  var randomColor = () => {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    return "rgb(" + r + "," + g + "," + b + ")";
-  };
-  drivers_arr.slice(0, 5).map((e, index)=>(
-    names.push(e.firstName + " " + e.lastName),
-    points.push(e.organizations.find(o => o.orgId == orgId).pointValue),
-    driverList.push(
-      <li key={index}>{e.firstName + " " + e.lastName}</li>
-    ),
-    colors.push(randomColor())
-  ));
-  //query to get point logs
-  let params = {orgId}
-  var { data = [] } = useQuery({
-    queryKey: ['logs', 'points', { params }],
+  if(!PDisLoading){
+    drivers?.slice(0, 5)?.map((e, index)=>(
+      names.push(e.firstName + " " + e.lastName),
+      points.push(e.organizations.find(o => o.orgId == orgId).pointValue),
+      driverList.push(<li key={index}>{e.firstName + " " + e.lastName}</li>),
+      colors.push(randomColor())
+    ));
+  }
+  //get people making money
+  //query to get monthly data
+  const { 
+    data: reportMonthlyData, 
+    isLoading: MDisLoading 
+  } = useQuery({
+    queryKey: ['sales-report'],
     queryFn: ({ signal }) =>
-      fetchPointLogs({
-        params,
+      fetchSalesReport({
         signal,
+        params: {
+          orgId: viewAs.selectedOrgId,
+          type: 'detail',
+          reportFor: 'driver'
+        },
         getAccessTokenSilently,
       }),
       placeholderData: keepPreviousData,
-      // refetchInterval: 3000
   });
-  let pointLogData = data.filter((e)=>e.orgId == viewAs.selectedOrgId)
+  //parse monthly data
+  let reportNames = []
+  let contribData = []
   let monthlyData = Array(12).fill(0)
-  pointLogData.map((e)=>{
-    //get month from createdAt, but start from 0
-    const month = parseInt(e.createdAt.substring(5, 7)) - 1;
-    monthlyData[month] += e.pointValue
-  })
+  let totalPoints = 0;
+  let totalEarnings = 0;
+  if(!MDisLoading){
+    reportMonthlyData?.slice(0, 5).map((e)=>{
+      totalPoints = 0;
+      reportNames.push(e.firstName + " " + e.lastName)
+      const monthDict = []
+      e.data?.map(d=>{
+        const month = monthNames.indexOf(d.date.substring(0, 3))
+        if(monthDict.includes(month))
+          return
+        totalPoints += d.total
+        totalEarnings += d.total
+        monthlyData[month] = Math.round(d.total)
+        monthDict.push(month)
+      })
+      contribData.push(totalPoints)
+    })
+    contribData = contribData.slice(0,5)
+  }
+  //earnings line data
   const chartData = {
-      labels: monthNames,
-      datasets: [
-        {
-          label: 'Earnings',
-          data: monthlyData,
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 2,
-          fill: false,
-        },
-      ],
-  }
-  const chartOptions = {
-      height: '500px',
-      scales: {
-          y: {
-              ticks:{
-                  stepSize: 1000,
-                  min: 0,
-                  max: 100_000
-              },
-              beginAtZero: true
-          },
+    labels: monthNames,
+    datasets: [
+      {
+        label: 'Earnings',
+        data: monthlyData,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        fill: false,
       },
-  };
-  const pieData = {
-      labels: names,
-      datasets: [
-        {
-          data: points, // Values for each slice
-          backgroundColor: colors, // Colors for each slice
-          hoverBackgroundColor: colors, // Colors on hover
-        },
-      ],
+    ],
   }
+  //pie chart data
+  const pointChartData = {
+    labels: names,
+    datasets: [
+      {
+        data: points, // Values for each slice
+        backgroundColor: colors, // Colors for each slice
+        hoverBackgroundColor: colors, // Colors on hover
+      },
+    ],
+  }
+  //contribution data
+  const salesChartData = {
+    labels: reportNames,
+    datasets: [
+      {
+        label: 'Contribution ($)',
+        data: contribData, // Values for each slice
+      },
+    ],
+}
     return(
     <>
-      {/* display data when finished loading */}
-      {isLoading && <div>Loading data...</div>}
-      {!isLoading && (
+      {PDisLoading && <div>Loading data...</div>}
+      {!PDisLoading && (
+        <>
         <div style={HorizontalRow}>
             <div style = {dashBoardStyle}>
-                Top Drivers
+                Top 5 Drivers
                 <ol>
                   {driverList}
                 </ol>
+                {!PDisLoading && <div>Contribution (in $)<Bar data = {salesChartData ? salesChartData : blankData}/></div>}
             </div>
             <div style={{ border: '2px solid black', borderRadius: '2px', padding: '10px' }}>
                 Points
-                <Pie data = {pieData}/>
-            </div>
-            <div style={{ border: '2px solid black', borderRadius: '2px', padding: '10px' }}>
-                Earnings
-                <Line data={chartData} options={chartOptions}/>
-            </div>
+                <Pie data = {pointChartData ? pointChartData : blankData}/>
+                <div style={HorizontalRow}>
         </div>
+        </div>
+          <div style={{ border: '2px solid black', borderRadius: '2px', padding: '10px' }}>
+              Earnings ($)
+              <Line data={chartData ? chartData : blankData}/>
+              <div style={dashBoardStyle}>
+                <div style={HorizontalRow}>Total Earnings: ${totalEarnings}</div>
+              </div>
+          </div>
+        </div>
+
+        </>
       )}
     </>
   );

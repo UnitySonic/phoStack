@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import { Line, Pie } from "react-chartjs-2";
 import {dashBoardStyle, HorizontalRow} from "./dashStyles";
+import { fetchSalesReport } from "../../util/reports";
+
 const AdminDashboard = () =>{
     var randomColor = () => {
         var r = Math.floor(Math.random() * 255);
@@ -25,12 +27,12 @@ const AdminDashboard = () =>{
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const [showErrorAlert, setShowErrorAlert] = useState(false);
     const [selectedDrivers, setSelectedDrivers] = useState([]);
-    const [selectedOrg, setselectedOrg] = useState(1);
+    const [selectedOrg, setselectedOrg] = useState(0);
     const [pointValues, setPointValues] = useState([]);
     const [pieData, setPieData] = useState(null);
     const [lineData, setLineData] = useState(null);
     const [firstLoad, setFirstLoad] = useState(false);
-    var{ data = [], isLoading, isError, error, isRefetching, } = useQuery({
+    const{ data: orgs} = useQuery({
         queryKey: [],
         queryFn: ({ signal }) =>
             fetchAllOrganizations({
@@ -39,9 +41,11 @@ const AdminDashboard = () =>{
             }),
         placeholderData: keepPreviousData,
     });
-    const orgs = data
     let colors = [];
-    var{data = [], isLoading, isError, error, refetch, isRefetching,} = useQuery({
+    //get drivers
+    const {data: drivers, isLoading: driversIsLoading, 
+        isError, error, 
+        refetch: driversRefetch, isRefetching: driversIsRefetching,} = useQuery({
         queryKey: ['users', 'drivers'],
         queryFn: ({ signal }) =>
           fetchDrivers({
@@ -50,46 +54,57 @@ const AdminDashboard = () =>{
           }),
         placeholderData: keepPreviousData,
       });
-    const drivers = data;
+    //get reports based on orgid
     let orgId = selectedOrg
-    var {data = [], refetch: behaviorsRefetch, isRefetching: behaviorsIsRefetching, } = useQuery({
-        queryKey: ['behaviors', { orgId }],
+    const {data: behaviors, isLoading: reportsIsLoading, 
+        refetch: reportsRefetch, isRefetching: reportsIsRefetching, } = useQuery({
+        queryKey: ['sales-report'],
         queryFn: ({ signal }) =>
-          fetchBehaviorsByOrgId({
-            orgId,
+        fetchSalesReport({
             signal,
+            params: {
+              orgId: orgId,
+              type: 'detail',
+              reportFor: 'driver'
+            },
             getAccessTokenSilently,
           }),
-        placeholderData: keepPreviousData,
+        placeholderData: keepPreviousData
     });
-    const behaviors = data;
-
     //when clicking on the first list the second list will show every driver with that org
     let allSponsorPoints = 0;
     let pointsPerSponsor = 0;
     let driverNames = [];
     
     function chooseOrg(val){
-        if(selectedOrg == val && selectedOrg != 1){
-            return;
-        }
         setselectedOrg(val);
-        let filteredDrivers = drivers.filter((e) => e.selectedOrgId == val);
-        filteredDrivers = filteredDrivers.slice(0,5)
+        reportsRefetch()
+        driversRefetch()
+    }
+    //update based on driver and report data
+    useEffect(()=>{
+        if(driversIsLoading || reportsIsLoading){return}
+        let filteredDrivers = drivers?.filter((e) => e.selectedOrgId == selectedOrg);
+        filteredDrivers = filteredDrivers?.slice(0,5)
         setSelectedDrivers(filteredDrivers)
-        
-        const newPointValues = filteredDrivers.map((e)=>{
+        const newPointValues = filteredDrivers?.map((e)=>{
             colors.push(randomColor());
             driverNames.push(String(e.firstName) + " " + String(e.lastName))
-            const org = e.organizations.find(i=>i.orgId==val);
+            const org = e.organizations.find(i=>i.orgId==selectedOrg);
             return org ? org.pointValue : 0
         })
         setPointValues(newPointValues)
-        let monthlyData = Array(12).fill(0)
-        behaviors.map((e)=>{
-            //get month from createdAt, but start from 0
-            const month = parseInt(e.createdAt.substring(5, 7)) - 1;
-            monthlyData[month] += e.pointValue
+        //place earnings into monthly buckets
+        let monthlyData = Array(12).fill(0);
+        behaviors?.map((e)=>{
+            const monthDict = []
+            e.data?.map(d=>{
+              const month = monthNames.indexOf(d.date.substring(0, 3))
+              if(monthDict.includes(month))
+                return
+              monthlyData[month] = Math.round(d.total)
+              monthDict.push(month)
+            })
         })
         const newPieData = {
             labels: driverNames,
@@ -107,31 +122,33 @@ const AdminDashboard = () =>{
               { label: "Points", data: monthlyData },
             ],
         }
-
         setPieData(newPieData)
         setLineData(newLineData)
-        //set flag to display colors after first selection
-        setFirstLoad(true)
-    }
+    }, [behaviors, orgs, selectedOrg])
     return(
     <>
-        <div style={HorizontalRow}>
+        {(!reportsIsRefetching && !driversIsRefetching) && <><div style={HorizontalRow}>
             <div style={dashBoardStyle}>Sponsors
                 {orgs && <ol>
-                    {orgs.map(item=>(
+                    {orgs?.map(item=>(
                         <li 
                             key={item.orgId} 
-                            onClick={()=>{chooseOrg(item.orgId)}}
-                            style={{backgroundColor: (selectedOrg == item.orgId) && firstLoad ? 'lightblue' : 'white'}}
+                            onClick={()=>{
+                                orgId = item.orgId
+                                chooseOrg(item.orgId);
+                                
+                            }}
+                            style={{backgroundColor: (selectedOrg == item.orgId) ? 'lightblue' : 'white'}}
                         >
                             {item.orgName}
                         </li>
                     ))}
                 </ol>}
             </div>
-            <div style={dashBoardStyle}>Top 5 Drivers<Pie data={!behaviorsIsRefetching ? pieData || blankData : blankData}/></div>
-            <div style={dashBoardStyle}>Points over time<Line data={!behaviorsIsRefetching ? lineData || blankData : blankData}/></div>
-        </div>
+            <div style={dashBoardStyle}>Top 5 Drivers (Points)<Pie data={pieData? pieData : blankData}/></div>
+            <div style={dashBoardStyle}>Earnings ($)<Line data={lineData ? lineData : blankData}/></div>
+        </div></>}
+        {(driversIsRefetching || reportsIsRefetching) && <div style={{fontSize: 24}}>Loading...</div>} 
     </>
     )
 }

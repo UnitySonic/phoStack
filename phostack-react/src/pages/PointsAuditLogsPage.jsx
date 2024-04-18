@@ -52,7 +52,7 @@ const PointsAuditLogsPage = () => {
         return {
           organization: d.orgName,
           driver: d.pointGivenToEmail,
-          pointValue: d.orderTotal,
+          pointValue: -d.orderTotal,
           reason: `Order Placed | orderId: ${d.orderId}`,
           date: d.createdAt.slice(0, 19).replace(' ', 'T') + 'Z',
         };

@@ -77,6 +77,7 @@ const applyPoints = async (userId, behaviors) => {
       pointGivenTo: userId,
       orgId: behavior.orgId,
       orderId: null,
+      pointChange: behavior.pointValue,
     });
     await modifyUserInDb(userId, {
       points: {
@@ -113,12 +114,12 @@ const lambdaHandler = async (event, context) => {
           ...nonSpeedingBehaviorsToApply,
         ];
         await applyPoints(userId, behaviorsToApply);
-        await saveLastCarEventChecked(carEvent.carEventId)
+        await saveLastCarEventChecked(carEvent.carEventId);
       } catch (error) {
         continue;
       }
     }
-    
+
     return {
       statusCode: 200,
       body: { message: 'Success checking car events' },

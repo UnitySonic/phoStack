@@ -1,7 +1,14 @@
-const { getPool } = require('../../utils/db')
+const { getPool } = require('../../utils/db');
 
 const savePointLogToDb = async (pointLog = {}) => {
-  const { behaviorId, pointGivenBy, pointGivenTo, orderId, orgId } = pointLog;
+  const {
+    behaviorId,
+    pointGivenBy,
+    pointGivenTo,
+    orderId,
+    orgId,
+    pointChange,
+  } = pointLog;
   let connection;
   try {
     const pool = await getPool();
@@ -9,9 +16,18 @@ const savePointLogToDb = async (pointLog = {}) => {
     connection.beginTransaction();
 
     await connection.execute(
-      'INSERT INTO `PointLog` (behaviorId, pointGivenBy, pointGivenTo, orderId, orgId) \
-      VALUES (?,?,?,?,?)',
-      [behaviorId, pointGivenBy, pointGivenTo, orderId, orgId]
+      'INSERT INTO `PointLog` (behaviorId, pointGivenBy, pointGivenTo, orderId, orgId, pointChange, pointBalance) \
+      VALUES (?,?,?,?,?,?, (SELECT pointValue from User_Organization WHERE orgId = ? and userId = ?))',
+      [
+        behaviorId,
+        pointGivenBy,
+        pointGivenTo,
+        orderId,
+        orgId,
+        pointChange,
+        orgId,
+        pointGivenTo,
+      ]
     );
     await connection.commit();
   } catch (error) {

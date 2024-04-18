@@ -180,10 +180,10 @@ const getSalesReportByMonthYear = async (params = {}) => {
       `,
       [...values]
     );
-    
+
     await connection.commit();
 
-    return rows
+    return rows;
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -259,7 +259,7 @@ const getSalesReportByOrg = async (params = {}) => {
     );
     await connection.commit();
 
-    return rows
+    return rows;
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -340,10 +340,10 @@ const getSalesReportPerDriverPerYearPerMonth = async (params = {}) => {
       `,
       [...values]
     );
-    
+
     await connection.commit();
 
-    return rows
+    return rows;
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -424,7 +424,91 @@ const getSalesSummaryReportByDriver = async (params = {}) => {
     );
     await connection.commit();
 
-    return rows
+    return rows;
+  } catch (error) {
+    if (connection) {
+      await connection.rollback();
+    }
+    throw error;
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+};
+
+const getPointBalanceForMonthYear = async (params = {}) => {
+  const {
+    orgId = null,
+    driver = null,
+    startDate = '1970-01-01',
+    endDate = new Date().toISOString().slice(0, 10),
+  } = params;
+
+  const conditions = [];
+  const values = [];
+
+  if (driver) {
+    conditions.push('P.pointGivenTo = ?');
+    values.push(driver);
+  }
+
+  if (orgId) {
+    conditions.push('P.orgId = ?');
+    values.push(orgId);
+  }
+
+  conditions.push('DATE(P.createdAt) >= ? AND DATE(P.createdAt) <= ?');
+  values.push(startDate, endDate);
+
+  let whereClause = '';
+  if (conditions.length > 0) {
+    whereClause = 'WHERE ' + conditions.join(' AND ');
+  }
+
+  let connection;
+  try {
+    connection = await pool.getConnection();
+    connection.beginTransaction();
+
+    const [rows] = await connection.query(
+      `
+      SELECT 
+      U.firstName,
+        U.lastName,
+        U.email,
+      D.userId,
+      O.orgName,
+      D.orgId,
+      D.year,
+        D.month,
+        P.pointBalance
+    FROM (
+        SELECT
+        pointGivenTo as userId,
+            orgId,
+        YEAR(P.createdAt) AS year,
+        MONTH(P.createdAt) AS month,
+        MAX(logId) as lastLog
+      FROM PointLog P
+      ${whereClause}
+      GROUP BY 
+        userId,orgId, year, month
+    ) D 
+    JOIN PointLog P 
+    ON P.logId = D.lastLog
+    JOIN User U
+    ON U.userId = D.userId
+    JOIN Organization O
+    ON O.orgId = D.orgId
+    Order BY D.userId, O.orgName,D.year,D.month
+      `,
+      [...values]
+    );
+
+    await connection.commit();
+
+    return rows;
   } catch (error) {
     if (connection) {
       await connection.rollback();
@@ -442,5 +526,6 @@ module.exports = {
   getSalesReportByMonthYear,
   getSalesReportByOrg,
   getSalesReportPerDriverPerYearPerMonth,
-  getSalesSummaryReportByDriver
+  getSalesSummaryReportByDriver,
+  getPointBalanceForMonthYear,
 };

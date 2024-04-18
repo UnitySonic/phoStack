@@ -139,6 +139,8 @@ CREATE TABLE IF NOT EXISTS PointLog(
   orgId INT,
   pointGivenBy VARCHAR(50),
   pointGivenTo VARCHAR(50),
+  pointBalance INT DEFAULT 0,
+  pointChange INT DEFAULT 0,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (behaviorId) REFERENCES Behavior(behaviorId),
   FOREIGN KEY (orderId) REFERENCES OrderInfo(orderId),

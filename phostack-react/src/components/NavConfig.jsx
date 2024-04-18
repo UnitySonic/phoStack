@@ -28,10 +28,14 @@ import PasswordIcon from '@mui/icons-material/Password';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ShopIcon from '@mui/icons-material/Shop';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 import Face5Icon from '@mui/icons-material/Face5';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import BuildIcon from '@mui/icons-material/Build';
+import BadgeIcon from '@mui/icons-material/Badge';
 
 const linksByRole = {
   AdminUser: [
@@ -83,6 +87,17 @@ const linksByRole = {
       to: 'admin/reporting/sales',
     },
     {
+      text: 'Invoices',
+      icon: <ReceiptIcon />,
+      to: 'admin/invoices',
+    },
+    {
+      text: 'Driver Points Report',
+      icon: <TimelineIcon />,
+      to: 'reporting/points',
+    },
+    
+    {
       text: 'Random User',
       icon: <Face5Icon />,
       to: 'users/seed',
@@ -92,11 +107,17 @@ const linksByRole = {
       icon: <LocalShippingIcon />,
       to: '/car-events',
     },
+    {
+      text: 'Util',
+      icon: <BuildIcon />,
+      to: 'admin/util',
+    },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],
   DriverUser: [
     { text: 'Home', icon: <Home />, to: '/' },
     { text: 'Profile', icon: <AccountCircleIcon />, to: '/profile' },
+    { text: 'Organization', icon: <BusinessIcon />, to: '/organization/profile' },
     { text: 'Catalog', icon: <ShopIcon />, to: '/catalog' },
     { text: 'Orders', icon: <InventoryIcon />, to: '/orders' },
     { text: 'Behaviors', icon: <PsychologyIcon />, to: '/behaviors' },
@@ -126,6 +147,7 @@ const linksByRole = {
   SponsorUser: [
     { text: 'Home', icon: <Home />, to: '/' },
     { text: 'Profile', icon: <AccountCircleIcon />, to: '/profile' },
+    { text: 'Organization', icon: <BusinessIcon />, to: '/organization/profile' },
     { text: 'Catalog', icon: <ShopIcon />, to: '/catalog' },
     {
       text: 'Catalog Settings',
@@ -166,6 +188,11 @@ const linksByRole = {
       text: 'Point Logs',
       icon: <NumbersIcon />,
       to: 'logs/points',
+    },
+    {
+      text: 'Driver Points Report',
+      icon: <TimelineIcon />,
+      to: 'reporting/points',
     },
     { text: 'About', icon: <InfoIcon />, to: '/about' },
   ],

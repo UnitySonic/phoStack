@@ -6,9 +6,11 @@ export async function getEbayItems({ signal, params, getAccessTokenSilently }) {
     const url = new URL(baseUrl);
 
     // Set query parameters
-    Object.keys(params).forEach((key) =>
-      url.searchParams.append(key, params[key])
-    );
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== null) {
+        url.searchParams.append(key, params[key]);
+      }
+    });
     const accessToken = await getAccessTokenSilently();
 
     const response = await fetch(url, {

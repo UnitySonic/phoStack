@@ -54,9 +54,13 @@ import TestView from './pages/TestView.jsx';
 import OrdersPage from './pages/OrdersPage.jsx';
 import SeedUserData from './pages/SeedUserData.jsx';
 import DriverCarEventsPage from './pages/DriverCarEventsPage.jsx';
-import AdminDriverAddOrganizationsPage from './pages/AdminDriverAddOrganizationsPage.jsx'
+import AdminDriverAddOrganizationsPage from './pages/AdminDriverAddOrganizationsPage.jsx';
 import SalesBySponsorReportPgae from './pages/SalesBySponsorReportPage.jsx';
 import SalesByDriverReportPage from './pages/SalesByDriverReportPage.jsx';
+import InvoicePage from './pages/InvoicePage.jsx';
+import DriverPointTrackingPage from './pages/DriverPointTrackingPage.jsx';
+import Util from './pages/Util.jsx';
+import CompanyProfilePage from './pages/CompanyProfilePage.jsx';
 
 import store from './store/index.js';
 import { alpha } from '@mui/material/styles';
@@ -244,8 +248,8 @@ const router = createBrowserRouter([
         element: <AuthenticationGuard component={OrdersPage} />,
       },
       {
-        path: "cart",
-        element: <AuthenticationGuard component = {CartPage}/>,
+        path: 'cart',
+        element: <AuthenticationGuard component={CartPage} />,
       },
       {
         path: 'users/seed',
@@ -257,7 +261,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'admin/drivers/:userId/organizations',
-        element: <AuthenticationGuard component={AdminDriverAddOrganizationsPage} />,
+        element: (
+          <AuthenticationGuard component={AdminDriverAddOrganizationsPage} />
+        ),
       },
       {
         path: 'admin/reporting/sales',
@@ -266,6 +272,22 @@ const router = createBrowserRouter([
       {
         path: 'admin/reporting/sales-driver',
         element: <AuthenticationGuard component={SalesByDriverReportPage} />,
+      },
+      {
+        path: 'admin/invoices',
+        element: <AuthenticationGuard component={InvoicePage} />,
+      },
+      {
+        path: 'reporting/points',
+        element: <AuthenticationGuard component={DriverPointTrackingPage} />,
+      },
+      {
+        path: 'admin/util',
+        element: <AuthenticationGuard component={Util} />,
+      },
+      {
+        path: 'organization/profile',
+        element: <AuthenticationGuard component={CompanyProfilePage} />,
       },
     ],
   },

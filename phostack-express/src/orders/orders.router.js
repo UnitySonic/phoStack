@@ -9,7 +9,7 @@ const {
 } = require('./orders.controller');
 
 orderRouter.route('/').get(fetchOrders).post(saveOrder);
-orderRouter.route('/test').get(seedRandomOrders);
+orderRouter.route('/test').post(seedRandomOrders);
 orderRouter.route('/:orderId').patch(changeOrder).get(fetchOrder);
 
 module.exports = orderRouter;
